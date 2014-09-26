@@ -1,0 +1,23 @@
+<a data-ng-hide="null && disableUp"
+	data-ng-click="listUp()"
+	>
+	up
+</a>
+
+<ul>
+	<li	data-ng-repeat="element in elements"
+		data-ng-click="selectElement(element)">
+		{{renderAs( element )}}
+	</li>
+
+	<li	data-ng-repeat="item in dummyItems">
+		&nbsp;
+	</li>
+</ul>
+
+<a data-ng-hide="null && disableDown"
+	data-ng-click="listDown()"
+	>
+	down
+</a>
+

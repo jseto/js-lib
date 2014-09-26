@@ -1,0 +1,44 @@
+<div class="panel panel-default">
+	
+	<div class="panel-heading" data-ng-show="panelHeading">{{panelHeading}}</div>
+
+	<div class="panel-body">
+	
+		<div class="input-group input-group-sm">
+			<input type="text" ng-model="search" class="form-control">
+			<div class="input-group-addon"><i class="icon-search"></i></div>
+		</div>
+		
+		<ul class="list-group margin-vertical-10">
+			<a class="list-group-item list-group-item-xs list-group-item-center"
+				data-ng-hide="null && disableUp"
+				data-ng-click="listUp()">
+				<i class="icon-double-angle-up"></i>
+			</a>
+
+			<a class="list-group-item list-group-item-xs"
+				data-ng-repeat="element in elements"
+				data-ng-click="selectElement(element)">
+				{{renderAs( element )}}
+			</a>
+
+			<a class="list-group-item list-group-item-xs"
+				data-ng-repeat="item in dummyItems"
+				>
+				&nbsp;
+			</a>
+
+			<a class="list-group-item list-group-item-xs list-group-item-center"
+				data-ng-click="listDown()"
+				data-ng-hide="null && disableDown">
+				<i class="icon-double-angle-down"></i>
+			</a>
+		</ul>
+
+		<div data-jsw-pagination="abcdefghijklmnopqrstuvwxyz"
+			data-page-size="4"
+			data-active-item="search">
+		</div>
+
+	</div>
+</div>

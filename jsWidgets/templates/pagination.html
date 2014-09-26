@@ -1,0 +1,23 @@
+<ul class="pagination pagination-sm">
+	<li data-ng-class="{ disabled: disableLess }">
+		<a data-ng-style="disableLess? {}:{cursor:'pointer'}" 
+			data-ng-click="less()">
+			&laquo;
+		</a>
+	</li>
+	
+	<li data-ng-class="{ active: item == activeItem }"
+		data-ng-repeat="item in items">
+		<a style="cursor:pointer;" 
+			data-ng-click="select( item )"
+			>{{item}}
+		</a>
+	</li>
+	
+	<li data-ng-class="{ disabled: disableMore }">
+		<a data-ng-style="disableMore? {}:{cursor:'pointer'}" 
+			data-ng-click="more()">
+			&raquo;
+		</a>
+	</li>
+</ul>
