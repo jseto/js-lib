@@ -6,7 +6,7 @@
   "license": "LGPL",
   "dependencies": {
     "angular": "1.3.x",
-    "angular-mocks": "~1.3.x",
+    "angular-mocks": "~1.3.x"
   },
   "authors": [
     "jseto <jseto@jasvisio.com>"
