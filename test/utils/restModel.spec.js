@@ -1,4 +1,4 @@
-describe('RestModel', function(){
+xdescribe('RestModel', function(){
 	var RestModel, $httpBackend, user, userJSON, user_u;
 	
 	beforeEach(function(){
