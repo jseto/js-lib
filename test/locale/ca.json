@@ -1,0 +1,18 @@
+{
+	"header": {
+		"home": "Inici",
+		"contact": "Contacta",
+		"login": "Entra/Registrat",
+		"logout": "Desconnecta"
+	},
+	"home": {
+		"bannerText": [
+			"Competicions de Pàdel amb marcadors en temps real, per a entitats i particulars",
+			"Estadístiques de jugador i partit",
+			"Reserva de pistes",
+			"Gestió de socis i usuaris"
+		],
+		"tryit": "Prova-ho gratis"
+	}
+}
+

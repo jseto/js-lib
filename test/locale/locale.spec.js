@@ -1,4 +1,4 @@
-xdescribe('Locale', function(){
+describe('Locale', function(){
 	var provider;
 
 	beforeEach(function () {
@@ -7,10 +7,10 @@ xdescribe('Locale', function(){
 			.config(function (LocaleProvider) {
 				provider = LocaleProvider;
 				provider.setLocale('ca');
-				provider.setLocalePath('base/locale/');
+				provider.setLocalePath('base/test/locale/');
 		});
 		// Initialize myApp injector
-		module('jsLib','testApp');
+		module('jsLib.locale', 'testApp');
 
 		// Kickstart the injectors previously registered with calls to angular.mock.module
 		inject(function (Locale) {});

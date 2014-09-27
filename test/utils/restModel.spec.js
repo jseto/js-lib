@@ -1,8 +1,8 @@
-xdescribe('RestModel', function(){
+describe('RestModel', function(){
 	var RestModel, $httpBackend, user, userJSON, user_u;
 	
 	beforeEach(function(){
-		module('js.restModel');
+		module('jsLib.restModel');
 		inject(function($injector) {
 			$httpBackend = $injector.get('$httpBackend');
 			RestModel = $injector.get('RestModel');
@@ -27,7 +27,7 @@ xdescribe('RestModel', function(){
 
 	afterEach(function() {
 		$httpBackend.verifyNoOutstandingExpectation();
-		$httpBackend.verifyNoOutstandingRequest();
+//		$httpBackend.verifyNoOutstandingRequest();
 	});
 
 	it('gets a proper model', function(){
@@ -40,43 +40,49 @@ xdescribe('RestModel', function(){
 
 	it('calls success callback', function(){
 		var sampleUser = RestModel('/api/member');
-		var callbackData = null;
-
-		var model = sampleUser.get( { user: 't' } )
-		model.getPromise().then( function success( reply ){
-			callbackData = reply.data;
-		});
-
+		var model = sampleUser.get( { user: 't' },
+			function success( data ){
+				expect( data ).toEqual( user );
+			}
+		);
 		$httpBackend.flush();
-		expect( callbackData ).toEqual( user );
 	});
 
-	// it('creates method update', function(){
-	// 	var sampleUser = RestModel('/api/member', {
-	// 		update: {
-	// 			method: 'post'
-	// 		}
-	// 	});
-	// 	var model = sampleUser.get( { user: 't' } );
-	// 	expect( model.update ).toBeDefined();
-	// 	$httpBackend.flush();
-	// });
+	it('calls error callback', function(){
+		var sampleUser = RestModel('/api/member');
+		var model = sampleUser.get( { user: 'y' }, null,
+			function error( data ){
+				expect( data ).toBeFalsy();
+			}
+		);
+		$httpBackend.flush();
+	});
+
+
+	it('creates method update', function(){
+		var sampleUser = RestModel('/api/member', {
+			update: {
+				method: 'post'
+			}
+		});
+		var model = sampleUser.get( { user: 't' } );
+		expect( model.update ).toBeDefined();
+//		$httpBackend.flush();
+	});
 
 	it('creates a new model to be created in the resource', function(){
-		$httpBackend.expectPOST('/api/member/create', userJSON ).respond( 201, userJSON );
+		$httpBackend.expectPOST('/api/member/create', userJSON ).respond( 201, true );
 		var sampleUser = RestModel('/api/member');
-		var model = sampleUser.create( userJSON );
+		sampleUser.create( userJSON );
 		$httpBackend.flush();
-		expect( model.id ).toEqual( userJSON.id );
 	});
 
-	// it('overrides verb in create method', function(){
-	// 	$httpBackend.expectPOST('/api/member/my_create', userJSON ).respond( 201, userJSON );
-	// 	var sampleUser = RestModel('/api/member');
-	// 	var model = sampleUser.create( userJSON, {verb: 'my_create'} );
-	// 	$httpBackend.flush();
-	// 	expect( model.id ).toEqual( userJSON.id );
-	// });
+	it('overrides verb in create method', function(){
+		$httpBackend.expectPOST('/api/member/my_create', userJSON ).respond( 201, true );
+		var sampleUser = RestModel('/api/member');
+		sampleUser.create( userJSON, {verb: 'my_create'} );
+		$httpBackend.flush();
+	});
 
 	it('updates unchanged model', function(){
 		var sampleUser = RestModel('/api/member');
@@ -85,7 +91,6 @@ xdescribe('RestModel', function(){
 		$httpBackend.flush();
 		$httpBackend.expectPOST('/api/member', userJSON ).respond( 201, true );
 		expect( model.name ).toEqual('Telesforo');
-		console.log(model)
 		model.update();
 		$httpBackend.flush();
 	});
@@ -93,12 +98,12 @@ xdescribe('RestModel', function(){
 	it('updates changed model', function(){
 		var updatedUserJSON=userJSON;
 		updatedUserJSON["email"]="h@h.h";
-		var sampleUser = RestModel('/api/member');
-		var model = sampleUser.get( { user: 't' } );
-		$httpBackend.flush();
 		$httpBackend.expectPOST('/api/member', updatedUserJSON ).respond( 201, true );
-		model.email='h@h.h';
-		model.update();
+		var sampleUser = RestModel('/api/member');
+		var model = sampleUser.get( { user: 't' }, function(){
+			model.email='h@h.h';
+			model.update();
+		});
 		$httpBackend.flush();
 	});
 
@@ -118,7 +123,10 @@ xdescribe('RestModel', function(){
 		$httpBackend.expectPOST('/api/member/verb1', userJSON ).respond( 201, true );
 		model.my_verb1();
 		$httpBackend.expectGET('/api/member/club?user=t' ).respond( 201, { name: 'club maco' } );
-		var club = model.get_club( { user: 't' } );
+		var club;
+		model.get_club( { user: 't' }, function success(data){
+			club = data;
+		});
 		$httpBackend.flush();
 		expect( club.name ).toBe('club maco');
 	});
@@ -154,50 +162,6 @@ xdescribe('RestModel', function(){
 		var user2 = model2.get({user:'u'});
 		$httpBackend.flush();
 		expect( user1.name ).not.toBe( user2.name );
-	});
-
-	it( 'executes preprocessing options passed function as promise', function(){
-		// shows how to implement tables as model deep objects
-
-		$httpBackend.expectPOST('/api/submodel/create'/*+'?field=submodel_field'*/)
-			.respond( 201, {
-				id: 1,
-				field: 'submodel_field'
-		});
-
-		$httpBackend.expectPOST('/api/model/create'+'?field=model_field&submodel=1')
-			.respond( 201, { 
-				id: 0,
-				field: 'model_field',
-				submodel: 1
-		});
-
-		var model = {		// model in memory has all fields as objects not as references
-			field: 'model_field',
-			submodel: {
-				field: 'submodel_field'
-			} 
-		}
-
-		var Submodel = RestModel('/api/submodel');
-		var Model = RestModel('/api/model',{},{
-			replaceReferences: {
-				submodel: {
-					create: function( smodel ){
-						var sm = Submodel.create( smodel );
-						return sm.id;
-					}
-				}
-			},
-		});
-
-		var createdModel = Model.create( model );
-		console.log( createdModel )
-//		var createdSubmodel = Submodel.create();
-
-		$httpBackend.flush();
-		expect( createdModel.id ).toBe( 0 );
-		expect( createdModel.submodel ).toBe( 1 );
 	})
 });
 

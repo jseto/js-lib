@@ -1,104 +1,97 @@
 'use strict';
 
-angular.module( 'js.restModel', [
+angular.module( 'jsLib.restModel', [
 ])
 
-.factory( 'RestModel', function( $http, $rootScope ){
-	var self = this;
-
+.factory( 'RestModel', ['$http', '$rootScope', function( $http, $rootScope ){
 	var Model = function( data, promise ){
-//		angular.extend( this, data );
-		var promise;
-		Model.prototype.getPromise = function(){
-			return promise;
-		}
-		Model.prototype.setPromise = function( prom ){
-			promise = prom;
-		}
+		angular.extend( this, data );
+		Model.prototype.promise = promise;
 	};
+	var model;// = new Model();
+	var url;
 
-	self.request = function( options, model ){
-		$rootScope.$broadcast( 'restModelReqStart' );
-		options.url += options.verb ? '/' + options.verb : '';
-
-		var httpReq = function( options ) {
-			return $http( options )
-			.success( function( data, status, headers, config ){
-				angular.extend( model, data );
-			})
-			.finally( function(){
-				$rootScope.$broadcast( 'restModelReqStop' );
-			});
-		}
-		var httpCall;
-
-		if ( replaceRefs ){
-			var deferred = $q.defer();
-			options.beforeRequest( model ).getPromise().then( function( data ){
-				httpCall = httpReq( options );
-				httpCall.then( function( data){
-					deferred.resolve( data );
-				});
-			});
-			httpCall = deferred.promise;
-		}
-		else {
-			httpCall = httpReq( options );
-		}
-
-
-		model.setPromise( httpCall );
-//		model = new Model( {}, httpCall );
-		return model;
-	}
-
-	var defaultActions = {
+	var actions = {
 		update: {
 			method: 'post',
 		}
 	}
 
-	var buildActions = function( url, model, actions ){
+	var buildMethods = function( extActions ){
+		angular.extend( actions, extActions );
 		angular.forEach( actions, function( value, key ){
-			Model.prototype[ key ] = function( params ){
-				var options = value;
-				options.url = url;
-				options.data = model;
-				options.params = params;
-				return self.request( options, model );
+			if ( value.classMethod ){
+				classMethods[ key ] = function( params, successCallback, errorCallback ){
+					return request( value, params, successCallback, errorCallback );
+				}
+			}
+			else {
+				Model.prototype[ key ] = function( params, successCallback, errorCallback ){
+					return request( value, params, successCallback, errorCallback );
+				}
 			}
 		});
-		return model;
 	}
 
-	return function( aUrl, actions, replaceRefs ) {
-		var url = aUrl;
-		var model = new Model();
-		var thisActions = {};
-
-		angular.extend( thisActions, defaultActions, actions );
-		buildActions( url, model, thisActions );
-
-		return {
-			get: function( what ) {
-				model = self.request({
-					url: url,
-					method: 'get',
-					params: what,
-					verb: ''
-				}, buildActions( url, new Model(), thisActions ) );
-				return model;
-			},
-
-			create: function( what ) {
-				model = self.request({
-					url: url,
-					method: 'post',
-					data: what,
-					verb: 'create'
-				}, model );
-				return model;
-			}
+	var request = function( extOptions, params, successCallback, errorCallback ){
+		var options = {
+			url: url,
+			data: model,
+			verb: '',		// added at the end of url
+			params: params
 		}
+		
+		$rootScope.$broadcast( 'restModelReqStart' );
+		
+		angular.extend( options, extOptions );
+		options.url += options.verb ? '/' + options.verb : '';
+
+		var http = $http( options );
+
+		http.finally( function(){
+			$rootScope.$broadcast( 'restModelReqStop' );
+		});
+
+		if ( options.method.toLowerCase() == 'get' ){
+			http
+			.success( function( data, status, headers, config ){
+				angular.extend( model, new Model( data ) );
+				if ( successCallback )
+					successCallback( data, status, headers, config );
+			})
+			.error(function( data, status, headers, config ){
+				if ( errorCallback )
+					errorCallback( data, status, headers, config );
+			});
+			model = new Model({}, http );
+			return model;
+		}
+		return http;
 	}
-});
+
+	var classMethods = { // can be extended in buildMethods
+		get: function( data, successCallback, errorCallback ) {
+			return request({ 
+				method: 'get',
+				params: data 
+			}, {}, successCallback, errorCallback ); //returns model
+		},
+		create: function( data, extOptions ) {
+			var options = { 
+				method: 'post',
+				data: data,
+				verb: 'create' 
+			}
+			angular.extend( options, extOptions );
+			return request( options );
+		},
+	}
+
+	return function( aUrl, actions ){
+		url = aUrl;
+		buildMethods( actions );
+		return classMethods;
+	}
+}])
+
+;

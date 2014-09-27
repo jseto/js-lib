@@ -2,10 +2,10 @@ describe('Select directive', function() {
 	var element, scope, rootScope, ctrlScope;
 
 	beforeEach(	module('jsWidgets.scrollList') );
-	beforeEach( module('js.restModel') );
+	beforeEach( module('jsLib.restModel') );
 	
 	// load the templates
-	beforeEach( module( 'jsLib/jsWidgets/test/simpleScrollList.html') );
+	beforeEach( module( 'test/jsWidgets/simpleScrollList.html') );
 
 	beforeEach(inject(function($rootScope, $compile, $controller) {
 
@@ -27,7 +27,7 @@ describe('Select directive', function() {
 			'	max-elements="maxElements"		'+
 			'	more-data="selectMoreData"		'+
 			'	less-data="selectLessData"		'+
-			'	template="jsLib/jsWidgets/test/simpleScrollList.html"'+
+			'	template="test/jsWidgets/simpleScrollList.html"'+
 			'	></div>							'
 		);
 
