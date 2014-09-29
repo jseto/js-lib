@@ -3,7 +3,7 @@
 /* Datepicker Module */
 
 angular.module('jsWidgets.datepicker', [
-	'jsUtils.dateConverter'
+	'jsLib.dateConverter'
 ])
 
 .directive('jswDatepicker', [ 'dateConverter', function( dateConverter ) {

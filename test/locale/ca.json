@@ -5,6 +5,18 @@
 		"login": "Entra/Registrat",
 		"logout": "Desconnecta"
 	},
+	"validationErrors": {
+		"matchPassword": "Els mots de pas no son iguals",
+		"unique": "Ja existeix",
+		"email": "L'adreça de correu no es correcta",
+		"required": "Es necessari omplir aquest camp",
+		"date": "La data introduïda no es correcta",
+		"file": "El fitxer no s'ha pogut enviar. (mida màx.: 1,5Mb, tipus: jpg, png, gif)",
+		"minlength": "Ha de tenir més de {{0}} caràcters",
+		"unknown": "Error de validació desconegut",
+		"only1word": "Només s'accepta una paraula",
+		"missmatch": "Han de ser iguals"
+	},
 	"home": {
 		"bannerText": [
 			"Competicions de Pàdel amb marcadors en temps real, per a entitats i particulars",

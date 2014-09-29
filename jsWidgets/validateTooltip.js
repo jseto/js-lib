@@ -3,7 +3,7 @@
 /* ValidateTooltip Module */
 
 angular.module('jsWidgets.validateTooltip', [
-	'pt.locale'
+	'jsLib.locale'
 ])
 
 .directive( 'jswValidateTooltip', function( Locale ){

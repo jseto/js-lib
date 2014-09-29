@@ -12,4 +12,9 @@ angular.module('jsWidgets', [
 	'jsWidgets.pagination',
 	'jsWidgets.input',
 	'jsWidgets.select'
-]);
+]).
+
+
+constant( 'JSLIB_TEMPLATE_PATH', '../jsWidgets/templates/' )
+
+;

@@ -3,7 +3,7 @@ describe('DateConverter Service', function(){
 	var dateConverter;
 
 	beforeEach(function(){
-		module('jsUtils.dateConverter');
+		module('jsLib.dateConverter');
 
 		inject(function($injector) {
     		dateConverter = $injector.get('dateConverter');

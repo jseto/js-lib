@@ -2,7 +2,7 @@
 
 /* LoadingWidget Module */
 
-angular.module('pt.loadingWidget', [
+angular.module('jsWidgets.loadingWidget', [
 
 ])
 

@@ -1,37 +1,75 @@
 <!DOCTYPE html>
 <html lang="en" data-ng-app="myApp" data-ng-controller="AppCtrl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-    <script src="lib/bootstrap/assets/js/html5shiv.js"></script>
-    <script src="lib/bootstrap/assets/js/respond.min.js"></script>
-  <![endif]-->
+	<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
+	<link rel="stylesheet" href="../bower_components/jseto-bootstrap-datepicker/css/datepicker.css"/>
 
+	<script src="../bower_components/jquery/dist/jquery.js"></script>
+	<script src="../bower_components/angular/angular.js"></script>
+	<script src="../bower_components/jseto-bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+	<script src="../bower_components/jseto-bootstrap-datepicker/js/locales/bootstrap-datepicker.ca.js"></script>
 
-  <!-- Custom styles - deprecated. Use 'less' -->
-  <!-- <link rel="stylesheet" href="css/utils.css">  -->
-
-
-  <script src="../bower_components/jquery/dist/jquery.js"></script>
-  <script src="../bower_components/angular/angular.js"></script>
-
-  <script src="../jsWidgets/validateTooltip.js"></script>
-  <script src="../jsWidgets/btnUpload.js"></script>
-  <script src="../jsWidgets/scrollList.js"></script>
-  <script src="../jsWidgets/lookup.js"></script>
-  <script src="../jsWidgets/datepicker.js"></script>
-  <script src="../jsWidgets/pagination.js"></script>
-  <script src="../jsWidgets/input.js"></script>
-  <script src="../jsWidgets/select.js"></script>
+	<script src="../locale/locale.js"></script>
+	<script src="../utils/dateConverter.js"></script>
+	<script src="../jsWidgets/jsWidgets.js"></script>
+	<script src="../jsWidgets/validateTooltip.js"></script>
+	<script src="../jsWidgets/btnUpload.js"></script>
+	<script src="../jsWidgets/scrollList.js"></script>
+	<script src="../jsWidgets/lookup.js"></script>
+	<script src="../jsWidgets/datepicker.js"></script>
+	<script src="../jsWidgets/pagination.js"></script>
+	<script src="../jsWidgets/input.js"></script>
+	<script src="../jsWidgets/select.js"></script>
  
-  <script src="app.js"></script>
+	<script src="app.js"></script>
 </head>
 
 <body>
-  <div ng-view></div>
-  <h1>Demo app</h1>
+	<div ng-view></div>
+	<h1>Demo app</h1>
+<!-- 		<p>Button upload</p>
+<input type="file" 
+	jsw-btn-upload="onUploaded" 
+	data-post-data="postdata" 
+	data-ng-model="model.picture" >
+ -->
+ 	<p>Datepicker</p>
+	<input data-jsw-datepicker="dd/MM/yyyy" 
+		type="text" class="form-control"
+		placeholder="born date" 
+		data-ng-model="model.born_date">
+	<br>
+	
+	<p>jswInput</p>
+	<input class="jsw-input"
+		ng-model="matchModel.name" 
+		placeholder="test placeholder"
+		label="test label"
+		icon="glyphicon glyphicon-star"
+		addon="@"
+		required
+	>
+	<br>
+
+	<p>Lookup</p>
+	<div jsw-lookup="users"
+		ng-focus="lookupFocus('matchModel.team1.player1')"
+		class="input-group-sm"
+		render="renderElement"
+		max-elements="6"
+		find-data="findData"
+		more-data="selectMoreData"
+		less-data="selectLessData"
+		ng-model="matchModel.team1.player1" 
+		placeholder="match.player11Label"
+		required
+		>						
+	</div>
+	<br>
+
+
 </body>
 </html>

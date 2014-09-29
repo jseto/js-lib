@@ -5,7 +5,7 @@
 *
 */
 
-angular.module('jsUtils.dateConverter', [
+angular.module('jsLib.dateConverter', [
 
 ])
 

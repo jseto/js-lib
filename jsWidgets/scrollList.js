@@ -7,7 +7,7 @@
 */
 angular.module('jsWidgets.scrollList', []).
 
-directive('jswScrollList', function( $compile ){
+directive('jswScrollList', function( $compile, JSLIB_TEMPLATE_PATH ){
 	return {
 		scope: {
 			data: '=jswScrollList',
@@ -22,7 +22,7 @@ directive('jswScrollList', function( $compile ){
 		controller: 'ScrollListCtrl',
 		restrict: 'AECM',
 		templateUrl: function( element, attrs ){
-			return attrs.template ? attrs.template : 'jsLib/jsWidgets/templates/scrollList.html';
+			return attrs.template ? attrs.template : JSLIB_TEMPLATE_PATH + 'scrollList.html';
 		},
 	};
 })
