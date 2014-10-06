@@ -16,9 +16,10 @@ angular.module('jsWidgets.lookup', [
 		restrict: 'AC', 
 		replace: true,
 		compile: function( element, attrs ) {
+			var icon = attrs.icon? 'icon="' + attrs.icon + '" ' : '';
 			var el = angular.element(
 				'	<input class="jsw-input '+attrs.class+'"	'+
-				'		icon="icon-search"						'+
+				icon +
 				'		ng-model="'+attrs.ngModel+'"	 		'+
 				'		placeholder="'+attrs.placeholder+'"		'+
 				'		>								 		'+

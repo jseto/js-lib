@@ -40,7 +40,7 @@ angular.module('jsWidgets.select', [
 			'				>							'+
 			'				<span class="caret"></span>	'+
 			'			</button>						'+
-			'			<ul class="dropdown-menu">		'+
+			'			<ul class="dropdown-menu" role="menu">		'+
 			'				<li ng-repeat="option in ' + attrs.options + '">'+
 			'					<a ng-click="click(option)">{{option}}</a>	'+
 			'				</li>						'+

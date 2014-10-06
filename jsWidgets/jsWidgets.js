@@ -14,7 +14,6 @@ angular.module('jsWidgets', [
 	'jsWidgets.select'
 ]).
 
-
 constant( 'JSLIB_TEMPLATE_PATH', '../jsWidgets/templates/' )
 
 ;

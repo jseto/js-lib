@@ -7,7 +7,7 @@
 */
 angular.module('jsWidgets.pagination', []).
 
-directive('jswPagination', function(){
+directive('jswPagination', function( JSLIB_TEMPLATE_PATH ){
 	return {
 		scope: {
 			extSet: '@jswPagination',
@@ -76,6 +76,8 @@ directive('jswPagination', function(){
 		},
 		restrict: 'AECM', // E = Element, A = Attribute, C = Class, M = Comment
 		// template: '',
-		templateUrl: 'jsLib/jsWidgets/templates/pagination.html',
+		templateUrl: function( element, attrs ){
+			return attrs.template ? attrs.template : JSLIB_TEMPLATE_PATH + 'pagination.html';
+		},
 	};
 });

@@ -8,13 +8,14 @@
 	<link rel="stylesheet" href="../bower_components/jseto-bootstrap-datepicker/css/datepicker.css"/>
 
 	<script src="../bower_components/jquery/dist/jquery.js"></script>
-	<script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
 	<script src="../bower_components/jseto-bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<script src="../bower_components/jseto-bootstrap-datepicker/js/locales/bootstrap-datepicker.ca.js"></script>
+	<script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
 	<script src="../locale/locale.js"></script>
 	<script src="../utils/dateConverter.js"></script>
-	<script src="../jsWidgets/jsWidgets.js"></script>
+	<script src="../utils/conferenceRoom.js"></script>
 	<script src="../jsWidgets/validateTooltip.js"></script>
 	<script src="../jsWidgets/btnUpload.js"></script>
 	<script src="../jsWidgets/scrollList.js"></script>
@@ -23,6 +24,7 @@
 	<script src="../jsWidgets/pagination.js"></script>
 	<script src="../jsWidgets/input.js"></script>
 	<script src="../jsWidgets/select.js"></script>
+	<script src="../jsWidgets/jsWidgets.js"></script>
  
 	<script src="app.js"></script>
 </head>
@@ -30,12 +32,34 @@
 <body>
 	<div ng-view></div>
 	<h1>Demo app</h1>
+
+	<p>WebRTC</p>
+	<video ng-src="{{localStream}}" autoplay></video>
+	<p>Hello: {{sessionId}}</p>
+
+	<button ng-click="doCall">Call</button>
+    <p>{{messages}}</p>
+
+	<br>
 <!-- 		<p>Button upload</p>
 <input type="file" 
 	jsw-btn-upload="onUploaded" 
 	data-post-data="postdata" 
 	data-ng-model="model.picture" >
  -->
+<!-- Single button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    Action <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#">Action</a></li>
+    <li><a href="#">Another action</a></li>
+    <li><a href="#">Something else here</a></li>
+    <li class="divider"></li>
+    <li><a href="#">Separated link</a></li>
+  </ul>
+</div>
  	<p>Datepicker</p>
 	<input data-jsw-datepicker="dd/MM/yyyy" 
 		type="text" class="form-control"
@@ -49,27 +73,39 @@
 		placeholder="test placeholder"
 		label="test label"
 		icon="glyphicon glyphicon-star"
-		addon="@"
 		required
 	>
 	<br>
 
 	<p>Lookup</p>
-	<div jsw-lookup="users"
+	<div jsw-lookup="['pep','marxc','john','margxc','joghn','marxgdc','jodhn','matyrxc','johtn']"
 		ng-focus="lookupFocus('matchModel.team1.player1')"
 		class="input-group-sm"
 		render="renderElement"
-		max-elements="6"
+		max-elements="4"
 		find-data="findData"
 		more-data="selectMoreData"
 		less-data="selectLessData"
-		ng-model="matchModel.team1.player1" 
-		placeholder="match.player11Label"
+		ng-model="model" 
+		icon="glyphicon glyphicon-search"
+		placeholder="placeholder"
 		required
 		>						
 	</div>
 	<br>
 
+	<p>Pagination</p>
+	<ng-include src="'selectWithPagination.html'"></ng-include>
+
+	<p>Select</p>
+	<select class="jsw-select" 
+		ng-model="sets"
+		placeholder="placeholder"
+		options="['4','6','8']"
+		default-option="4"
+		label="Label"
+		>
+	</select>
 
 </body>
 </html>
