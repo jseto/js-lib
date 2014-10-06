@@ -1,6 +1,7 @@
 describe('Select directive', function() {
 	var element, scope, rootScope, ctrlScope;
 
+	beforeEach(	module('jsWidgets') );
 	beforeEach(	module('jsWidgets.scrollList') );
 	beforeEach( module('jsLib.restModel') );
 	
