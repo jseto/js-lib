@@ -8,7 +8,8 @@
     "angular": "1.3.x",
     "angular-mocks": "~1.3.x",
     "jquery": "~2.1.1",
-    "jseto-bootstrap-datepicker": "git://github.com/jseto/bootstrap-datepicker.git#~1.3.0"
+    "jseto-bootstrap-datepicker": "git://github.com/jseto/bootstrap-datepicker.git#~1.3.0",
+    "peerjs": "~0.3.11"
   },
   "authors": [
     "jseto <jseto@jasvisio.com>"
