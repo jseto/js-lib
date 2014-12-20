@@ -3,6 +3,10 @@ module.exports = function(config){
 
     basePath : './',
 
+    exclude : [
+      '**/*.conf.js'
+    ],
+
     files : [
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
