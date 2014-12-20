@@ -45,7 +45,7 @@ describe('Select directive', function() {
 	it('should show empty items', function(){
 		var el =  element.find('li');
 		expect( el.length ).toEqual( scope.maxElements );
-		expect( el[0].innerText.trim() ).toEqual('');
+		expect( el[0].textContent.trim() ).toEqual('');
 	});
 
 	it('should show navigation items', function(){
@@ -67,7 +67,7 @@ describe('Select directive', function() {
 
 		it('should load data', function() { 
 			el =  element.find('li');
-			expect( el[0].innerText.trim() ).toEqual('pep');
+			expect( el[0].textContent.trim() ).toEqual('pep');
 		});
 
 		it('should call render function', function() { 
@@ -76,15 +76,15 @@ describe('Select directive', function() {
 			}
 			scope.$apply();
 			el =  element.find('li');
-			expect( el[0].innerText.trim() ).toEqual('pep feo');
+			expect( el[0].textContent.trim() ).toEqual('pep feo');
 		});
 
 		it('should show more items', function(){
 			el =  element.find('a');
 			el[1].click();
 			el =  element.find('li');
-			expect( el[0].innerText.trim() ).toEqual('jodhn');
-			expect( el[scope.maxElements-1].innerText.trim() ).toEqual('');
+			expect( el[0].textContent.trim() ).toEqual('jodhn');
+			expect( el[scope.maxElements-1].textContent.trim() ).toEqual('');
 		});
 		
 		it('should show less items', function(){
@@ -92,14 +92,14 @@ describe('Select directive', function() {
 			el[1].click();
 			el[0].click();
 			el =  element.find('li');
-			expect( el[0].innerText.trim() ).toEqual('pep');
-			expect( el[scope.maxElements-1].innerText.trim() ).toEqual('marxgdc');
+			expect( el[0].textContent.trim() ).toEqual('pep');
+			expect( el[scope.maxElements-1].textContent.trim() ).toEqual('marxgdc');
 		});
 	});
 
 
 /********/
-
+ 
 	describe('data source from restModel',function(){
 		var RestModel, $httpBackend, data, dataModel;
 
@@ -136,11 +136,11 @@ describe('Select directive', function() {
 
 		it('should load data', function() { 
 			el =  element.find('li');
-			expect( el[0].innerText.trim() ).toEqual('');
+			expect( el[0].textContent.trim() ).toEqual('');
 			expect( el.length ).toEqual( scope.maxElements );
 			flush();
 			el =  element.find('li');
-			expect( el[0].innerText.trim() ).toEqual('1');
+			expect( el[0].textContent.trim() ).toEqual('1');
 		});
 
 		it('should call render function', function() { 
@@ -150,7 +150,7 @@ describe('Select directive', function() {
 			scope.$apply();
 			flush();
 			el =  element.find('li');
-			expect( el[scope.maxElements-1].innerText.trim() ).toEqual('6 feo');
+			expect( el[scope.maxElements-1].textContent.trim() ).toEqual('6 feo');
 		});
 
 		it('should ask for more items', function(){
@@ -175,7 +175,7 @@ describe('Select directive', function() {
 			el[1].click();
 			flush(); //from select more data
 			el =  element.find('li');
-			expect( el[0].innerText.trim() ).toEqual('7');
+			expect( el[0].textContent.trim() ).toEqual('7');
 		});
 
 	});
