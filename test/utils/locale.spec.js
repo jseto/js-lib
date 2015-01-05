@@ -37,7 +37,7 @@ describe('Locale', function(){
 	});
 
 	it('returns a filtered key', inject(function( locFilter ){
-		expect( locFilter('header.home') ).toEqual('Inici'); 
+		expect( locFilter('header.home') ).toEqual('Inici');
 	}));
 });
 
