@@ -6,7 +6,8 @@ var path = require('path');
 var clientPath = path.resolve(__dirname, '../');
 
 var instant = require('instant');
-app.use( instant( clientPath) );
+app.use( instant( clientPath + '/demo' ) );
+app.use( instant( clientPath + '/lib' ) );
 
 app.all('/*', function(req, res) {
 	if ( req.path.indexOf('.') < 0 ) {

@@ -1,3 +1,5 @@
+'use strict';
+
 describe('Locale', function(){
 	var provider;
 
@@ -7,7 +9,7 @@ describe('Locale', function(){
 			.config(function (LocaleProvider) {
 				provider = LocaleProvider;
 				provider.setLocale('ca');
-				provider.setLocalePath('base/test/locale/');
+				provider.setLocalePath('base/demo/locale/');
 		});
 		// Initialize myApp injector
 		module('jsLib.locale', 'testApp');

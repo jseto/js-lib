@@ -8,14 +8,12 @@ module.exports = function(config){
     ],
 
     files : [
-      'bower_components/angular/angular.js',
-      'bower_components/angular-mocks/angular-mocks.js',
-      'bower_components/jquery/dist/jquery.js',
+      'demo/bower_components/angular/angular.js',
+      'demo/bower_components/angular-mocks/angular-mocks.js',
+      'demo/bower_components/jquery/dist/jquery.js',
       'test/**/*.js',
-      'jsWidgets/**/*.js',
-      'locale/**/*.js',
-      'utils/**/*.js',
-      { pattern:'test/locale/*.json', watched: true, served: true, included: false},
+      'lib/**/*.js',
+      { pattern:'demo/locale/*.json', watched: true, served: true, included: false},
       'test/**/*.html'
     ],
 

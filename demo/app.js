@@ -10,7 +10,7 @@ angular.module('myApp', [
 .config( function( LocaleProvider ) {
 	/*** Locale setup */
 	LocaleProvider.setLocale('ca');
-	LocaleProvider.setLocalePath('../test/locale/');
+	LocaleProvider.setLocalePath('locale/');
 })
 
 .run( function run ( $rootScope ) {
