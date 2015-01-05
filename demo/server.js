@@ -3,7 +3,7 @@ var express = require('express');
 var app = module.exports = express();
 
 var path = require('path');
-var clientPath = path.resolve(__dirname, '../demo');
+var clientPath = path.resolve(__dirname, '../');
 
 var instant = require('instant');
 app.use( instant( clientPath) );
@@ -17,19 +17,10 @@ app.all('/*', function(req, res) {
  	}
 });
 
-// Requests that get this far won't be handled
-// by any middleware. Convert them into a 404 error
-// that will be handled later down the chain.
-app.use(loopback.urlNotFound());
-
-// The ultimate error handler.
-app.use(loopback.errorHandler());
-
 app.start = function(port) {
   // start the web server
   return app.listen(port,function() {
-    app.emit('started');
-    console.log('Web server listening at: %s', app.get('url'));
+    console.log('Web server listening at: %s', port);
   });
 };
 

@@ -1,7 +1,7 @@
 module.exports = function(config){
   config.set({
 
-    basePath : './',
+    basePath : '../',
 
     exclude : [
       '**/*.conf.js'
@@ -10,6 +10,7 @@ module.exports = function(config){
     files : [
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
+      'bower_components/jquery/dist/jquery.js',
       'test/**/*.js',
       'jsWidgets/**/*.js',
       'locale/**/*.js',
@@ -29,6 +30,7 @@ module.exports = function(config){
             'karma-firefox-launcher',
             'karma-jasmine',
             'karma-junit-reporter',
+            'karma-beep-reporter',
             'karma-ng-html2js-preprocessor'
             ],
 
