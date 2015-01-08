@@ -20,7 +20,6 @@
     "nodemon": "^1.2.1",
     "parallelshell": "latest",
     "protractor": "^1.1.1",
-    "rimraf": "^2.2.8",
     "shelljs": "^0.2.6",
     "watch": "latest"
   },
@@ -35,7 +34,6 @@
     "test:e2e": "protractor test/protractor.conf.js",
     "posttest:e2e": "npm stop",
     "update-index-async": "node -e \"require('shelljs/global'); sed('-i', /\\/\\/@@NG_LOADER_START@@[\\s\\S]*\\/\\/@@NG_LOADER_END@@/, '//@@NG_LOADER_START@@\\n' + sed(/sourceMappingURL=angular-loader.min.js.map/,'sourceMappingURL=bower_components/angular-loader/angular-loader.min.js.map','app/bower_components/angular-loader/angular-loader.min.js') + '\\n//@@NG_LOADER_END@@', 'app/index-async.html');\"",
-    "preclean": "npm install rimraf",
     "clean": "rimraf demo/bower_components && rimraf node_modules && git clean -d -fx",
     "watch:test:unit": "karma start test/karma.conf.js",
     "watch:test:unit:beep": "karma start test/karma.conf.js --reporters beep,progress",

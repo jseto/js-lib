@@ -39,6 +39,7 @@
 	<video ng-src="{{remoteStream}}" autoplay></video>
 
 	<button ng-click="doCall()">Call</button>
+	<button ng-click="testVideoCall()">Test Video Call</button>
 
 	<br>
 <!-- 		<p>Button upload</p>
@@ -107,5 +108,17 @@
 		>
 	</select>
 
+	<p>Form validation</p>
+	<form class="center" name="signupForm" novalidate>
+		<input 
+			type="email" 
+			class="form-control" 
+			placeholder="email"
+			data-ng-model="user.email"
+			placement="left"
+			data-jsw-validate-tooltip="{{ 'validationErrors' | loc }}" 
+			required>
+
+	</form>
 </body>
 </html>

@@ -4,6 +4,7 @@
 
 angular.module('myApp', [
 	'jsWidgets',
+	'jsLib.locale',
 	'jsLib.conferenceRoom'
 ])
 
@@ -13,18 +14,19 @@ angular.module('myApp', [
 	LocaleProvider.setLocalePath('locale/');
 })
 
-.run( function run ( $rootScope ) {
-})
-
 .controller( 'AppCtrl', function ( $scope, locFilter, ConferenceRoom ) {
-	var room = ConferenceRoom();
-	room.onLocalStream( function( stream ){
-		$scope.localStream = stream;
-	});
+	var room = null;
+
+	$scope.testVideoCall = function(){
+		room = new ConferenceRoom();
+		room.onLocalStream( function( stream ){
+			$scope.localStream = stream;
+		});
+	};
 
 	$scope.doCall = function() {
 		room.call('test');
-	}
+	};
 /*	/// btnUpload
 	$scope.onUploaded = function( file, status, errorMsg ) {
 		if (status) {
@@ -49,7 +51,7 @@ angular.module('myApp', [
 	$scope.lookupFocus = function( find ){
 		// TODO: optimize rest calls ex. if ( lastValue == value ) return
 //		$scope.findData( find );
-	}
+	};
 
 	///select
 	$scope.sets = 4;
