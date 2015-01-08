@@ -6,6 +6,7 @@
 
 	<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
 	<link rel="stylesheet" href="../bower_components/jseto-bootstrap-datepicker/css/datepicker.css"/>
+	<link rel="stylesheet" href="../styles/tooltip.css"/>
 
 	<script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
@@ -33,6 +34,27 @@
 <body style="margin:50px">
 	<div ng-view></div>
 	<h1>Demo app</h1>
+
+
+	<p>Form validation</p>
+	<form class="center" name="signupForm" novalidate>
+		<div class="input-group margin-vertical-10 tooltip-danger">
+			<input 
+				type="email" 
+				class="form-control" 
+				placeholder="email"
+				data-ng-model="user.email"
+				tooltip-placement="auto right"
+				data-jsw-validate-tooltip="{{ 'validationErrors' | loc }}" 
+				required>
+		</div>
+	</form>
+ 	<a href="#" class="tooltip-danger" title="Some tooltip text!">Hover over me</a>
+  <script>
+        $(document.body).tooltip({ selector: "[title]" });
+  </script>
+
+
 
 	<p>WebRTC</p>
 	<video ng-src="{{localStream}}" autoplay></video>
@@ -107,18 +129,5 @@
 		label="Label"
 		>
 	</select>
-
-	<p>Form validation</p>
-	<form class="center" name="signupForm" novalidate>
-		<input 
-			type="email" 
-			class="form-control" 
-			placeholder="email"
-			data-ng-model="user.email"
-			placement="left"
-			data-jsw-validate-tooltip="{{ 'validationErrors' | loc }}" 
-			required>
-
-	</form>
 </body>
 </html>

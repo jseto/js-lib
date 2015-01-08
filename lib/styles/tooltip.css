@@ -1,0 +1,104 @@
+.tooltip-info + .tooltip .tooltip-inner {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  background-image: -webkit-linear-gradient(top, #d9edf7 0%, #b9def0 100%);
+  background-image: linear-gradient(to bottom, #d9edf7 0%, #b9def0 100%);
+  background-repeat: repeat-x;
+  border-color: #9acfea;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd9edf7', endColorstr='#ffb9def0', GradientType=0);
+}
+.tooltip-info + .tooltip.top .tooltip-arrow,
+.tooltip-info + .tooltip.top-left .tooltip-arrow,
+.tooltip-info + .tooltip.top-right .tooltip-arrow {
+  border-top-color: #bce8f1;
+}
+.tooltip-info + .tooltip.bottom .tooltip-arrow,
+.tooltip-info + .tooltip.bottom-left .tooltip-arrow,
+.tooltip-info + .tooltip.bottom-right .tooltip-arrow {
+  border-bottom-color: #bce8f1;
+}
+.tooltip-info + .tooltip.right .tooltip-arrow {
+  border-right-color: #bce8f1;
+}
+.tooltip-info + .tooltip.left .tooltip-arrow {
+  border-left-color: #bce8f1;
+}
+.tooltip-danger + .tooltip .tooltip-inner {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  background-image: -webkit-linear-gradient(top, #f2dede 0%, #e7c3c3 100%);
+  background-image: linear-gradient(to bottom, #f2dede 0%, #e7c3c3 100%);
+  background-repeat: repeat-x;
+  border-color: #dca7a7;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff2dede', endColorstr='#ffe7c3c3', GradientType=0);
+}
+.tooltip-danger + .tooltip.top .tooltip-arrow,
+.tooltip-danger + .tooltip.top-left .tooltip-arrow,
+.tooltip-danger + .tooltip.top-right .tooltip-arrow {
+  border-top-color: #ebccd1;
+}
+.tooltip-danger + .tooltip.bottom .tooltip-arrow,
+.tooltip-danger + .tooltip.bottom-left .tooltip-arrow,
+.tooltip-danger + .tooltip.bottom-right .tooltip-arrow {
+  border-bottom-color: #ebccd1;
+}
+.tooltip-danger + .tooltip.right .tooltip-arrow {
+  border-right-color: #ebccd1;
+}
+.tooltip-danger + .tooltip.left .tooltip-arrow {
+  border-left-color: #ebccd1;
+}
+.tooltip-warning + .tooltip .tooltip-inner {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  background-image: -webkit-linear-gradient(top, #fcf8e3 0%, #f8efc0 100%);
+  background-image: linear-gradient(to bottom, #fcf8e3 0%, #f8efc0 100%);
+  background-repeat: repeat-x;
+  border-color: #f5e79e;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffcf8e3', endColorstr='#fff8efc0', GradientType=0);
+}
+.tooltip-warning + .tooltip.top .tooltip-arrow,
+.tooltip-warning + .tooltip.top-left .tooltip-arrow,
+.tooltip-warning + .tooltip.top-right .tooltip-arrow {
+  border-top-color: #faebcc;
+}
+.tooltip-warning + .tooltip.bottom .tooltip-arrow,
+.tooltip-warning + .tooltip.bottom-left .tooltip-arrow,
+.tooltip-warning + .tooltip.bottom-right .tooltip-arrow {
+  border-bottom-color: #faebcc;
+}
+.tooltip-warning + .tooltip.right .tooltip-arrow {
+  border-right-color: #faebcc;
+}
+.tooltip-warning + .tooltip.left .tooltip-arrow {
+  border-left-color: #faebcc;
+}
+.tooltip-success + .tooltip .tooltip-inner {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  background-image: -webkit-linear-gradient(top, #dff0d8 0%, #c8e5bc 100%);
+  background-image: linear-gradient(to bottom, #dff0d8 0%, #c8e5bc 100%);
+  background-repeat: repeat-x;
+  border-color: #b2dba1;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdff0d8', endColorstr='#ffc8e5bc', GradientType=0);
+}
+.tooltip-success + .tooltip.top .tooltip-arrow,
+.tooltip-success + .tooltip.top-left .tooltip-arrow,
+.tooltip-success + .tooltip.top-right .tooltip-arrow {
+  border-top-color: #d6e9c6;
+}
+.tooltip-success + .tooltip.bottom .tooltip-arrow,
+.tooltip-success + .tooltip.bottom-left .tooltip-arrow,
+.tooltip-success + .tooltip.bottom-right .tooltip-arrow {
+  border-bottom-color: #d6e9c6;
+}
+.tooltip-success + .tooltip.right .tooltip-arrow {
+  border-right-color: #d6e9c6;
+}
+.tooltip-success + .tooltip.left .tooltip-arrow {
+  border-left-color: #d6e9c6;
+}
