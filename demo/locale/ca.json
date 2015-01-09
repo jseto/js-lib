@@ -12,7 +12,7 @@
 		"required": "Es necessari omplir aquest camp",
 		"date": "La data introduïda no es correcta",
 		"file": "El fitxer no s'ha pogut enviar. (mida màx.: 1,5Mb, tipus: jpg, png, gif)",
-		"minlength": "Ha de tenir més de {{0}} caràcters",
+		"minlength": "Ha de tenir {{0}} caràcters com a mínim",
 		"unknown": "Error de validació desconegut",
 		"only1word": "Només s'accepta una paraula",
 		"missmatch": "Han de ser iguals"
