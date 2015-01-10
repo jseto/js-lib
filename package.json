@@ -1,8 +1,8 @@
 {
-  "name": "jsLib",
+  "name": "js-lib",
   "version": "0.1.0",
   "description": "AngularJS widjet and helper library",
-  "repository": "https://github.com/jseto/jsLib.git",
+  "repository": "https://github.com/jseto/js-lib.git",
   "license": "MIT",
   "engines": {
     "node": "~0.10"
