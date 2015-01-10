@@ -46,6 +46,7 @@
 				placeholder="user name" 
 				data-ng-model="user.username"
 				data-ng-minlength=3
+				jsw-missmatch="pep"
 				data-ng-pattern="/^\s*\w*\s*$/"
 				data-ng-pattern-error-message="{{ 'validationErrors.only1word' | loc }}"
 				tooltip-placement="bottom"
