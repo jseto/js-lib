@@ -8,9 +8,10 @@ module.exports = function(config){
     ],
 
     files : [
+      'demo/bower_components/jquery/dist/jquery.js',
+      'demo/bower_components/bootstrap/dist/js/bootstrap.js',
       'demo/bower_components/angular/angular.js',
       'demo/bower_components/angular-mocks/angular-mocks.js',
-      'demo/bower_components/jquery/dist/jquery.js',
       'test/**/*.js',
       'lib/**/*.js',
       { pattern:'demo/locale/*.json', watched: true, served: true, included: false},

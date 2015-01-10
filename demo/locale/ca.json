@@ -14,8 +14,7 @@
 		"file": "El fitxer no s'ha pogut enviar. (mida màx.: 1,5Mb, tipus: jpg, png, gif)",
 		"minlength": "Ha de tenir {{0}} caràcters com a mínim",
 		"unknown": "Error de validació desconegut",
-		"only1word": "Només s'accepta una paraula",
-		"missmatch": "Han de ser iguals"
+		"only1word": "Només s'accepta una paraula"
 	},
 	"home": {
 		"bannerText": [

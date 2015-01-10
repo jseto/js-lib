@@ -34,18 +34,7 @@
 	<div ng-view></div>
 	<h1>Demo app</h1>
 
-	<form class="center css-form" name="signupForm" novalidate>
-		<div class="input-group margin-vertical-10 tooltip-danger">
-			<input 
-				type="email" 
-				class="form-control" 
-				placeholder="email"
-				data-ng-model="user.email"
-				tooltip-placement="auto right"
-				data-jsw-validate-tooltip="{{ 'validationErrors' | loc }}" 
-				required>
-		</div>
-
+	<form class="" name="signupForm" novalidate>
 		<div class="input-group margin-vertical-10">
 			<span class="input-group-addon">
 				<i class="fa fa-user fa-fw"></i>
@@ -65,27 +54,23 @@
 		</div>
 
 		<input 
-			class="jsw-input tooltip-danger"
+			class="jsw-input col-xs-4"
 			type="email" 
 			placeholder="email"
 			data-ng-model="user.email"
 			label="test label"
 			icon="glyphicon glyphicon-star"
-			tooltip-placement="auto right"
-			data-jsw-validate-tooltip="{{ 'validationErrors' | loc }}" 
+			tooltip-placement="right"
+			validation-errors="{{ 'validationErrors' | loc }}" 
 			required>
 
 
 	</form>
- 	<a href="#" class="tooltip-danger" title="Some tooltip text!">Hover over me</a>
-  <script>
-//        $(document.body).tooltip({ selector: "[title]" });
-  </script>
+
+<div class="clearfix"></div>
 
 
-
-
-	<p>WebRTC</p>
+	<h1 class=" margin-top-30">WebRTC</h1>
 	<video ng-src="{{localStream}}" autoplay></video>
 	<video ng-src="{{remoteStream}}" autoplay></video>
 
