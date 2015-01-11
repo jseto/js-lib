@@ -1,6 +1,6 @@
 'use strict';
 
-describe('validate-tooltip directive', function() {
+describe('jsw-validate-tooltip directive', function() {
 	var $compile;
 	var	$rootScope;
 
@@ -42,9 +42,9 @@ describe('validate-tooltip directive', function() {
 	};
 
 	// Load the directive module
-	beforeEach(
-		module('jsWidgets.validateTooltip')
-	);
+	beforeEach(function(){
+		module('jsWidgets.validateTooltip');
+	});
 
 	// Store references to $rootScope and $compile
 	// so they are available to all tests in this describe block
@@ -54,7 +54,7 @@ describe('validate-tooltip directive', function() {
 		$rootScope = _$rootScope_;
 	}));
 
-	it('Element has proper classes', function() {
+	it('element has proper style classes', function() {
 		var element = compile( $rootScope, elementHtml );
 		expect( $rootScope.user ).toBeUndefined();
 		expect(	element.hasClass('ng-valid') ).toBe(false);
@@ -73,7 +73,7 @@ describe('validate-tooltip directive', function() {
 		expect(	element.hasClass('ng-invalid-jsw-missmatch') ).toBe(true);
 	});
 
-	it('Gets the valid state', function() {
+	it('gets the valid state', function() {
 	 	$rootScope.user = { username : 'frank' };
 	 	var element = compile( $rootScope, elementHtml );
 
@@ -93,7 +93,7 @@ describe('validate-tooltip directive', function() {
 		expect(	element.hasClass('ng-invalid-jsw-missmatch') ).toBe(false);
 	});
 
-	it('Gets the invalid because minlenght and missmatch', function() {
+	it('gets the invalid state because minlenght and missmatch', function() {
 	 	$rootScope.user = { username : 'fr' };
 	 	var element = compile( $rootScope, elementHtml );
 
@@ -107,7 +107,7 @@ describe('validate-tooltip directive', function() {
 		expect(	element.hasClass('ng-invalid-jsw-missmatch') ).toBe(true);
 	});
 
-	it('Gets the invalid because pattern', function() {
+	it('gets the invalid state because pattern', function() {
 	 	$rootScope.user = { username : 'frank de la jungla' };
 	 	var element = compile( $rootScope, elementHtml );
 
