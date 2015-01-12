@@ -4,7 +4,9 @@ module.exports = function(config){
     basePath : '../',
 
     exclude : [
-      '**/*.conf.js'
+      '**/*.conf.js',
+      'test/**/*e2e-spec.js',
+      'test/**/*pageobject.js'
     ],
 
     files : [

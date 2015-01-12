@@ -31,46 +31,47 @@
  
 	<script src="app.js"></script>
 </head>
-<body style="margin:50px">
-	<div ng-view></div>
+<body>
+<div ng-view>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-4">
 	<h1>Demo app</h1>
+		<form class="center" name="signupForm" novalidate>
+			<div class="input-group margin-vertical-10">
+				<span class="input-group-addon">
+					<i class="glyphicon glyphicon-user"></i>
+				</span>
+				
+				<input 
+					type="text"
+					class="form-control" 
+					placeholder="userLabel" 
+					data-ng-model="user.username"
+					data-ng-minlength=3
+					data-ng-pattern="/^\s*\w*\s*$/"
+					data-ng-pattern-error-message="only1word"
+					tooltip-placement="bottom"
+					data-jsw-validate-tooltip="{{ 'validationErrors' | loc }}" 
+					required>
+			</div>
 
-	<form class="" name="signupForm" novalidate>
-		<div class="input-group margin-vertical-10">
-			<span class="input-group-addon">
-				<i class="fa fa-user fa-fw"></i>
-			</span>
-			
 			<input 
-				type="text"
-				class="form-control" 
-				placeholder="userLabel" 
-				data-ng-model="user.username"
-				data-ng-minlength=3
-				data-ng-pattern="/^\s*\w*\s*$/"
-				data-ng-pattern-error-message="validationErrors.only1word"
-				tooltip-placement="bottom"
-				data-jsw-validate-tooltip="{{ 'validationErrors' | loc }}" 
+				class="jsw-input  tooltip-danger"
+				type="email" 
+				placeholder="email"
+				data-ng-model="user.email"
+				label="test label"
+				icon="glyphicon glyphicon-star"
+				tooltip-placement="right"
+				validation-errors="{{ 'validationErrors' | loc }}" 
 				required>
-		</div>
-		<input 
-			class="jsw-input col-xs-4"
-			type="email" 
-			placeholder="email"
-			data-ng-model="user.email"
-			label="test label"
-			icon="glyphicon glyphicon-star"
-			tooltip-placement="right"
-			validation-errors="{{ 'validationErrors' | loc }}" 
-			required>
 
 
-	</form>
-
-<div class="clearfix"></div>
+		</form>
 
 
-	<h1 class=" margin-top-30">WebRTC</h1>
+	<h2 class=" margin-top-30">WebRTC</h2>
 	<video ng-src="{{localStream}}" autoplay></video>
 	<video ng-src="{{remoteStream}}" autoplay></video>
 
@@ -143,5 +144,8 @@
 		label="Label"
 		>
 	</select>
+  </div>
+  <div class="col-md-7"></div>
+</div>
 </body>
 </html>
