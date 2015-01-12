@@ -7,7 +7,7 @@ describe('validateTooltip directive', function(){
 	browser.get('/');
 
 	beforeEach(function(){
-//		indexPage.inputUsername.clear();
+		indexPage.inputUsername.clear();
 	});
 
 	it('Should set value and change model', function () {
@@ -23,6 +23,8 @@ describe('validateTooltip directive', function(){
 	});
 
 	it('should not show tooltip', function(){
+		indexPage.inputUsername.sendKeys('Joe');
+
 		expect( 
 			element( by.css('.tooltip') ).isPresent() 
 		).toBe(false);
@@ -32,8 +34,8 @@ describe('validateTooltip directive', function(){
 		indexPage.inputUsername.sendKeys('Joe roe');		
 		
 		expect( 
-			indexPage.tooltip().isDisplayed() 
-		).toBe( true );
+			indexPage.waitTooltip()
+		).toBeTruthy();
 		
 		expect( 
 			indexPage.tooltip().getText() 
@@ -41,12 +43,17 @@ describe('validateTooltip directive', function(){
 	});
 
 	it('should show tooltip with minlenght error message', function(){
-		browser.refresh();
-		indexPage.inputUsername.sendKeys('Joe', protractor.Key.BACK_SPACE );		
-		
+		indexPage.inputUsername.sendKeys('Joe');
+
+		expect(	
+			indexPage.inputUsername.getAttribute('value') 
+		).toBe( 'Joe' );
+
+		indexPage.inputUsername.sendKeys( protractor.Key.BACK_SPACE );
+
 		expect( 
-			indexPage.tooltip().isDisplayed() 
-		).toBe( true );
+			indexPage.waitTooltip()
+		).toBeTruthy();
 
 		expect( 
 			indexPage.tooltip().getText() 
@@ -54,20 +61,23 @@ describe('validateTooltip directive', function(){
 	});
 
 	it('should hide tooltip after entering correct field', function(){
-		browser.refresh();
-		indexPage.inputUsername.sendKeys('Joe', protractor.Key.BACK_SPACE);
+		indexPage.inputUsername.sendKeys('Joe');
 
-		browser.wait(function(){
-			return element( by.css('.tooltip') ).isPresent();
-		});
+		expect(	
+			indexPage.inputUsername.getAttribute('value') 
+		).toBe( 'Joe' );
+
+		indexPage.inputUsername.sendKeys( protractor.Key.BACK_SPACE );
+
+		expect( 
+			indexPage.waitTooltip()
+		).toBeTruthy();
 
 		indexPage.inputUsername.sendKeys('anna');
 
-		browser.sleep(function(){
-			expect( 
-				element( by.css('.tooltip-inner') ).isPresent()
-			).toBe(false);
-		});
+		expect( 
+			indexPage.waitTooltipAbsent()
+		).toBeTruthy();
 	});
 
 });
