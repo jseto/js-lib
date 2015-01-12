@@ -107,6 +107,18 @@ describe('jsw-validate-tooltip directive', function() {
 		expect(	element.hasClass('ng-invalid-jsw-missmatch') ).toBe(true);
 	});
 
+	it('gets the valid state because missmatch with scope var', function() {
+	 	$rootScope.user = { username : 'frank' };
+	 	$rootScope.toCompare = 'frank';
+	 	var element = compile( $rootScope, elementHtml.replace('user.username == \'frank\'', 'user.username == toCompare') );
+
+		expect(	element.hasClass('ng-valid') ).toBe(true);
+		expect(	element.hasClass('ng-invalid') ).toBe(false);
+
+		expect(	element.hasClass('ng-valid-jsw-missmatch') ).toBe(true);
+		expect(	element.hasClass('ng-invalid-jsw-missmatch') ).toBe(false);
+	});
+
 	it('gets the invalid state because pattern', function() {
 	 	$rootScope.user = { username : 'frank de la jungla' };
 	 	var element = compile( $rootScope, elementHtml );
