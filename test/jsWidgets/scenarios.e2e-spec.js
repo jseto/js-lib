@@ -2,7 +2,7 @@
 
 var indexPage = require('./index-pageobject.js');
 
-describe('validateTooltip directive', function(){
+describe('jswValidateTooltip directive', function(){
 
 	browser.get('/');
 
@@ -79,5 +79,9 @@ describe('validateTooltip directive', function(){
 			indexPage.waitTooltipAbsent()
 		).toBeTruthy();
 	});
+
+});
+
+xdescribe('jswInput directive',function(){
 
 });
