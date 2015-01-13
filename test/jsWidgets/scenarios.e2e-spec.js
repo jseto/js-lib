@@ -111,7 +111,7 @@ describe('jswInput directive',function(){
 	});
 
 	it('should show tooltip with email error message', function(){
-		indexPage.inputEmail.sendKeys( 'foo@bar.c', protractor.Key.BACK_SPACE );		
+		indexPage.inputEmail.sendKeys( 'foo@bar.co', protractor.Key.BACK_SPACE );		
 		
 		expect( 
 			indexPage.waitTooltip()
@@ -123,21 +123,21 @@ describe('jswInput directive',function(){
 	});
 
 	it('should hide tooltip after entering correct field', function(){
-		indexPage.inputEmail.sendKeys('foo@bar.c');
+		indexPage.inputEmail.sendKeys('foo@bar.co');
 
-		expect(	
+		expect(	// foo@bar.co
 			indexPage.inputEmail.getAttribute('value') 
-		).toBe( 'foo@bar.c' );
+		).toBe( 'foo@bar.co' );
 
 		indexPage.inputEmail.sendKeys( protractor.Key.BACK_SPACE );
 
-		expect( 
+		expect( // foo@bar.c
 			indexPage.waitTooltip()
 		).toBeTruthy();
 
 		indexPage.inputEmail.sendKeys( 'om' );
 
-		expect( 
+		expect( // foo@bar.com
 			indexPage.waitTooltipAbsent()
 		).toBeTruthy();
 	});
