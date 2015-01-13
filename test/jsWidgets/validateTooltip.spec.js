@@ -74,8 +74,8 @@ describe('jsw-validate-tooltip directive', function() {
 	});
 
 	it('gets the valid state', function() {
-	 	$rootScope.user = { username : 'frank' };
-	 	var element = compile( $rootScope, elementHtml );
+		$rootScope.user = { username : 'frank' };
+		var element = compile( $rootScope, elementHtml );
 
 		expect(	element.hasClass('ng-valid') ).toBe(true);
 		expect(	element.hasClass('ng-invalid') ).toBe(false);
@@ -94,8 +94,8 @@ describe('jsw-validate-tooltip directive', function() {
 	});
 
 	it('gets the invalid state because minlenght and missmatch', function() {
-	 	$rootScope.user = { username : 'fr' };
-	 	var element = compile( $rootScope, elementHtml );
+		$rootScope.user = { username : 'fr' };
+		var element = compile( $rootScope, elementHtml );
 
 		expect(	element.hasClass('ng-valid') ).toBe(false);
 		expect(	element.hasClass('ng-invalid') ).toBe(true);
@@ -108,9 +108,9 @@ describe('jsw-validate-tooltip directive', function() {
 	});
 
 	it('gets the valid state because missmatch with scope var', function() {
-	 	$rootScope.user = { username : 'frank' };
-	 	$rootScope.toCompare = 'frank';
-	 	var element = compile( $rootScope, elementHtml.replace('user.username == \'frank\'', 'user.username == toCompare') );
+		$rootScope.user = { username : 'frank' };
+		$rootScope.toCompare = 'frank';
+		var element = compile( $rootScope, elementHtml.replace('user.username == \'frank\'', 'user.username == toCompare') );
 
 		expect(	element.hasClass('ng-valid') ).toBe(true);
 		expect(	element.hasClass('ng-invalid') ).toBe(false);
@@ -120,8 +120,8 @@ describe('jsw-validate-tooltip directive', function() {
 	});
 
 	it('gets the invalid state because pattern', function() {
-	 	$rootScope.user = { username : 'frank de la jungla' };
-	 	var element = compile( $rootScope, elementHtml );
+		$rootScope.user = { username : 'frank de la jungla' };
+		var element = compile( $rootScope, elementHtml );
 
 		expect(	element.hasClass('ng-valid') ).toBe(false);
 		expect(	element.hasClass('ng-invalid') ).toBe(true);
