@@ -2,9 +2,10 @@
 
 var indexPage = require('./index-pageobject.js');
 
+browser.get('/');
+
 describe('jswValidateTooltip directive', function(){
 
-	browser.get('/');
 
 	beforeEach(function(){
 		indexPage.inputUsername.clear();
@@ -82,6 +83,63 @@ describe('jswValidateTooltip directive', function(){
 
 });
 
-xdescribe('jswInput directive',function(){
+describe('jswInput directive',function(){
+//TODO: a protractor locator for jswInput to be used like element( by.jswInput( 'my.model.name' ) )
+
+	beforeEach(function(){
+		indexPage.inputEmail.clear();
+	});
+
+	it('Should set value and change model', function () {
+		indexPage.inputEmail.sendKeys('foo@bar.com');
+
+		expect(	
+			indexPage.inputEmail.getAttribute('value') 
+		).toBe( 'foo@bar.com' );
+		
+		expect(	
+			indexPage.inputEmail.evaluate('user.email') 
+		).toBe( 'foo@bar.com' );
+	});
+
+	it('should not show tooltip', function(){
+		indexPage.inputEmail.sendKeys('foo@bar.com');
+
+		expect( 
+			element( by.css('.tooltip') ).isPresent() 
+		).toBe(false);
+	});
+
+	it('should show tooltip with email error message', function(){
+		indexPage.inputEmail.sendKeys( 'foo@bar.c', protractor.Key.BACK_SPACE );		
+		
+		expect( 
+			indexPage.waitTooltip()
+		).toBeTruthy();
+		
+		expect( 
+			indexPage.tooltip().getText() 
+		).toMatch( 'L\'adreça de correu no es correcta' );
+	});
+
+	it('should hide tooltip after entering correct field', function(){
+		indexPage.inputEmail.sendKeys('foo@bar.c');
+
+		expect(	
+			indexPage.inputEmail.getAttribute('value') 
+		).toBe( 'foo@bar.c' );
+
+		indexPage.inputEmail.sendKeys( protractor.Key.BACK_SPACE );
+
+		expect( 
+			indexPage.waitTooltip()
+		).toBeTruthy();
+
+		indexPage.inputEmail.sendKeys( 'om' );
+
+		expect( 
+			indexPage.waitTooltipAbsent()
+		).toBeTruthy();
+	});
 
 });
