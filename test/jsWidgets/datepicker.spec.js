@@ -1,10 +1,10 @@
 'use strict';
 
-xdescribe('Datepicker directive', function() {
+describe('Datepicker directive', function() {
 	var element, scope;
 
 	beforeEach(module('jsWidgets.datepicker'));
-	beforeEach(inject(function($rootScope, $compile, $window) {
+	beforeEach(inject(function($rootScope, $compile) {
 		
 		element = angular.element([
 				'<input ',
@@ -13,7 +13,6 @@ xdescribe('Datepicker directive', function() {
 					'data-ng-model="modelDate"> '
 			].join('\n')
 		);
-		console.log(element)
 
 		scope = $rootScope;
 		scope.modelDate = '';
@@ -22,9 +21,9 @@ xdescribe('Datepicker directive', function() {
 	}));
 
 
-	it('should show date from datepicker', inject(function($compile, $rootScope) {
+	it('should show date from datepicker', function() {
 		var independenceDay = new Date('11/09/2014');
 		 element.datepicker('setDate', independenceDay );
 		// expect(element.text).toBe( '11/09/2014' );
-	}));
+	});
 });

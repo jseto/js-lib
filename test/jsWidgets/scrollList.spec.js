@@ -1,5 +1,7 @@
+'use strict';
+
 describe('Select directive', function() {
-	var element, scope, rootScope, ctrlScope;
+	var element, scope;
 
 	beforeEach(	module('jsWidgets') );
 	beforeEach(	module('jsWidgets.scrollList') );
@@ -8,7 +10,7 @@ describe('Select directive', function() {
 	// load the templates
 	beforeEach( module( 'test/jsWidgets/simpleScrollList.html') );
 
-	beforeEach(inject(function($rootScope, $compile, $controller) {
+	beforeEach(inject(function($rootScope, $compile) {
 
 		// ctrlScope = $rootScope.$new();
 		// console.log('orig ctrlScope', ctrlScope.$id)
@@ -51,10 +53,8 @@ describe('Select directive', function() {
 	it('should show navigation items', function(){
 		var el =  element.find('a');
 		expect( el.length ).toEqual( 2 );	
-	})
+	});
 
-
-/********/
 
 	describe('Array behaviour', function(){
 		var samples;
@@ -63,24 +63,24 @@ describe('Select directive', function() {
 			scope.$apply( function(){
 				scope.samples = samples;
 			});
-		})
+		});
 
 		it('should load data', function() { 
-			el =  element.find('li');
+			var el =  element.find('li');
 			expect( el[0].textContent.trim() ).toEqual('pep');
 		});
 
 		it('should call render function', function() { 
 			scope.render = function( item ){
 				return item + ' feo';
-			}
+			};
 			scope.$apply();
-			el =  element.find('li');
+			var el =  element.find('li');
 			expect( el[0].textContent.trim() ).toEqual('pep feo');
 		});
 
 		it('should show more items', function(){
-			el =  element.find('a');
+			var el =  element.find('a');
 			el[1].click();
 			el =  element.find('li');
 			expect( el[0].textContent.trim() ).toEqual('jodhn');
@@ -88,7 +88,7 @@ describe('Select directive', function() {
 		});
 		
 		it('should show less items', function(){
-			el =  element.find('a');
+			var el =  element.find('a');
 			el[1].click();
 			el[0].click();
 			el =  element.find('li');
@@ -101,12 +101,7 @@ describe('Select directive', function() {
 /********/
  
 	describe('data source from restModel',function(){
-		var RestModel, $httpBackend, data, dataModel;
-
-		var flush = function(){
-			$httpBackend.flush();
-			el =  element.find('a');
-		}
+		var RestModel, $httpBackend, data, $controller, Items;
 
 		beforeEach(function(){
 			inject(function($injector) {
@@ -128,17 +123,17 @@ describe('Select directive', function() {
 			$httpBackend.whenGET('/search?limit=' + scope.maxElements + '&offset=' + scope.maxElements )
 				.respond( data.slice(scope.maxElements,scope.maxElements*2) );
 
-			Items = RestModel('/search')
+			Items = RestModel('/search');
 			scope.$apply( function(){
 				scope.samples = Items.get();
 			});
 		});
 
 		it('should load data', function() { 
-			el =  element.find('li');
+			var el =  element.find('li');
 			expect( el[0].textContent.trim() ).toEqual('');
 			expect( el.length ).toEqual( scope.maxElements );
-			flush();
+			$httpBackend.flush();
 			el =  element.find('li');
 			expect( el[0].textContent.trim() ).toEqual('1');
 		});
@@ -146,34 +141,34 @@ describe('Select directive', function() {
 		it('should call render function', function() { 
 			scope.render = function( item ){
 				return item + ' feo';
-			}
+			};
+
 			scope.$apply();
-			flush();
-			el =  element.find('li');
+			$httpBackend.flush();
+			var el =  element.find('li');
 			expect( el[scope.maxElements-1].textContent.trim() ).toEqual('6 feo');
 		});
 
 		it('should ask for more items', function(){
-			// flush beforeEach call
-			flush();
+			$httpBackend.flush();
 
 			scope.selectMoreData = function(){
 				return Items.get({
 					limit: scope.maxElements,
 					offset: scope.maxElements
 				});
-			}
+			};
 			// query few items from db
 			scope.samples = Items.get({
 				limit: scope.maxElements
 			});
 
 			scope.$apply();
-			flush(); //previous query
+			$httpBackend.flush(); //previous query
 
-			el = element.find('a');
+			var el = element.find('a');
 			el[1].click();
-			flush(); //from select more data
+			$httpBackend.flush(); //from select more data
 			el =  element.find('li');
 			expect( el[0].textContent.trim() ).toEqual('7');
 		});

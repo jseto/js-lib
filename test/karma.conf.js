@@ -14,11 +14,16 @@ module.exports = function(config){
       'demo/bower_components/bootstrap/dist/js/bootstrap.js',
       'demo/bower_components/angular/angular.js',
       'demo/bower_components/angular-mocks/angular-mocks.js',
+      'demo/bower_components/jseto-bootstrap-datepicker/js/bootstrap-datepicker.js',
       'test/**/*.js',
       'lib/**/*.js',
       { pattern:'demo/locale/*.json', watched: true, served: true, included: false},
       'test/**/*.html'
     ],
+
+    preprocessors: {
+      'test/**/*.html': 'ng-html2js'
+    },
 
     autoWatch : true,
 
