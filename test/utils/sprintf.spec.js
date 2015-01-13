@@ -1,6 +1,6 @@
 'use strict';
 
-describe('spritf', function() {
+describe('sprintf', function() {
 
 	var sprintfFilter;
 
