@@ -26,7 +26,7 @@ describe('jsw-validate-tooltip directive', function() {
 				'	ng-minlength=3',
 				'	ng-pattern="/^\\s*\\w*\\s*$/"',
 				'	ng-pattern-error-message="validationError.only1word"',
-				' 	jsw-missmatch="user.username == \'frank\'"',
+				' 	jsw-missmatch="\'frank\'"',
 				'	tooltip-placement="bottom"',
 				'	jsw-validate-tooltip="{{validationErrors}}"',
 				'	required>',

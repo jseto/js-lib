@@ -6,7 +6,7 @@
 		"logout": "Desconnecta"
 	},
 	"validationErrors": {
-		"matchPassword": "Els mots de pas no son iguals",
+		"jswMissmatch": "Els mots de pas no son iguals",
 		"unique": "Ja existeix",
 		"email": "L'adreça de correu no es correcta",
 		"required": "Es necessari omplir aquest camp",

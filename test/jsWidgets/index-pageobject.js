@@ -4,8 +4,9 @@ var waitAbsent = require('../helpers/waitAbsent.js');
 var waitReady = require('../helpers/waitReady.js');
 
 var IndexPageObject = function() {
-	this.inputUsername = element( by.model('user.username') );
-	this.inputEmail =  element( by.css('input[ng-model="user.email"]') );
+	this.username = element( by.model('user.username') );
+	this.email =  element( by.css('input[ng-model="user.email"]') );
+	this.retype =  element( by.css('input[ng-model="retype"]') );
 
 	this.tooltip = function(){
 		return element( by.css('.tooltip-inner') );

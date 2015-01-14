@@ -21,6 +21,7 @@
 	<script src="../utils/sprintf.js"></script>
 	<script src="../utils/email-validator.js"></script>
 	<script src="../jsWidgets/missmatch.js"></script>
+	<script src="../jsWidgets/loadingWidget.js"></script>
 	<script src="../jsWidgets/validateTooltip.js"></script>
 	<script src="../jsWidgets/btnUpload.js"></script>
 	<script src="../jsWidgets/scrollList.js"></script>
@@ -48,7 +49,7 @@
 				<input 
 					type="text"
 					class="form-control" 
-					placeholder="userLabel" 
+					placeholder="user name" 
 					data-ng-model="user.username"
 					data-ng-minlength=3
 					data-ng-pattern="/^\s*\w*\s*$/"
@@ -58,19 +59,33 @@
 					required>
 			</div>
 
+ 			<input 
+				class="jsw-input  tooltip-danger"
+				type="text" 
+				placeholder="retype user name"
+				ng-model="retype"
+				icon="glyphicon glyphicon-user"
+				tooltip-placement="bottom"
+				jsw-missmatch="user.username"
+				validation-errors="{{ 'validationErrors' | loc }}" 
+				required>
+
 			<input 
 				class="jsw-input  tooltip-danger"
 				type="email" 
 				placeholder="email"
 				ng-model="user.email"
 				label="test label"
-				icon="glyphicon glyphicon-star"
-				tooltip-placement="right"
+				icon="glyphicon glyphicon-envelope"
+				tooltip-placement="bottom"
 				validation-errors="{{ 'validationErrors' | loc }}" 
 				required>
-
-
 		</form>
+
+		<div class="alert alert-danger margin-vertical-10"
+			data-ng-show="signupForm.$invalid">
+			<p>form not validated</p>
+		</div>
 
 
 	<h2 class=" margin-top-30">WebRTC</h2>

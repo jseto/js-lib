@@ -21,8 +21,8 @@ describe('jswMissmatch directive', function() {
 		scope = _$rootScope_;
 	}));
 
-	it('matches expression with constant', function() {
-		var elmHtml = '<input jsw-missmatch="model == \'frank\'" ng-model="model">';
+	it('matches constant', function() {
+		var elmHtml = '<input jsw-missmatch="\'frank\'" ng-model="model">';
 
 		scope.model = 'frank';
 		var element = compile(scope, elmHtml);
@@ -31,8 +31,8 @@ describe('jswMissmatch directive', function() {
 		expect(	element.hasClass('ng-invalid') ).toBe(false);
 	});
 
-	it('does not match expression with constant', function() {
-		var elmHtml = '<input jsw-missmatch="model == \'frank\'" ng-model="model">';
+	it('does not match constant', function() {
+		var elmHtml = '<input jsw-missmatch="\'frank\'" ng-model="model">';
 
 		scope.model = 'frank de la jungla';
 		var element = compile(scope, elmHtml);
@@ -41,8 +41,8 @@ describe('jswMissmatch directive', function() {
 		expect(	element.hasClass('ng-invalid') ).toBe(true);
 	});
 
-	it('matches expression with scope variable', function() {
-		var elmHtml = '<input jsw-missmatch="model == scopeVar" ng-model="model">';
+	it('matches with scope variable', function() {
+		var elmHtml = '<input jsw-missmatch="scopeVar" ng-model="model">';
 
 		scope.model = 'frank';
 		scope.scopeVar = 'frank';
@@ -52,8 +52,8 @@ describe('jswMissmatch directive', function() {
 		expect(	element.hasClass('ng-invalid') ).toBe(false);
 	});
 
-	it('does not match expression with scope variable', function() {
-		var elmHtml = '<input jsw-missmatch="model == scopeVar" ng-model="model">';
+	it('does not match with scope variable', function() {
+		var elmHtml = '<input jsw-missmatch="scopeVar" ng-model="model">';
 
 		scope.model = 'frank de la jungla';
 		scope.scopeVar = 'does not play anymore';
@@ -63,19 +63,37 @@ describe('jswMissmatch directive', function() {
 		expect(	element.hasClass('ng-invalid') ).toBe(true);
 	});
 
-	it('matches function', function() {
-		var elmHtml = '<input jsw-missmatch="isMatching()" ng-model="model">';
+	it('matches using function', function() {
+		var elmHtml = '<input jsw-missmatch="somethingToMatch()" ng-model="model">';
 		var functionCalled = false;
 
-		scope.isMatching = function() {
+		scope.model = 'frank';
+		scope.somethingToMatch = function() {
 			functionCalled = true;
-			return true;
+			return 'frank';
 		};
 
 		var element = compile(scope, elmHtml);
 
 		expect(	element.hasClass('ng-valid') ).toBe(true);
 		expect(	element.hasClass('ng-invalid') ).toBe(false);
+		expect( functionCalled ).toBe( true );
+	});
+
+	it('does not match using function', function() {
+		var elmHtml = '<input jsw-missmatch="somethingToMatch()" ng-model="model">';
+		var functionCalled = false;
+
+		scope.model = 'frank goes to hollywood';
+		scope.somethingToMatch = function() {
+			functionCalled = true;
+			return 'frank';
+		};
+
+		var element = compile(scope, elmHtml);
+
+		expect(	element.hasClass('ng-valid') ).toBe(false);
+		expect(	element.hasClass('ng-invalid') ).toBe(true);
 		expect( functionCalled ).toBe( true );
 	});
 
