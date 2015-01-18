@@ -29,7 +29,7 @@ describe('jswUniqueUser directive', function() {
 
 		httpBackend
 			.when('GET', '/api/user/bar')
-			.respond(402);
+			.respond(404);
 	}));
 
 	beforeEach( function(){
