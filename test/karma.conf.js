@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(config){
   config.set({
 
@@ -14,6 +16,7 @@ module.exports = function(config){
       'demo/bower_components/bootstrap/dist/js/bootstrap.js',
       'demo/bower_components/angular/angular.js',
       'demo/bower_components/angular-mocks/angular-mocks.js',
+      'demo/bower_components/angular-messages/angular-messages.js',
       'demo/bower_components/jseto-bootstrap-datepicker/js/bootstrap-datepicker.js',
       'test/**/*.js',
       'lib/**/*.js',

@@ -10,6 +10,7 @@
 
 	<script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-messages/angular-messages.js"></script>
 	<script src="bower_components/jseto-bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<script src="bower_components/jseto-bootstrap-datepicker/js/locales/bootstrap-datepicker.ca.js"></script>
 	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
@@ -20,6 +21,7 @@
 	<script src="../utils/conference-room.js"></script>
 	<script src="../utils/sprintf.js"></script>
 	<script src="../utils/email-validator.js"></script>
+	<script src="../js-widgets/messages-include.js"></script>
 	<script src="../js-widgets/missmatch.js"></script>
 	<script src="../js-widgets/validate-promise.js"></script>
 	<script src="../js-widgets/unique-user.js"></script>
@@ -51,6 +53,7 @@
 					type="text"
 					class="form-control" 
 					placeholder="user name" 
+					name="username"
 					data-ng-model="user.username"
 					data-ng-minlength=3
 					data-ng-pattern="/^\s*\w*\s*$/"
@@ -58,6 +61,14 @@
 					tooltip-placement="bottom"
 					data-jsw-validate-tooltip="{{ 'validationErrors' | loc }}" 
 					required>
+
+			</div>
+
+			<div 
+				ng-messages="signupForm.username.$error" 
+				jsw-messages-include="'validationErrors' | loc"
+				template="<div class='alert alert-danger' role='alert'></div>"
+				>
 			</div>
 
  			<input 

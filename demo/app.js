@@ -3,6 +3,7 @@
 /* App Module */
 
 angular.module('myApp', [
+	'ngMessages',
 	'jsWidgets',
 	'jsLib.locale',
 	'jsLib.conferenceRoom'
@@ -27,6 +28,7 @@ angular.module('myApp', [
 	$scope.doCall = function() {
 		room.call('test');
 	};
+
 /*	/// btnUpload
 	$scope.onUploaded = function( file, status, errorMsg ) {
 		if (status) {
