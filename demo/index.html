@@ -74,14 +74,23 @@
  			<input 
 				class="jsw-input  tooltip-danger"
 				type="text" 
+				name="retype" 
 				placeholder="retype user name"
 				ng-model="retype"
 				icon="glyphicon glyphicon-user"
 				tooltip-placement="bottom"
 				jsw-missmatch="user.username"
+				jsw-messages="'validationErrors'|loc"
 				validation-errors="{{ 'validationErrors' | loc }}" 
-				required>
 
+				required>
+{{signupForm.retype.$error}}
+			<div 
+				ng-messages="signupForm.retype.$error" 
+				jsw-messages-include="'validationErrors' | loc"
+				template="<div class='alert alert-danger' role='alert'></div>"
+				>
+			</div>
 			<input 
 				class="jsw-input  tooltip-danger"
 				type="email" 
