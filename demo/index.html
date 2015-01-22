@@ -59,11 +59,9 @@
 					data-ng-pattern="/^\s*\w*\s*$/"
 					data-ng-pattern-error-message="only1word"
 					tooltip-placement="bottom"
-					data-jsw-validate-tooltip="{{ 'validationErrors' | loc }}" 
+					jsw-validate-tooltip="{{ 'validationErrors' | loc }}" 
 					required>
-
 			</div>
-
 			<div 
 				ng-messages="signupForm.username.$error" 
 				jsw-messages-include="'validationErrors' | loc"
@@ -77,12 +75,11 @@
 				name="retype" 
 				placeholder="retype user name"
 				ng-model="retype"
-//				icon-l="glyphicon glyphicon-user"
-				tooltip-placement="bottom"
+				icon-l="glyphicon glyphicon-user"
+				tooltip-placement="top"
 				jsw-missmatch="user.username"
 				jsw-messages="'validationErrors'|loc"
-				validation-errors="{{ 'validationErrors' | loc }}" 
-
+				jsw-validate-tooltip="{{ 'validationErrors' | loc }}" 
 				required>
 			<div 
 				ng-messages="signupForm.retype.$error" 
@@ -91,40 +88,25 @@
 				>
 			</div>
 			<input 
-				class="jsw-input  tooltip-danger"
+				class="jsw-input tooltip-danger"
 				type="email" 
 				name="email"
 				placeholder="email"
-				ng-model="retype"
+				ng-model="user.email"
 				label="test label"
 				help-block="help for test"
 				minlength="7"
 				icon-l="glyphicon glyphicon-envelope"
 				addon-r="@"
+				jsw-messages="'validationErrors'|loc"
+				jsw-validate-tooltip="{{ 'validationErrors' | loc }}" 
 				required>
-
-
-						<input 
-							jsw-input
-							name="test"
-							type="text"
-							ng-model="model"
-							minlength="3"
-							required
-							/>
-<!-- 				<div class="form-group">
-						<input 
-							name="test"
-							type="text"
-							class="form-control"
-							ng-model="model"
-							minlength="3"
-							required
-							/>
-				</div>
- -->
-{{signupForm.test.$error}}
-{{model}}
+			<div 
+				ng-messages="signupForm.email.$error" 
+				jsw-messages-include="'validationErrors' | loc"
+				template="<div class='alert alert-danger' role='alert'></div>"
+				>
+			</div>
 		</form>
 
 		<div class="alert alert-danger margin-vertical-10"

@@ -5,8 +5,8 @@ var waitReady = require('../helpers/wait-ready.js');
 
 var IndexPageObject = function() {
 	this.username = element( by.model('user.username') );
-	this.email =  element( by.css('input[ng-model="user.email"]') );
-	this.retype =  element( by.css('input[ng-model="retype"]') );
+	this.email =  element( by.model( 'user.email' ) );
+	this.retype =  element( by.model('retype') );
 
 	this.tooltip = function(){
 		return element( by.css('.tooltip-inner') );

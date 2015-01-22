@@ -127,11 +127,11 @@ describe('jswInput directive', function() {
 		expect(	el.hasClass('form-group') ).toBeTruthy();
 		expect( divInputGroup.hasClass('input-group')).toBeTruthy();
 
-		expect( addonL.prop('tagName')).toBeTruthy('SPAN');
+		expect( addonL.prop('tagName')).toBe('SPAN');
 		expect( addonL.find('i').hasClass('fa-arrow-left') ).toBeTruthy();
 		expect( addonL.text() ).toBeFalsy();
 
-		expect( addonR.prop('tagName')).toBeTruthy('SPAN');
+		expect( addonR.prop('tagName')).toBe('SPAN');
 		expect( addonR.find('i').lenght ).toBeFalsy();
 		expect( addonR.text() ).toBe('right');
 	});
@@ -165,11 +165,11 @@ describe('jswInput directive', function() {
 		expect(	el.hasClass('form-group') ).toBeTruthy();
 		expect( divInputGroup.hasClass('input-group')).toBeTruthy();
 
-		expect( addonL.prop('tagName')).toBeTruthy('SPAN');
+		expect( addonL.prop('tagName')).toBe('SPAN');
 		expect( addonL.find('i').hasClass('fa-arrow-left') ).toBeTruthy();
 		expect( addonL.text() ).toBeFalsy();
 
-		expect( addonR.prop('tagName')).toBeTruthy('SPAN');
+		expect( addonR.prop('tagName')).toBe('SPAN');
 		expect( addonR.find('i').lenght ).toBeFalsy();
 		expect( addonR.text() ).toBe('right');
 
@@ -247,5 +247,118 @@ describe('jswInput directive', function() {
 			expect(	scope.testForm.test.$error.required ).toBeFalsy();
 			expect(	scope.testForm.test.$error.minlength ).toBeTruthy();
 		});
+	});
+
+	describe('uses jsw-messages', function(){
+		it('has messages directive and shows no error', function() {
+			var elmHtml = [
+					'<form name="testForm" novalidate>',
+					'	<input ',
+					'		class="jsw-input" ',
+					'		name="test"',
+					'		type="text"',
+					'		placeholder="placeholder for test"',
+					'		ng-model="model"',
+					'		label="testLabel"',
+					'		help-block="help for test"',
+					'		icon-l="fa fa-arrow-left"',
+					'		addon-r="right"',
+					'		jsw-messages="{minlength:\'minlength message\'", required::\'required message\'"}',
+					'		/>',
+					'</form>',
+					''].join('\n');
+
+			var el = compile( scope, elmHtml ).children().first();
+
+			var label = el.children().first();
+			var divInputGroup = label.next();
+			var addonL = divInputGroup.children().first();
+			var input = addonL.next();
+			var addonR = input.next();
+			var helpBlock = el.children().last();
+			var messages = helpBlock.prev();
+
+			checkBasics( input );
+ 
+			expect(	el.hasClass('form-group') ).toBeTruthy();
+			expect( divInputGroup.hasClass('input-group')).toBeTruthy();
+			expect( messages.prop('tagName') ).toBe('NG-MESSAGES');
+
+			expect( addonL.prop('tagName')).toBe('SPAN');
+			expect( addonL.find('i').hasClass('fa-arrow-left') ).toBeTruthy();
+			expect( addonL.text() ).toBeFalsy();
+
+			expect( addonR.prop('tagName')).toBe('SPAN');
+			expect( addonR.find('i').lenght ).toBeFalsy();
+			expect( addonR.text() ).toBe('right');
+
+			expect( label.prop('tagName') ).toBe('LABEL');
+			expect( helpBlock.hasClass('help-block')).toBeTruthy(); 
+
+			expect( label.html() ).toBe('testLabel');
+			expect( helpBlock.html() ).toBe('help for test');
+
+			expect( messages.children().length ).toBe(0);
+		});
+
+		xit('shows required error', function() {
+			var elmHtml = [
+					'<form name="testForm" novalidate>',
+					'	<input ',
+					'		class="jsw-input" ',
+					'		name="test"',
+					'		type="text"',
+					'		ng-model="model"',
+					'		jsw-messages="validationMessages"',
+					'		required',
+					'		/>',
+					'</form>',
+					''].join('\n');
+
+			scope.validationMessages = {
+				minlength: 'minlength message',
+				required: 'required message'
+			};
+			var el = compile( scope, elmHtml ).children().first();
+			var messages = el.children().last();
+
+			expect( messages.prop('tagName') ).toBe('NG-MESSAGES');
+
+			expect(	scope.testForm.test.$error.required ).toBeTruthy();
+			expect( messages.children().length ).toBeGreaterThan(0);
+			expect( messages.children().attr('ng-message') ).toBe('required');
+		});
+
+		xit('shows minlength error', function() {
+			var elmHtml = [
+					'<form name="testForm" novalidate>',
+					'	<input ',
+					'		class="jsw-input" ',
+					'		name="test"',
+					'		type="text"',
+					'		ng-model="model"',
+					'		jsw-messages="validationMessages"',
+					'		minlength="3"',
+					'		required',
+					'		/>',
+					'</form>',
+					''].join('\n');
+
+			scope.validationMessages = {
+				minlength: 'minlength message',
+				required: 'required message'
+			};
+			scope.model='a';
+			var el = compile( scope, elmHtml ).children().first();
+			var messages = el.children().last();
+
+			expect( messages.prop('tagName') ).toBe('NG-MESSAGES');
+
+			expect(	scope.testForm.test.$error.required ).toBeFalsy();
+			expect(	scope.testForm.test.$error.minlength ).toBeTruthy();
+			expect( messages.children().length ).toBeGreaterThan(0);
+			expect( messages.children().attr('ng-message') ).toBe('minlength');
+		});
+
 	});
 });
