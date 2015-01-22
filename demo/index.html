@@ -77,7 +77,7 @@
 				name="retype" 
 				placeholder="retype user name"
 				ng-model="retype"
-				icon-l="glyphicon glyphicon-user"
+//				icon-l="glyphicon glyphicon-user"
 				tooltip-placement="bottom"
 				jsw-missmatch="user.username"
 				jsw-messages="'validationErrors'|loc"
@@ -97,13 +97,15 @@
 				placeholder="email"
 				ng-model="retype"
 				label="test label"
+				help-block="help for test"
 				minlength="7"
-				icon="glyphicon glyphicon-envelope"
+				icon-l="glyphicon glyphicon-envelope"
+				addon-r="@"
 				required>
 
 
 						<input 
-							class="jsw-input"
+							jsw-input
 							name="test"
 							type="text"
 							ng-model="model"
@@ -112,6 +114,7 @@
 							/>
 
 {{signupForm.test.$error}}
+{{model}}
 		</form>
 
 		<div class="alert alert-danger margin-vertical-10"

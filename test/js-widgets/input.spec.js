@@ -33,7 +33,7 @@ describe('jswInput directive', function() {
 		expect( inputElm.prop('tagName') ).toBe('INPUT');
 	};
 
-	it('has basic attributes and classes', function() {
+	it('has basic attributes and classes as class', function() {
 		var elmHtml = [
 				'<input ',
 				'	class="jsw-input"',
@@ -44,6 +44,23 @@ describe('jswInput directive', function() {
 				'	/>',
 				''].join('\n');
 		var el = compile( scope, elmHtml );
+		var input = el.children();
+
+		checkBasics( input );
+		expect(	el.hasClass('form-group') ).toBeTruthy();
+	});
+
+	it('has basic attributes and classes as attribute', function() {
+		var elmHtml = [
+				'<input ',
+				'	jsw-input',
+				'	name="test"',
+				'	type="text"',
+				'	placeholder="placeholder for test"',
+				'	ng-model="model"',
+				'	/>',
+				''].join('\n');
+		var el = compile( scope, elmHtml ); 
 		var input = el.children();
 
 		checkBasics( input );
@@ -79,7 +96,7 @@ describe('jswInput directive', function() {
 		expect( helpBlock.html() ).toBe('help for test');
 	});
 
-	it('has external decorators', function() {
+	it('has interal decorators', function() {
 		var elmHtml = [
 				'<input ',
 				'	class="jsw-input" ',
@@ -110,6 +127,50 @@ describe('jswInput directive', function() {
 		expect( addonR.prop('tagName')).toBeTruthy('SPAN');
 		expect( addonR.find('i').lenght ).toBeFalsy();
 		expect( addonR.text() ).toBe('right');
+	});
+
+	it('has internal with external decorators', function() {
+		var elmHtml = [
+				'<input ',
+				'	class="jsw-input" ',
+				'	name="test"',
+				'	type="text"',
+				'	placeholder="placeholder for test"',
+				'	ng-model="model"',
+				'	label="testLabel"',
+				'	help-block="help for test"',
+				'	icon-l="fa fa-arrow-left"',
+				'	addon-r="right"',
+				'	/>',
+				''].join('\n');
+
+		var el = compile( scope, elmHtml );
+
+		var label = el.children().first();
+		var divInputGroup = label.next();
+		var addonL = divInputGroup.children().first();
+		var input = addonL.next();
+		var addonR = input.next();
+		var helpBlock = el.children().last();
+
+		checkBasics( input );
+
+		expect(	el.hasClass('form-group') ).toBeTruthy();
+		expect( divInputGroup.hasClass('input-group')).toBeTruthy();
+
+		expect( addonL.prop('tagName')).toBeTruthy('SPAN');
+		expect( addonL.find('i').hasClass('fa-arrow-left') ).toBeTruthy();
+		expect( addonL.text() ).toBeFalsy();
+
+		expect( addonR.prop('tagName')).toBeTruthy('SPAN');
+		expect( addonR.find('i').lenght ).toBeFalsy();
+		expect( addonR.text() ).toBe('right');
+
+		expect( label.prop('tagName') ).toBe('LABEL');
+		expect( helpBlock.hasClass('help-block')).toBeTruthy(); 
+
+		expect( label.html() ).toBe('testLabel');
+		expect( helpBlock.html() ).toBe('help for test');
 	});
 
 
@@ -168,14 +229,14 @@ describe('jswInput directive', function() {
 					'		/>',
 					'</form>',
 					''].join('\n');
-			var el = compile( scope, elmHtml );
+			compile( scope, elmHtml );
 
 			expect(	scope.testForm.test.$error.required ).toBeTruthy();
 			expect(	scope.testForm.test.$error.minlength ).toBeFalsy();
 			scope.$apply(function(){
 				scope.model='ok';
 			});
-console.log(scope.testForm.test.$error)
+
 			expect(	scope.testForm.test.$error.required ).toBeFalsy();
 			expect(	scope.testForm.test.$error.minlength ).toBeTruthy();
 		});
