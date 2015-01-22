@@ -84,7 +84,6 @@
 				validation-errors="{{ 'validationErrors' | loc }}" 
 
 				required>
-{{signupForm.retype.$error}}
 			<div 
 				ng-messages="signupForm.retype.$error" 
 				jsw-messages-include="'validationErrors' | loc"
@@ -94,13 +93,25 @@
 			<input 
 				class="jsw-input  tooltip-danger"
 				type="email" 
+				name="email"
 				placeholder="email"
-				ng-model="user.email"
+				ng-model="retype"
 				label="test label"
+				minlength="7"
 				icon="glyphicon glyphicon-envelope"
-				tooltip-placement="bottom"
-				validation-errors="{{ 'validationErrors' | loc }}" 
 				required>
+
+
+						<input 
+							class="jsw-input"
+							name="test"
+							type="text"
+							ng-model="model"
+							minlength="3"
+							required
+							/>
+
+{{signupForm.test.$error}}
 		</form>
 
 		<div class="alert alert-danger margin-vertical-10"

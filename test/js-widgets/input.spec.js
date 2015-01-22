@@ -26,6 +26,7 @@ describe('jswInput directive', function() {
 	var checkBasics = function( inputElm ) {
 		expect( inputElm.hasClass('jsw-input')).toBeFalsy();
 		expect( inputElm.attr('name') ).toBe('test');
+		expect( inputElm.attr('type') ).toBe('text');
 		expect( inputElm.attr('placeholder') ).toBe('placeholder for test');
 		expect( inputElm.attr('ng-model') ).toBe('model');
 		expect( inputElm.hasClass('form-control')).toBeTruthy();
@@ -37,6 +38,7 @@ describe('jswInput directive', function() {
 				'<input ',
 				'	class="jsw-input"',
 				'	name="test"',
+				'	type="text"',
 				'	placeholder="placeholder for test"',
 				'	ng-model="model"',
 				'	/>',
@@ -50,15 +52,16 @@ describe('jswInput directive', function() {
 
 	it('has external decorators', function() {
 		var elmHtml = [
-					'<input ',
-					'	class="jsw-input" ',
-					'	name="test"',
-					'	placeholder="placeholder for test"',
-					'	ng-model="model"',
-					'	label="testLabel" ',
-					'	help-block="help for test"',
-					'	/>',
-					''].join('\n');
+				'<input ',
+				'	class="jsw-input" ',
+				'	name="test"',
+				'	type="text"',
+				'	placeholder="placeholder for test"',
+				'	ng-model="model"',
+				'	label="testLabel" ',
+				'	help-block="help for test"',
+				'	/>',
+				''].join('\n');
 
 		var el = compile( scope, elmHtml );
 		var label = el.children();
@@ -81,6 +84,7 @@ describe('jswInput directive', function() {
 				'<input ',
 				'	class="jsw-input" ',
 				'	name="test"',
+				'	type="text"',
 				'	placeholder="placeholder for test"',
 				'	ng-model="model"',
 				'	icon-l="fa fa-arrow-left"',
@@ -106,5 +110,74 @@ describe('jswInput directive', function() {
 		expect( addonR.prop('tagName')).toBeTruthy('SPAN');
 		expect( addonR.find('i').lenght ).toBeFalsy();
 		expect( addonR.text() ).toBe('right');
+	});
+
+
+	describe('Form validators', function() {
+
+		// beforeEach( module('jsWidgets.messages') );
+		// beforeEach( module('ngMessages') );
+
+		it('does not produce errors', function() {
+			var elmHtml = [
+					'<form name="testForm" novalidate>',
+					'	<input ',
+					'		class="jsw-input"',
+					'		name="test"',
+					'		type="text"',
+					'		ng-model="model"',
+					'		/>',
+					'</form>',
+					''].join('\n');
+			compile( scope, elmHtml );
+
+			expect(	scope.testForm.test.$error ).toEqual({});
+		});
+
+		it('responds to required error', function() {
+			var elmHtml = [
+					'<form name="testForm" novalidate>',
+					'	<input ',
+					'		class="jsw-input"',
+					'		name="test"',
+					'		type="text"',
+					'		ng-model="model"',
+					'		required',
+					'		/>',
+					'</form>',
+					''].join('\n');
+			compile( scope, elmHtml );
+
+			expect(	scope.testForm.test.$error.required ).toBeTruthy();
+			scope.$apply(function(){
+				scope.model='ok';
+			});
+			expect(	scope.testForm.test.$error.required ).toBeFalsy();
+		});
+
+		it('responds to required and minlength error', function() {
+			var elmHtml = [
+					'<form name="testForm" novalidate>',
+					'	<input ',
+					'		class="jsw-input"',
+					'		name="test"',
+					'		type="text"',
+					'		ng-model="model"',
+					'		minlength="3"',
+					'		required',
+					'		/>',
+					'</form>',
+					''].join('\n');
+			var el = compile( scope, elmHtml );
+
+			expect(	scope.testForm.test.$error.required ).toBeTruthy();
+			expect(	scope.testForm.test.$error.minlength ).toBeFalsy();
+			scope.$apply(function(){
+				scope.model='ok';
+			});
+console.log(scope.testForm.test.$error)
+			expect(	scope.testForm.test.$error.required ).toBeFalsy();
+			expect(	scope.testForm.test.$error.minlength ).toBeTruthy();
+		});
 	});
 });
