@@ -23,6 +23,14 @@ describe('jswInput directive', function() {
 		scope = _$rootScope_;
 	}));
 
+	var findRootParent = function( element ){
+		var parent = element.parent();
+		while( parent.length && !parent.hasClass('form-group') ){
+			parent = parent.parent();
+		}
+		return parent;
+	};
+
 	var checkBasics = function( inputElm ) {
 		expect( inputElm.hasClass('jsw-input')).toBeFalsy();
 		expect( inputElm.attr('name') ).toBe('test');
@@ -33,7 +41,7 @@ describe('jswInput directive', function() {
 		expect( inputElm.prop('tagName') ).toBe('INPUT');
 	};
 
-	it('has basic attributes and classes as class', function() {
+	it('has basic attributes and classes when declared in class', function() {
 		var elmHtml = [
 				'<input ',
 				'	class="jsw-input"',
@@ -43,24 +51,24 @@ describe('jswInput directive', function() {
 				'	ng-model="model"',
 				'	/>',
 				''].join('\n');
-		var el = compile( scope, elmHtml );
+		var el = findRootParent( compile( scope, elmHtml ) );
 		var input = el.children();
 
 		checkBasics( input );
 		expect(	el.hasClass('form-group') ).toBeTruthy();
 	});
 
-	it('has basic attributes and classes as attribute', function() {
+	it('has basic attributes and classes when declared in attribute', function() {
 		var elmHtml = [
 				'<input ',
 				'	jsw-input',
-				'	name="test"',
+				'	name="test"', 
 				'	type="text"',
 				'	placeholder="placeholder for test"',
 				'	ng-model="model"',
 				'	/>',
 				''].join('\n');
-		var el = compile( scope, elmHtml ); 
+		var el = findRootParent( compile( scope, elmHtml ) );
 		var input = el.children();
 
 		checkBasics( input );
@@ -79,12 +87,11 @@ describe('jswInput directive', function() {
 				'	help-block="help for test"',
 				'	/>',
 				''].join('\n');
+		var el = findRootParent( compile( scope, elmHtml ) );
 
-		var el = compile( scope, elmHtml );
 		var label = el.children();
 		var input = label.next();
 		var helpBlock = input.next();
-
 
 		checkBasics( input );
 		expect(	el.hasClass('form-group') ).toBeTruthy();
@@ -96,7 +103,7 @@ describe('jswInput directive', function() {
 		expect( helpBlock.html() ).toBe('help for test');
 	});
 
-	it('has interal decorators', function() {
+	it('has internal decorators', function() {
 		var elmHtml = [
 				'<input ',
 				'	class="jsw-input" ',
@@ -109,7 +116,7 @@ describe('jswInput directive', function() {
 				'	/>',
 				''].join('\n');
 
-		var el = compile( scope, elmHtml );
+		var el = findRootParent( compile( scope, elmHtml ) );
 		var divInputGroup = el.children().first();
 		var addonL = divInputGroup.children().first();
 		var input = addonL.next();
@@ -144,7 +151,7 @@ describe('jswInput directive', function() {
 				'	/>',
 				''].join('\n');
 
-		var el = compile( scope, elmHtml );
+		var el = findRootParent( compile( scope, elmHtml ) );
 
 		var label = el.children().first();
 		var divInputGroup = label.next();
