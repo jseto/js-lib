@@ -97,14 +97,13 @@ describe('jswValidateTooltip directive', function(){
 });
 
 describe('jswInput directive',function(){
-//TODO: a protractor locator for jswInput to be used like element( by.jswInput( 'my.model.name' ) )
 
 	beforeEach(function(){
 		indexPage.email.clear();
 	});
 
-	it('Should set value and change model', function () {
-		indexPage.email.sendKeys('foo@bar.com');
+	it('Should set value and change model', function() {
+		indexPage.mySendKeys( indexPage.email, 'foo@bar.com' );
 
 		expect(	
 			indexPage.email.getAttribute('value') 
@@ -116,7 +115,7 @@ describe('jswInput directive',function(){
 	});
 
 	it('should not show tooltip', function(){
-		indexPage.email.sendKeys('foo@bar.com');
+		indexPage.mySendKeys( indexPage.email, 'foo@bar.com' );
 
 		expect( 
 			element( by.css('.tooltip') ).isPresent() 
@@ -124,7 +123,8 @@ describe('jswInput directive',function(){
 	});
 
 	it('should show tooltip with email error message', function(){
-		indexPage.email.sendKeys( 'foo@bar.co', protractor.Key.BACK_SPACE );		
+		indexPage.mySendKeys( indexPage.email, 'foo@bar.co' );
+		indexPage.email.sendKeys( protractor.Key.BACK_SPACE );		
 		
 		expect( 
 			indexPage.waitTooltip()
@@ -136,7 +136,7 @@ describe('jswInput directive',function(){
 	});
 
 	it('should hide tooltip after entering correct field', function(){
-		indexPage.email.sendKeys('foo@bar.co');
+		indexPage.mySendKeys( indexPage.email, 'foo@bar.co' );
 
 		expect(	// foo@bar.co
 			indexPage.email.getAttribute('value') 
@@ -162,7 +162,7 @@ describe('jswMissmatch directive', function() {
 	it('should be invalid when not match', function() {
 		indexPage.username.clear();
 		indexPage.username.sendKeys('match_this');
-		indexPage.retype.sendKeys('match_this but not now');
+		indexPage.mySendKeys( indexPage.retype, 'match_this but not now');
 		expect(
 			indexPage.waitTooltip()
 		).toBeTruthy();

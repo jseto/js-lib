@@ -19,6 +19,13 @@ var IndexPageObject = function() {
 	this.waitTooltipAbsent = function() {
 		return this.tooltip().waitAbsent();
 	};
+
+	this.mySendKeys = function( inputEl, str ) {
+		//workaround for firefox when jsw-input shows error message
+		for ( var i=0; i<str.length; ++i ) {
+			inputEl.sendKeys( str[i] );
+		}
+	};
 };
 
 module.exports = new IndexPageObject();
