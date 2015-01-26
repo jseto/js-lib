@@ -7,18 +7,32 @@ var clientPath = path.resolve(__dirname, '../');
 
 var inst = require('instant');
 var instant = inst();
-app.use( instant.add( clientPath + '/lib' ) );
+app.use( '/lib', instant.add( clientPath + '/lib' ) );
 app.use( instant.add( clientPath + '/demo' ) );
 
-/*var instant = require('instant');
-app.use( instant( clientPath + '/lib' ) );
-app.use( instant( clientPath + '/demo' ) );
-*/
-app.start = function(port) {
+var instance = null;
+
+app.start = function(port, callback) {
+  port = port || 3000;
   // start the web server
-  return app.listen(port,function() {
+  instance = app.listen(port,function( result ) {
     console.log('Web server listening at: %s', port);
+    if (callback) {
+    	callback( result );
+    }
   });
+  return instance;
+};
+
+app.stop = function(){
+	if (instance){
+		console.log('Shutting down web server');
+		instance.close();
+	}
+	else { 
+
+		throw 'instance is null';
+	}
 };
 
 // start the server if `$ node server.js`

@@ -15,6 +15,8 @@ angular.module('myApp', [
 	LocaleProvider.setLocalePath('locale/');
 })
 
+.constant( 'JSLIB_TEMPLATE_PATH', 'lib/js-widgets/templates/' )
+
 .controller( 'AppCtrl', function ( $scope, locFilter, ConferenceRoom ) {
 	var room = null;
 
