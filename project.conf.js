@@ -8,7 +8,8 @@ var path = {
 	server: basePath + '/demo/',
 	test: basePath + '/test/',
 	lib: basePath + '/lib/',
-	bower: basePath + '/demo/bower_components/'
+	bower: basePath + '/demo/bower_components/',
+	docs: basePath + '/docs/'
 };
 
 module.exports = {
@@ -22,6 +23,9 @@ module.exports = {
 			path.lib + '**/*.js',
 			path.lib + '**/*.html',
 			path.lib + '**/*.css'
+		],
+		docFiles: [
+			path.lib + '**/*.js'
 		]
 	},
 	test:{
