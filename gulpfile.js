@@ -41,7 +41,3 @@ gulp.task('pristine', ['clean'], function( done ){
         });        
     });
 });
-
-gulp.task('res',function(){
-    console.log(process.argv.slice(3)[0])
-});
