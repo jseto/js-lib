@@ -16,8 +16,13 @@ gulp.task('test:unit', function (done) {
 	var opts = {
 		configFile: path.test + 'karma.conf.js',
 		singleRun: true,
-		autoWatch: false
+		autoWatch: false,
+	    reporters: [
+	    	'progress',
+    		'coverage'
+    	],
 	};
+
 	var cliOption = process.argv.slice(3)[0];
 	if ( cliOption ){
 		opts.browsers = [ cliOption.slice( cliOption.lastIndexOf('-')+1 ) ];

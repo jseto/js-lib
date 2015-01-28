@@ -9,7 +9,8 @@ var path = {
 	test: basePath + '/test/',
 	lib: basePath + '/lib/',
 	bower: basePath + '/demo/bower_components/',
-	docs: basePath + '/docs/'
+	docs: basePath + '/docs/',
+	coverage: basePath + '/coverage/'
 };
 
 module.exports = {

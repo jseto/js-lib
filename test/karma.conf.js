@@ -3,6 +3,10 @@
 var project = require('../project.conf.js');
 
 module.exports = function(config){
+  var preprocessors = {};
+  preprocessors[ project.path.test + '**/*.html'] = 'ng-html2js';
+  preprocessors[ project.path.lib + '**/*.js' ] = 'coverage';
+
   config.set({
 
     basePath : project.path.base,
@@ -15,9 +19,7 @@ module.exports = function(config){
 
     files : project.test.unit.files,
  
-    preprocessors: {
-      'test/**/*.html': 'ng-html2js'
-    },
+    preprocessors: preprocessors,
 
     autoWatch : true,
 
@@ -31,12 +33,20 @@ module.exports = function(config){
             'karma-jasmine',
             'karma-junit-reporter',
             'karma-beep-reporter',
+            'karma-coverage',
             'karma-ng-html2js-preprocessor'
             ],
 
     junitReporter : {
       outputFile: 'test_out/unit.xml',
       suite: 'unit'
+    },
+    coverageReporter: {
+      // specify a common output directory
+      dir: project.path.coverage,
+      reporters: [
+        { type: 'lcov', subdir: 'report-lcov' },
+      ]
     }
 
   });

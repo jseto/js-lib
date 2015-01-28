@@ -9,10 +9,14 @@ var del = require('del');
 var docs = require('gulp-ngdocs');
 var gutil = require('gulp-util');
 
-gulp.task('clean', ['clean:docs']);
+gulp.task('clean', [ 'clean:docs', 'clean:coverage' ]);
 
 gulp.task('clean:docs', function( done ){
 	del( [ path.docs + '**'], done );
+});
+
+gulp.task('clean:coverage', function(done){
+	del( [ path.coverage + '**'], done );
 });
 
 gulp.task('docs', ['clean:docs'], function(){
