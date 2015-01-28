@@ -17,8 +17,16 @@ angular.module('myApp', [
 
 .constant( 'JSLIB_TEMPLATE_PATH', 'lib/js-widgets/templates/' )
 
-.controller( 'AppCtrl', function ( $scope, locFilter, ConferenceRoom ) {
+.controller( 'AppCtrl', function ( $scope, locFilter, ConferenceRoom, sprintfFilter ) {
 	var room = null;
+	$scope.minlenght = 3;
+
+	$scope.preprocessError = function( key, message ){
+		if (key == 'minlength'){
+			message = sprintfFilter( message, $scope.minlenght );
+		}
+		return message;
+	};
 
 	$scope.testVideoCall = function(){
 		room = new ConferenceRoom();
