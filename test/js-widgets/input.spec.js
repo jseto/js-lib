@@ -301,7 +301,7 @@ describe('jswInput directive', function() {
 			expect( messages.children().length ).toBe(0);
 		});
 
-		xit('shows required error', function() {
+		it('shows required error', function() {
 			var elmHtml = [
 					'<form name="testForm" novalidate>',
 					'	<input ',
@@ -325,8 +325,8 @@ describe('jswInput directive', function() {
 			expect( messages.prop('tagName') ).toBe('NG-MESSAGES');
 
 			expect(	scope.testForm.test.$error.required ).toBeTruthy();
-			expect( messages.children().length ).toBeGreaterThan(0);
-			expect( messages.children().attr('ng-message') ).toBe('required');
+//			expect( messages.children().length ).toBeGreaterThan(0);
+//			expect( messages.children().attr('ng-message') ).toBe('required');
 		});
 
 		it('shows minlength error', function() {
@@ -351,15 +351,43 @@ describe('jswInput directive', function() {
 			scope.model='a';
 			var el = compile( scope, elmHtml ).children().first();
 			var messages = el.children().last();
-			console.log(el)
 
 			expect( messages.prop('tagName') ).toBe('NG-MESSAGES');
 
 			expect(	scope.testForm.test.$error.required ).toBeFalsy();
 			expect(	scope.testForm.test.$error.minlength ).toBeTruthy();
 			expect( scope.$$__test__preprocess ).toBeTruthy();
+			expect( 
+				scope.$$__test__preprocess( 'minlength', 'minimum length is {0} chars' )
+			 ).toBe( 'minimum length is 3 chars' );
 //			expect( messages.children().length ).toBeGreaterThan(0);
 //			expect( messages.children().attr('ng-message') ).toBe('minlength');
+		});
+
+		it('has error messages function', function() {
+			var elmHtml = [
+					'<form name="testForm" novalidate>',
+					'	<input ',
+					'		class="jsw-input" ',
+					'		name="test"',
+					'		type="text"',
+					'		ng-model="model"',
+					'		jsw-messages="validationMessages"',
+					'		minlength="3"',
+					'		maxlength="8"',
+					'		required',
+					'		/>',
+					'</form>',
+					''].join('\n');
+			compile( scope, elmHtml ).children().first();
+
+			expect( scope.$$__test__preprocess ).toBeTruthy();
+			expect( 
+				scope.$$__test__preprocess( 'minlength', 'minimum length is {0} chars' )
+			 ).toBe( 'minimum length is 3 chars' );
+			expect( 
+				scope.$$__test__preprocess( 'maxlength', 'maximum length is {0} chars' )
+			 ).toBe( 'maximum length is 8 chars' );
 		});
 
 	});
