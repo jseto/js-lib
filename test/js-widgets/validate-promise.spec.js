@@ -11,7 +11,7 @@ describe('jswValidatePromise directive', function() {
 		return element;
 	};
 
-	beforeEach( module('jsWidgets.validatePromise') );
+	beforeEach( module('jsLib.widgets.validatePromise') );
 	
 	// Store references to $rootScope and $compile
 	// so they are available to all tests in this describe block

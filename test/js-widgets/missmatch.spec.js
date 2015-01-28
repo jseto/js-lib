@@ -11,7 +11,7 @@ describe('jswMissmatch directive', function() {
 		return element;
 	};
 
-	beforeEach( module('jsWidgets.missmatch') );
+	beforeEach( module('jsLib.widgets.missmatch') );
 	
 	// Store references to $rootScope and $compile
 	// so they are available to all tests in this describe block

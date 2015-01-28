@@ -11,7 +11,7 @@ describe('jswInput directive', function() {
 		return el;
 	};
 
-	beforeEach( module('jsWidgets.input') );
+	beforeEach( module('jsLib.widgets.input') );
 	// beforeEach( module('jsWidgets.messages') );
 	// beforeEach( module('ngMessages') );
 	

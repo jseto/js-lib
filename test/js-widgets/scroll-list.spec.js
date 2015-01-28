@@ -3,8 +3,8 @@
 describe('Select directive', function() {
 	var element, scope;
 
-	beforeEach(	module('jsWidgets') );
-	beforeEach(	module('jsWidgets.scrollList') );
+	beforeEach(	module('jsLib.widgets') );
+//	beforeEach(	module('jsWidgets.scrollList') );
 	beforeEach( module('jsLib.restModel') );
 	
 	// load the templates

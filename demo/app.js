@@ -4,9 +4,9 @@
 
 angular.module('myApp', [
 	'ngMessages',
-	'jsWidgets',
+	'jsLib.widgets',
 	'jsLib.locale',
-	'jsLib.conferenceRoom'
+	'jsLib.utils'
 ])
 
 .config( function( LocaleProvider ) {

@@ -11,8 +11,8 @@ describe('jswMessagesInclude directive', function() {
 		return el;
 	};
 
-	beforeEach( module('jsWidgets.messages') );
-	beforeEach( module('jsLib.sprintf') );
+	beforeEach( module('jsLib.widgets.messages') );
+	beforeEach( module('jsLib.utils.sprintf') );
 	beforeEach( module('ngMessages') );
 	
 	// Store references to $rootScope and $compile

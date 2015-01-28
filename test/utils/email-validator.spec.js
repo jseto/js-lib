@@ -4,7 +4,7 @@ describe('emailValidator', function() {
 
 	var emailValidatorFilter;
 
-	beforeEach(module('jsLib.emailValidator'));
+	beforeEach(module('jsLib.utils.emailValidator'));
 	beforeEach(inject(function($filter) {
 		emailValidatorFilter = $filter('emailValidator');
 	}));

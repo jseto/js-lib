@@ -4,7 +4,7 @@ describe('sprintf', function() {
 
 	var sprintfFilter;
 
-	beforeEach(module('jsLib.sprintf'));
+	beforeEach(module('jsLib.utils.sprintf'));
 	beforeEach(inject(function($filter) {
 		sprintfFilter = $filter('sprintf');
 	}));

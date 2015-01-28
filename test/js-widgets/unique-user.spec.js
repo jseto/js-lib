@@ -11,7 +11,7 @@ describe('jswUniqueUser directive', function() {
 		return element;
 	};
 
-	beforeEach( module('jsWidgets.uniqueUser') );
+	beforeEach( module('jsLib.widgets.uniqueUser') );
 	
 	// Store references to $rootScope and $compile
 	// so they are available to all tests in this describe block

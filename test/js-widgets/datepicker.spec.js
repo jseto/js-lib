@@ -3,7 +3,7 @@
 describe('Datepicker directive', function() {
 	var element, scope;
 
-	beforeEach(module('jsWidgets.datepicker'));
+	beforeEach(module('jsLib.widgets.datepicker'));
 	beforeEach(inject(function($rootScope, $compile) {
 		
 		element = angular.element([
