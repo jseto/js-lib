@@ -12,3 +12,10 @@ before_script:
 script:
   - node_modules/.bin/gulp test:unit --Firefox
   - node_modules/.bin/gulp test:e2e --firefox
+
+addons:
+  code_climate:
+    repo_token: 774caaec90af9ab4d41fa801d575a18b343bec1a09ed192acb3652943a17c43f
+
+after_script:
+  - cat coverage/report-lcov/lcov.info | node_modules/.bin/codeclimate
