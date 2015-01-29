@@ -325,6 +325,7 @@ describe('jswInput directive', function() {
 			expect( messages.prop('tagName') ).toBe('NG-MESSAGES');
 
 			expect(	scope.testForm.test.$error.required ).toBeTruthy();
+			expect( scope.testForm.test.$error ).toEqual( scope.$$__test__getError() );
 //			expect( messages.children().length ).toBeGreaterThan(0);
 //			expect( messages.children().attr('ng-message') ).toBe('required');
 		});
@@ -389,6 +390,33 @@ describe('jswInput directive', function() {
 				scope.$$__test__preprocess( 'maxlength', 'maximum length is {0} chars' )
 			 ).toBe( 'maximum length is 8 chars' );
 		});
+	});
 
+	describe( 'behaves well without form tag', function() {
+		it('shows required error', function() {
+			var elmHtml = [
+					'<div>',
+					'	<input ',
+					'		class="jsw-input" ',
+					'		name="test"',
+					'		type="text"',
+					'		ng-model="model"',
+					'		jsw-messages="validationMessages"',
+					'		required',
+					'		/>',
+					'</div>',
+					''].join('\n');
+
+			scope.validationMessages = {
+				minlength: 'minlength message',
+				required: 'required message'
+			};
+			var el = compile( scope, elmHtml ).children().first();
+			var messages = el.children().last();
+
+			expect( messages.prop('tagName') ).toBe('NG-MESSAGES');
+
+			expect(	scope.$$__test__getError() ).toEqual({});
+		});
 	});
 });
