@@ -23,7 +23,7 @@ gulp.task('browser-sync', function() {
     });
 });
 
-gulp.task('serve:browser-sync', ['browser-sync'], function(){
+gulp.task('server:reload', ['browser-sync'], function(){
 	gulp.watch(	project.watch.servedFiles, browserSync.reload );
 });
 

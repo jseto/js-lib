@@ -7,6 +7,7 @@ var IndexPageObject = function() {
 	this.username = element( by.model( 'user.username' ) );
 	this.email =  element( by.model( 'user.email' ) );
 	this.retype =  element( by.model( 'retype' ) );
+	this.email.errorAlert = element( by.css( 'div[ng-messages="signupForm.email.$pristine? {} : signupForm.email.$error"] > .alert') );
 
 	this.tooltip = function(){
 		return element( by.css('.tooltip-inner') );

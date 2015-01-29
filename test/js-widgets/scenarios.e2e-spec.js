@@ -4,7 +4,7 @@ var indexPage = require('./index-pageobject.js');
 
 browser.get('/');
 
-describe('jswValidateTooltip directive', function(){
+xdescribe('jswValidateTooltip directive', function(){
 
 
 	beforeEach(function(){
@@ -102,7 +102,7 @@ describe('jswInput directive',function(){
 		indexPage.email.clear();
 	});
 
-	it('Should set value and change model', function() {
+	xit('Should set value and change model', function() {
 		indexPage.mySendKeys( indexPage.email, 'foo@bar.com' );
 
 		expect(	
@@ -114,7 +114,7 @@ describe('jswInput directive',function(){
 		).toBe( 'foo@bar.com' );
 	});
 
-	describe('tooltip',function(){
+	xdescribe('tooltip',function(){
 		it('should not show tooltip', function(){
 			indexPage.mySendKeys( indexPage.email, 'foo@bar.com' );
 
@@ -157,52 +157,52 @@ describe('jswInput directive',function(){
 		});
 	});	
 
-	describe('jswMessages', function(){
-		it('should not show messages', function(){
+	describe('ngMessages alert', function(){
+		it('should not show messages when untouched', function(){
+//			indexPage.mySendKeys( indexPage.email, 'foo@bar.com' );
+
+			expect( 
+				indexPage.email.errorAlert.isPresent() 
+			).toBeFalsy();
+		});
+
+		it('should show messages when email error', function(){
+			indexPage.mySendKeys( indexPage.email, 'foo' );
+
+
+			expect( 
+				indexPage.email.errorAlert.isPresent() 
+			).toBeTruthy();
+
+			expect( 
+				indexPage.email.errorAlert.getText() 
+			).toBe('L\'adreça de correu no es correcta');
+		});
+
+		it('should show minlength error message', function(){
+			indexPage.mySendKeys( indexPage.email, 'f@b.co' );
+			
+			expect( 
+				indexPage.email.errorAlert.isPresent() 
+			).toBeTruthy();
+
+			expect( 
+				indexPage.email.errorAlert.getText() 
+			).toBe('Ha de tenir 8 caràcters com a mínim');
+		});
+
+		it('should hide alert after entering correct field', function(){
+			indexPage.email.clear();
 			indexPage.mySendKeys( indexPage.email, 'foo@bar.com' );
 
 			expect( 
-				indexPage.email.all( by.css('ng-messages') ).count() 
-			).toBe(0);
+				indexPage.email.errorAlert.isPresent() 
+			).toBeFalsy();
 		});
-/*
-
-		it('should show email error message', function(){
-			indexPage.mySendKeys( indexPage.email, 'foo@bar.co' );
-			indexPage.email.sendKeys( protractor.Key.BACK_SPACE );		
-			
-			expect( 
-				indexPage.waitTooltip()
-			).toBeTruthy();
-			
-			expect( 
-				indexPage.tooltip().getText() 
-			).toMatch( 'L\'adreça de correu no es correcta' );
-		});
-
-		it('should hide tooltip after entering correct field', function(){
-			indexPage.mySendKeys( indexPage.email, 'foo@bar.co' );
-
-			expect(	// foo@bar.co
-				indexPage.email.getAttribute('value') 
-			).toBe( 'foo@bar.co' );
-
-			indexPage.email.sendKeys( protractor.Key.BACK_SPACE );
-
-			expect( // foo@bar.c
-				indexPage.waitTooltip()
-			).toBeTruthy();
-
-			indexPage.email.sendKeys( 'om' );
-
-			expect( // foo@bar.com
-				indexPage.waitTooltipAbsent()
-			).toBeTruthy();
-		});
-*/	});
+	});
 });
 
-describe('jswMissmatch directive', function() {
+xdescribe('jswMissmatch directive', function() {
 
 	it('should be invalid when not match', function() {
 		indexPage.username.clear();

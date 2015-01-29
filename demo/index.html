@@ -56,7 +56,7 @@
 					placeholder="user name"  
 					name="username"
 					ng-model="user.username"
-					data-ng-minlength="{{minlenght}}"
+					data-ng-minlength="3"
 					data-ng-pattern="/^\s*\w*\s*$/" 
 					data-ng-pattern-error-message="only1word"
 					tooltip-placement="bottom"
@@ -104,11 +104,13 @@
 				jsw-validate-tooltip="{{ 'validationErrors' | loc }}" 
 				required>
 			<div 
-				ng-messages="signupForm.email.$error" 
+				ng-messages="signupForm.email.$pristine? {} : signupForm.email.$error" 
 				jsw-messages-include="'validationErrors' | loc"
 				template="<div class='alert alert-danger' role='alert'></div>"
+				jsw-preprocess-msg="preprocessErrorEmail"
 				>
 			</div>
+
 		</form>
 
 		<div class="alert alert-danger margin-vertical-10"

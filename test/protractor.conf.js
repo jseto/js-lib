@@ -36,7 +36,7 @@ exports.config = {
     var reporter = require('jasmine-reporters');
     // add jasmine spec reporter
     jasmine.getEnv().addReporter(new reporter.TerminalReporter({
-            verbosity: 3,
+            verbosity: 2,
             color: true
         }));
   }

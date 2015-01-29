@@ -19,11 +19,17 @@ angular.module('myApp', [
 
 .controller( 'AppCtrl', function ( $scope, locFilter, ConferenceRoom, sprintfFilter ) {
 	var room = null;
-	$scope.minlenght = 3;
 
 	$scope.preprocessError = function( key, message ){
 		if (key == 'minlength'){
-			message = sprintfFilter( message, $scope.minlenght );
+			message = sprintfFilter( message, 3 );
+		}
+		return message;
+	};
+
+	$scope.preprocessErrorEmail = function( key, message ){
+		if (key == 'minlength'){
+			message = sprintfFilter( message, 8 );
 		}
 		return message;
 	};
