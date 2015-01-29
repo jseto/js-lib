@@ -82,14 +82,15 @@ gulp.task( 'test', function( done ){
 gulp.task('webdriver-update', protractorInst.webdriver_update);
 
 gulp.task('protractor-qa', function() {
-	console.error('************************* THIS TASK IS NOT WORKING PROPERLY*****');
+	console.warn('************************* THIS TASK IS NOT WORKING PROPERLY*****');
 	//Presumably, there is a bug in protractor-qa
-	// protractorQA.init({
-	// 	testSrc : [
-	// 		path.test + '**/*e2e-spec.js',
-	// 		path.test + '**/*pageobject.js'
-	// 	],
-	// 	viewSrc : path.client + 'index.html'
-	// });
+	var protractorQA = require('gulp-protractor-qa');
+	protractorQA.init({
+		testSrc : [
+			path.test + '**/*e2e-spec.js',
+			path.test + '**/*pageobject.js'
+		],
+		viewSrc : path.client + 'index.html'
+	});
 });
 
