@@ -27,7 +27,7 @@ gulp.task('server:reload', ['browser-sync'], function(){
 	gulp.watch(	project.watch.servedFiles, browserSync.reload );
 });
 
-gulp.task('develop', ['serve:browser-sync', 'watch:test:unit']);
-gulp.task('develop:quiet', ['serve:browser-sync', 'watch:test:unit:quiet']);
+gulp.task('develop', ['server:reload', 'watch:test:unit']);
+gulp.task('develop:quiet', ['server:reload', 'watch:test:unit:quiet']);
 
-gulp.task('develop:docs', ['browser-sync', 'watch:docs']);
+gulp.task('develop:docs', ['server:reload', 'watch:docs']);

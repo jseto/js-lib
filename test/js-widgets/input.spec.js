@@ -249,7 +249,7 @@ describe('jswInput directive', function() {
 		});
 	});
 
-	describe('uses jsw-messages', function(){
+	describe('with jsw-messages', function(){
 		it('has messages directive and shows no error', function() {
 			var elmHtml = [
 					'<form name="testForm" novalidate>',
@@ -301,31 +301,47 @@ describe('jswInput directive', function() {
 			expect( messages.children().length ).toBe(0);
 		});
 
-		it('shows required error', function() {
-			var elmHtml = [
-					'<form name="testForm" novalidate>',
-					'	<input ',
-					'		class="jsw-input" ',
-					'		name="test"',
-					'		type="text"',
-					'		ng-model="model"',
-					'		jsw-messages="validationMessages"',
-					'		required',
-					'		/>',
-					'</form>',
-					''].join('\n');
+		describe('working with required error', function() {
+			var el, messages;
 
-			scope.validationMessages = {
-				minlength: 'minlength message',
-				required: 'required message'
-			};
-			var el = compile( scope, elmHtml ).children().first();
-			var messages = el.children().last();
+			beforeEach( function() {
+				var elmHtml = [
+						'<form name="testForm" novalidate>',
+						'	<input ',
+						'		class="jsw-input" ',
+						'		name="test"',
+						'		type="text"',
+						'		ng-model="model"',
+						'		jsw-messages="validationMessages"',
+						'		required',
+						'		/>',
+						'</form>',
+						''].join('\n');
 
-			expect( messages.prop('tagName') ).toBe('NG-MESSAGES');
+				scope.validationMessages = {
+					minlength: 'minlength message',
+					required: 'required message'
+				};
+				el = compile( scope, elmHtml ).children().first();
+				messages = el.children().last();
+			});
 
-			expect(	scope.testForm.test.$error.required ).toBeTruthy();
-			expect( scope.testForm.test.$error ).toEqual( scope.$$__test__getError() );
+			it('has proper tag', function() {
+				expect( messages.prop('tagName') ).toBe('NG-MESSAGES');
+			});
+
+			it('has required error', function() {
+				expect(	scope.testForm.test.$error.required ).toBeTruthy();
+			});
+
+			it('does not show error before submit', function() {
+				expect(  scope.$$__test__getError() ).toEqual( {} );
+			});
+
+			it('does shows error after submit', function() {
+				scope.testForm.$submited = true;
+				expect( scope.$$__test__getError() ).toEqual( scope.testForm.test.$error );
+			});
 //			expect( messages.children().length ).toBeGreaterThan(0);
 //			expect( messages.children().attr('ng-message') ).toBe('required');
 		});

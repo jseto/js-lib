@@ -157,10 +157,8 @@ describe('jswInput directive',function(){
 		});
 	});	
 
-	describe('ngMessages alert', function(){
+	xdescribe('ngMessages alert', function(){
 		it('should not show messages when untouched', function(){
-//			indexPage.mySendKeys( indexPage.email, 'foo@bar.com' );
-
 			expect( 
 				indexPage.email.errorAlert.isPresent() 
 			).toBeFalsy();
@@ -168,7 +166,6 @@ describe('jswInput directive',function(){
 
 		it('should show messages when email error', function(){
 			indexPage.mySendKeys( indexPage.email, 'foo' );
-
 
 			expect( 
 				indexPage.email.errorAlert.isPresent() 
@@ -197,6 +194,45 @@ describe('jswInput directive',function(){
 
 			expect( 
 				indexPage.email.errorAlert.isPresent() 
+			).toBeFalsy();
+		});
+	});
+
+	describe('jswMessage', function(){
+		indexPage.email.clear();
+
+		it('should not show messages when untouched', function(){
+			expect( 
+				indexPage.email.jswMessage.isPresent() 
+			).toBeFalsy();
+		});
+
+		it('should show messages when email error', function(){
+			indexPage.mySendKeys( indexPage.email, 'foo' );
+
+			expect( 
+				indexPage.email.jswMessage.isPresent() 
+			).toBeTruthy();
+
+			expect( 
+				indexPage.email.jswMessage.getText() 
+			).toBe('L\'adreça de correu no es correcta');
+		});
+
+		it('should show minlength error message', function(){
+			indexPage.mySendKeys( indexPage.email, 'f@b.co' );
+			
+			expect( 
+				indexPage.email.jswMessage.getText() 
+			).toBe('Ha de tenir 8 caràcters com a mínim');
+		});
+
+		it('should hide messages after entering correct field', function(){
+			indexPage.email.clear();
+			indexPage.mySendKeys( indexPage.email, 'foo@bar.com' );
+
+			expect( 
+				indexPage.email.jswMessage.isPresent() 
 			).toBeFalsy();
 		});
 	});

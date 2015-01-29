@@ -8,6 +8,7 @@ var IndexPageObject = function() {
 	this.email =  element( by.model( 'user.email' ) );
 	this.retype =  element( by.model( 'retype' ) );
 	this.email.errorAlert = element( by.css( 'div[ng-messages="signupForm.email.$pristine? {} : signupForm.email.$error"] > .alert') );
+	this.email.jswMessage = element( by.css( 'ng-messages[for="$$__email__getError()"] > .text-danger' ) );
 
 	this.tooltip = function(){
 		return element( by.css('.tooltip-inner') );
