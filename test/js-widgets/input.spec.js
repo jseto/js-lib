@@ -11,14 +11,12 @@ describe('jswInput directive', function() {
 		return el;
 	};
 
-	beforeEach( module('jsLib.widgets.input') );
-	// beforeEach( module('jsWidgets.messages') );
-	// beforeEach( module('ngMessages') );
-	
-	// Store references to $rootScope and $compile
-	// so they are available to all tests in this describe block
+	beforeEach( function() {
+		module('jsLib.widgets.input');
+		module('jsLib.widgets.missmatch');
+	});
+
 	beforeEach(inject(function(_$compile_, _$rootScope_){
-		// The injector unwraps the underscores (_) from around the parameter names when matching
 		$compile = _$compile_;
 		scope = _$rootScope_;
 	}));
@@ -41,7 +39,7 @@ describe('jswInput directive', function() {
 		expect( inputElm.prop('tagName') ).toBe('INPUT');
 	};
 
-	it('has basic attributes and classes when declared in class', function() {
+	it('has basic attributes and classes when declared as class', function() {
 		var elmHtml = [
 				'<input ',
 				'	class="jsw-input"',
@@ -58,7 +56,7 @@ describe('jswInput directive', function() {
 		expect(	el.hasClass('form-group') ).toBeTruthy();
 	});
 
-	it('has basic attributes and classes when declared in attribute', function() {
+	it('has basic attributes and classes when declared as attribute', function() {
 		var elmHtml = [
 				'<input ',
 				'	jsw-input',
@@ -186,7 +184,7 @@ describe('jswInput directive', function() {
 		// beforeEach( module('jsWidgets.messages') );
 		// beforeEach( module('ngMessages') );
 
-		it('does not produce errors', function() {
+		it('does not set errors when no error', function() {
 			var elmHtml = [
 					'<form name="testForm" novalidate>',
 					'	<input ',
@@ -202,7 +200,7 @@ describe('jswInput directive', function() {
 			expect(	scope.testForm.test.$error ).toEqual({});
 		});
 
-		it('responds to required error', function() {
+		it('reacts to required error', function() {
 			var elmHtml = [
 					'<form name="testForm" novalidate>',
 					'	<input ',
@@ -223,7 +221,7 @@ describe('jswInput directive', function() {
 			expect(	scope.testForm.test.$error.required ).toBeFalsy();
 		});
 
-		it('responds to required and minlength error', function() {
+		it('reacts to required and minlength error', function() {
 			var elmHtml = [
 					'<form name="testForm" novalidate>',
 					'	<input ',
@@ -326,10 +324,6 @@ describe('jswInput directive', function() {
 				messages = el.children().last();
 			});
 
-			it('has proper tag', function() {
-				expect( messages.prop('tagName') ).toBe('NG-MESSAGES');
-			});
-
 			it('has required error', function() {
 				expect(	scope.testForm.test.$error.required ).toBeTruthy();
 			});
@@ -339,14 +333,14 @@ describe('jswInput directive', function() {
 			});
 
 			it('does shows error after submit', function() {
-				scope.testForm.$submited = true;
+				scope.testForm.$submitted = true;
 				expect( scope.$$__test__getError() ).toEqual( scope.testForm.test.$error );
 			});
 //			expect( messages.children().length ).toBeGreaterThan(0);
 //			expect( messages.children().attr('ng-message') ).toBe('required');
 		});
 
-		it('shows minlength error', function() {
+		it('working with minlength error', function() {
 			var elmHtml = [
 					'<form name="testForm" novalidate>',
 					'	<input ',
@@ -381,7 +375,7 @@ describe('jswInput directive', function() {
 //			expect( messages.children().attr('ng-message') ).toBe('minlength');
 		});
 
-		it('has error messages function', function() {
+		it('has preprocess message function', function() {
 			var elmHtml = [
 					'<form name="testForm" novalidate>',
 					'	<input ',
@@ -435,4 +429,98 @@ describe('jswInput directive', function() {
 			expect(	scope.$$__test__getError() ).toEqual({});
 		});
 	});
+
+	describe('field validation', function() {
+		var elementHtml = [
+					'<input ',
+					'	type="text"',
+					'	class="form-control" ',
+					'	placeholder="user name" ',
+					'	ng-model="user.username"',
+					'	ng-minlength=3',
+					'	ng-pattern="/^\\s*\\w*\\s*$/"',
+					'	ng-pattern-error-message="validationError.only1word"',
+					' 	jsw-missmatch="\'frank\'"',
+					'	tooltip-placement="bottom"',
+					'	jsw-validate-tooltip="{{validationErrors}}"',
+					'	required>',
+			].join('\n');
+
+		it('element has proper style classes', function() {
+			var element = compile( scope, elementHtml );
+			expect( scope.user ).toBeUndefined();
+			expect(	element.hasClass('ng-valid') ).toBe(false);
+			expect(	element.hasClass('ng-invalid') ).toBe(true);
+
+			expect(	element.hasClass('ng-valid-required') ).toBe(false);
+			expect(	element.hasClass('ng-invalid-required') ).toBe(true);
+
+			expect(	element.hasClass('ng-valid-minlength') ).toBe(true);
+			expect(	element.hasClass('ng-invalid-minlength') ).toBe(false);
+
+			expect(	element.hasClass('ng-valid-pattern') ).toBe(true);
+			expect(	element.hasClass('ng-invalid-pattern') ).toBe(false);
+
+			expect(	element.hasClass('ng-valid-jsw-missmatch') ).toBe(false);
+			expect(	element.hasClass('ng-invalid-jsw-missmatch') ).toBe(true);
+		});
+
+		it('gets the valid state', function() {
+			scope.user = { username : 'frank' };
+			var element = compile( scope, elementHtml );
+
+			expect(	element.hasClass('ng-valid') ).toBe(true);
+			expect(	element.hasClass('ng-invalid') ).toBe(false);
+
+			expect(	element.hasClass('ng-valid-required') ).toBe(true);
+			expect(	element.hasClass('ng-invalid-required') ).toBe(false);
+
+			expect(	element.hasClass('ng-valid-minlength') ).toBe(true);
+			expect(	element.hasClass('ng-invalid-minlength') ).toBe(false);
+
+			expect(	element.hasClass('ng-valid-pattern') ).toBe(true);
+			expect(	element.hasClass('ng-invalid-pattern') ).toBe(false);
+
+			expect(	element.hasClass('ng-valid-jsw-missmatch') ).toBe(true);
+			expect(	element.hasClass('ng-invalid-jsw-missmatch') ).toBe(false);
+		});
+
+		it('gets the invalid state because minlenght and missmatch', function() {
+			scope.user = { username : 'fr' };
+			var element = compile( scope, elementHtml );
+
+			expect(	element.hasClass('ng-valid') ).toBe(false);
+			expect(	element.hasClass('ng-invalid') ).toBe(true);
+
+			expect(	element.hasClass('ng-valid-minlength') ).toBe(false);
+			expect(	element.hasClass('ng-invalid-minlength') ).toBe(true);
+
+			expect(	element.hasClass('ng-valid-jsw-missmatch') ).toBe(false);
+			expect(	element.hasClass('ng-invalid-jsw-missmatch') ).toBe(true);
+		});
+
+		it('gets the valid state because missmatch with scope var', function() {
+			scope.user = { username : 'frank' };
+			scope.toCompare = 'frank';
+			var element = compile( scope, elementHtml.replace('user.username == \'frank\'', 'user.username == toCompare') );
+
+			expect(	element.hasClass('ng-valid') ).toBe(true);
+			expect(	element.hasClass('ng-invalid') ).toBe(false);
+
+			expect(	element.hasClass('ng-valid-jsw-missmatch') ).toBe(true);
+			expect(	element.hasClass('ng-invalid-jsw-missmatch') ).toBe(false);
+		});
+
+		it('gets the invalid state because pattern', function() {
+			scope.user = { username : 'frank de la jungla' };
+			var element = compile( scope, elementHtml );
+
+			expect(	element.hasClass('ng-valid') ).toBe(false);
+			expect(	element.hasClass('ng-invalid') ).toBe(true);
+
+			expect(	element.hasClass('ng-valid-pattern') ).toBe(false);
+			expect(	element.hasClass('ng-invalid-pattern') ).toBe(true);
+		});
+	});
+
 });
