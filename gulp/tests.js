@@ -12,6 +12,14 @@ var protractorInst = require('gulp-protractor');
 //var protractorQA = require('gulp-protractor-qa');
 var gutil = require('gulp-util');
 
+var getBrowserFromCLI = function() {   		//CLI = Command Line Interface
+	var cliOption = process.argv.slice(3)[0]; 
+	if ( cliOption ){
+		return cliOption.slice( cliOption.lastIndexOf('-')+1 );
+	}
+	return null;
+};
+
 gulp.task('test:unit', function (done) {
 	var opts = {
 		configFile: path.test + 'karma.conf.js',
@@ -23,9 +31,9 @@ gulp.task('test:unit', function (done) {
     	],
 	};
 
-	var cliOption = process.argv.slice(3)[0];
-	if ( cliOption ){
-		opts.browsers = [ cliOption.slice( cliOption.lastIndexOf('-')+1 ) ];
+	var browser = getBrowserFromCLI();
+	if ( browser ){
+		opts.browsers = [ browser ];
 	}
 
 	karma.start( opts , done);
@@ -49,11 +57,11 @@ gulp.task('watch:test:unit', function (done) {
 
 gulp.task('test:e2e', ['browser-sync'], function(done){
 	var args = [];
-	var cliOption = process.argv.slice(3)[0];
 
-	if ( cliOption ){
+	var browser = getBrowserFromCLI();
+	if ( browser ){
 		args.push('--browser');
-		args.push( cliOption.slice( cliOption.lastIndexOf('-')+1 ) );
+		args.push( browser );
 	}
 
 	gulp.src( 
