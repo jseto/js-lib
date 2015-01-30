@@ -1,4 +1,6 @@
-xdescribe('DateConverter Service', function(){
+'use strict';
+
+describe('DateConverter Service', function(){
 	
 	var dateConverter;
 
