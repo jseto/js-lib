@@ -11,14 +11,13 @@ describe('jswMessagesInclude directive', function() {
 		return el;
 	};
 
-	beforeEach( module('jsLib.widgets.messages') );
-	beforeEach( module('jsLib.utils.sprintf') );
-	beforeEach( module('ngMessages') );
+	beforeEach( function(){
+		module('jsLib.widgets.messages');
+		module('jsLib.utils.sprintf');
+		module('ngMessages');
+	});
 	
-	// Store references to $rootScope and $compile
-	// so they are available to all tests in this describe block
 	beforeEach(inject(function(_$compile_, _$rootScope_ ){
-		// The injector unwraps the underscores (_) from around the parameter names when matching
 		$compile = _$compile_;
 		scope = _$rootScope_;
 	}));
@@ -28,12 +27,20 @@ describe('jswMessagesInclude directive', function() {
 	}));
 
 	beforeEach( function(){
-		elmHtml = '<div ng-messages="validationError" jsw-messages-include="errorMessages" template="{{tpl}}"></div>';
-		
+		elmHtml = [
+			'<div ',
+			'	ng-messages=\"validationError\"',
+			'	jsw-messages-include=\"errorMessages\" ',
+			'	jsw-override=\"{ pattern: \'overriden pattern message\' }\"',
+			'	jsw-message-template=\"{{tpl}}\">',
+			'</div> ',
+		''].join('\n');		
+
 		scope.errorMessages = {
 			minlength: 'minlength {0} message',
 			required: 'required message',
-			email: 'email message'
+			email: 'email message',
+			pattern: 'regular pattern message'
 		};
 
 		element = compile(scope, elmHtml);
@@ -65,7 +72,14 @@ describe('jswMessagesInclude directive', function() {
 	});
 
 	it('preprocesses error messages', function(){
-		elmHtml = '<div ng-messages="validationError" jsw-messages-include="errorMessages" jsw-preprocess-msg="preprocess"></div>';
+		elmHtml = [
+			'<div ',
+			'	ng-messages=\"validationError\" ',
+			'	jsw-messages-include=\"errorMessages\" ',
+			'	jsw-preprocess=\"preprocess\">',
+			'</div>',
+			''].join('\n');		
+
 		scope.validationError = { 'minlength' : true };
 
 		scope.preprocess = function( key, message ) {
@@ -79,6 +93,23 @@ describe('jswMessagesInclude directive', function() {
 
 		var childText = element.children().text();
 		expect(	childText ).toBe( 'minlength 3 message' );
+	});
+
+	it('overrides error messages', function(){
+		scope.$apply( function() {
+			scope.validationError = { 'pattern' : true };
+		});
+
+		var childText = element.children().text();
+		expect(	childText ).toBe( 'overriden pattern message' );
+
+		scope.$apply( function() {
+			scope.validationError = { 'required': true };
+		});
+
+		childText = element.children().text();
+		expect(	childText ).toBe( 'required message' );
+
 	});
 
 });

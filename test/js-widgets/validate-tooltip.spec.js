@@ -43,7 +43,7 @@ describe('jsw-validate-tooltip directive', function() {
 
 	// Load the directive module
 	beforeEach(function(){
-		module('jsLib.widgets.validateTooltip');
+		module('jsLib.widgets.missmatch');
 	});
 
 	// Store references to $rootScope and $compile
