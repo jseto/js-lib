@@ -13,7 +13,8 @@ describe('jswInput directive', function() {
 
 	beforeEach( function() {
 		module('jsLib.widgets.input');
-		module('jsLib.widgets.missmatch');
+		module('jsLib.widgets');
+		module('ngMessages');
 	});
 
 	beforeEach(inject(function(_$compile_, _$rootScope_){
@@ -261,7 +262,7 @@ describe('jswInput directive', function() {
 					'		help-block="help for test"',
 					'		icon-l="fa fa-arrow-left"',
 					'		addon-r="right"',
-					'		jsw-messages="{minlength:\'minlength message\'", required::\'required message\'"}',
+					'		jsw-messages="{minlength:\'minlength message\', required:\'required message\'}"',
 					'		/>',
 					'</form>',
 					''].join('\n');
@@ -303,7 +304,7 @@ describe('jswInput directive', function() {
 			var el, messages;
 
 			beforeEach( function() {
-				var elmHtml = [
+				var elm = angular.element([
 						'<form name="testForm" novalidate>',
 						'	<input ',
 						'		class="jsw-input" ',
@@ -314,13 +315,13 @@ describe('jswInput directive', function() {
 						'		required',
 						'		/>',
 						'</form>',
-						''].join('\n');
+						''].join('\n'));
 
 				scope.validationMessages = {
 					minlength: 'minlength message',
 					required: 'required message'
 				};
-				el = compile( scope, elmHtml ).children().first();
+				el = compile( scope, elm ).children().first();
 				messages = el.children().last();
 			});
 
@@ -333,11 +334,14 @@ describe('jswInput directive', function() {
 			});
 
 			it('does shows error after submit', function() {
-				scope.testForm.$submitted = true;
-				expect( scope.$$__test__getError() ).toEqual( scope.testForm.test.$error );
+				scope.$apply( function(){
+					scope.testForm.$setSubmitted(); 
+				});
+
+				expect( scope.$$__test__getError() ).toEqual( {required: true} );
+				expect( messages.children().length ).toBeGreaterThan(0);
+				expect( messages.children().attr('ng-message') ).toBe('required');
 			});
-//			expect( messages.children().length ).toBeGreaterThan(0);
-//			expect( messages.children().attr('ng-message') ).toBe('required');
 		});
 
 		it('working with minlength error', function() {
@@ -356,11 +360,12 @@ describe('jswInput directive', function() {
 					''].join('\n');
 
 			scope.validationMessages = {
-				minlength: 'minlength message',
+				minlength: 'minlength is {0} message',
 				required: 'required message'
 			};
-			scope.model='a';
 			var el = compile( scope, elmHtml ).children().first();
+			scope.testForm.test.$setViewValue('aa');
+
 			var messages = el.children().last();
 
 			expect( messages.prop('tagName') ).toBe('NG-MESSAGES');
@@ -368,11 +373,10 @@ describe('jswInput directive', function() {
 			expect(	scope.testForm.test.$error.required ).toBeFalsy();
 			expect(	scope.testForm.test.$error.minlength ).toBeTruthy();
 			expect( scope.$$__test__preprocess ).toBeTruthy();
-			expect( 
-				scope.$$__test__preprocess( 'minlength', 'minimum length is {0} chars' )
-			 ).toBe( 'minimum length is 3 chars' );
-//			expect( messages.children().length ).toBeGreaterThan(0);
-//			expect( messages.children().attr('ng-message') ).toBe('minlength');
+
+			expect( messages.children().length ).toBeGreaterThan(0);
+			expect( messages.children().attr('ng-message') ).toBe('minlength');
+			expect( messages.children().html() ).toBe('minlength is 3 message');
 		});
 
 		it('has preprocess message function', function() {
@@ -390,14 +394,24 @@ describe('jswInput directive', function() {
 					'		/>',
 					'</form>',
 					''].join('\n');
-			compile( scope, elmHtml ).children().first();
+			scope.validationMessages = {
+				minlength: 'minimum length is {0} chars',
+				maxlength: 'maximum length is {0} chars',
+				required: 'required message'
+			};
+			var el = compile( scope, elmHtml ).children().first();
+			var messages = el.children().last();
 
 			expect( scope.$$__test__preprocess ).toBeTruthy();
+
+			scope.testForm.test.$setViewValue('a');
 			expect( 
-				scope.$$__test__preprocess( 'minlength', 'minimum length is {0} chars' )
+				messages.children().html()
 			 ).toBe( 'minimum length is 3 chars' );
+
+			scope.testForm.test.$setViewValue('a123456789');
 			expect( 
-				scope.$$__test__preprocess( 'maxlength', 'maximum length is {0} chars' )
+				messages.children().html()
 			 ).toBe( 'maximum length is 8 chars' );
 		});
 	});
