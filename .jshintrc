@@ -7,6 +7,7 @@
     "expect": false,
     "beforeEach": false,
     "afterEach": false,
+    "spyOn": false,
     "module": false,
     "inject": false,
     "protractor": false,

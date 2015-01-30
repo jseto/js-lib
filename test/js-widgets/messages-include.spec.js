@@ -31,7 +31,7 @@ describe('jswMessagesInclude directive', function() {
 			'<div ',
 			'	ng-messages=\"validationError\"',
 			'	jsw-messages-include=\"errorMessages\" ',
-			'	jsw-override=\"{ pattern: \'overriden pattern message\' }\"',
+			'	jsw-override-messages=\"{ pattern: \'overriden pattern message\' }\"',
 			'	jsw-message-template=\"{{tpl}}\">',
 			'</div> ',
 		''].join('\n');		
@@ -76,7 +76,7 @@ describe('jswMessagesInclude directive', function() {
 			'<div ',
 			'	ng-messages=\"validationError\" ',
 			'	jsw-messages-include=\"errorMessages\" ',
-			'	jsw-preprocess=\"preprocess\">',
+			'	jsw-preprocess-messages=\"preprocess\">',
 			'</div>',
 			''].join('\n');		
 
