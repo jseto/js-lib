@@ -7,8 +7,10 @@ var IndexPageObject = function() {
 	this.username = element( by.model( 'user.username' ) );
 	this.email =  element( by.model( 'user.email' ) );
 	this.retype =  element( by.model( 'retype' ) );
-	this.email.errorAlert = element( by.css( 'div[ng-messages="signupForm.email.$pristine? {} : signupForm.email.$error"] > .alert') );
+	this.email.errorAlert = element( by.css( 'div[ng-messages="signupForm.email.$pristine && !signupForm.$submitted? {} : signupForm.email.$error"] > .alert') );
 	this.email.jswMessage = element( by.css( 'ng-messages[for="$$__email__getError()"] > .text-danger' ) );
+	this.submitBtn = element( by.css( 'button[type="submit"]' ) );
+	this.form = element( by.css('form') );
 
 	this.tooltip = function(){
 		return element( by.css('.tooltip-inner') );

@@ -104,12 +104,14 @@
 				jsw-validate-tooltip="{{ 'validationErrors' | loc }}" 
 				required>
 			<div 
-				ng-messages="signupForm.email.$pristine? {} : signupForm.email.$error" 
+				ng-messages="signupForm.email.$pristine && !signupForm.$submitted? {} : signupForm.email.$error" 
 				jsw-messages-include="'validationErrors' | loc"
 				template="<div class='alert alert-danger' role='alert'></div>"
 				jsw-preprocess-msg="preprocessErrorEmail"
 				>
 			</div>
+
+			<button type="submit">Submit {{signupForm.$submitted}}</button>
 
 		</form>
 
