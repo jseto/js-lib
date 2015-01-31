@@ -33,6 +33,7 @@ gulp.task('test:unit', function (done) {
 
 	var browser = getBrowserFromCLI();
 	if ( browser ){
+		browser = browser[0].toUpperCase() + browser.slice(1).toLowerCase();
 		opts.browsers = [ browser ];
 	}
 
@@ -61,7 +62,7 @@ gulp.task('test:e2e', ['browser-sync'], function(done){
 	var browser = getBrowserFromCLI();
 	if ( browser ){
 		args.push('--browser');
-		args.push( browser );
+		args.push( browser.toLowerCase() );
 	}
 
 	gulp.src( 

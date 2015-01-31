@@ -115,7 +115,7 @@ describe('jswInput widget', function() {
 			it('should show validation panels with email error message', function(){
 				indexPage.mySendKeys( indexPage.email, 'foo@bar.co' );
 				indexPage.email.sendKeys( protractor.Key.BACK_SPACE );		
-browser.pause()				
+		
 				expect( 
 					indexPage.email.errorAlert.isPresent()
 				).toBeTruthy();
