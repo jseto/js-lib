@@ -455,8 +455,6 @@ describe('jswInput directive', function() {
 					'	ng-pattern="/^\\s*\\w*\\s*$/"',
 					'	ng-pattern-error-message="validationError.only1word"',
 					' 	jsw-missmatch="\'frank\'"',
-					'	tooltip-placement="bottom"',
-					'	jsw-validate-tooltip="{{validationErrors}}"',
 					'	required>',
 			].join('\n');
 

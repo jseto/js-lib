@@ -51,15 +51,17 @@ describe('jswMessagesInclude directive', function() {
 			scope.validationError = { 'minlength' : true };
 		});
 
-		var childText = element.children().text();
-		expect(	childText ).toBe( 'minlength {0} message' );
+		var child = element.children();
+		expect(	child.text() ).toBe( 'minlength {0} message' );
+		expect( child.attr( 'message-text' ) ).toBe( 'minlength {0} message' );
 
 		scope.$apply( function() {
 			scope.validationError = { 'required': true };
 		});
 
-		childText = element.children().text();
-		expect(	childText ).toBe( 'required message' );
+		child = element.children();
+		expect(	child.text() ).toBe( 'required message' );
+		expect( child.attr( 'message-text' ) ).toBe( 'required message' );
 	});
 
 	it('uses template', function() {
@@ -69,6 +71,8 @@ describe('jswMessagesInclude directive', function() {
 
 		var child = element.find('p');
 		expect( child.length ).toBeTruthy();
+		expect(	child.text() ).toBe( 'minlength {0} message' );
+		expect( child.attr( 'message-text' ) ).toBe( 'minlength {0} message' );
 	});
 
 	it('preprocesses error messages', function(){

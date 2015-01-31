@@ -6,7 +6,6 @@
 
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
 	<link rel="stylesheet" href="bower_components/jseto-bootstrap-datepicker/css/datepicker.css"/>
-	<link rel="stylesheet" href="lib/styles/tooltip.css"/>
 
 	<script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
@@ -58,9 +57,6 @@
 					ng-model="user.username"
 					data-ng-minlength="3"
 					data-ng-pattern="/^\s*\w*\s*$/" 
-					data-ng-pattern-error-message="only1word"
-					tooltip-placement="bottom"
-					jsw-validate-tooltip="{{ 'validationErrors' | loc }}" 
 					required>
 			</div>
 			<div 
@@ -73,16 +69,14 @@
 			</div>
 
  			<input  
-				class="jsw-input  tooltip-danger"
+				class="jsw-input"
 				type="text" 
 				name="retype" 
 				placeholder="retype user name"
 				ng-model="retype"
 				icon-l="glyphicon glyphicon-user"
-				tooltip-placement="top"
 				jsw-missmatch="user.username"
 				jsw-messages="'validationErrors'|loc"
-				jsw-validate-tooltip="{{ 'validationErrors' | loc }}" 
 				required>
 			<div 
 				ng-messages="signupForm.retype.$error" 
@@ -91,7 +85,7 @@
 				>
 			</div>
 			<input 
-				class="jsw-input tooltip-danger"
+				class="jsw-input"
 				type="email" 
 				name="email"
 				placeholder="email"
@@ -102,7 +96,6 @@
 				icon-l="glyphicon glyphicon-envelope"
 				addon-r="@"
 				jsw-messages="'validationErrors'|loc"
-				jsw-validate-tooltip="{{ 'validationErrors' | loc }}" 
 				required>
 			<div 
 				ng-messages="signupForm.email.$pristine && !signupForm.$submitted? {} : signupForm.email.$error" 

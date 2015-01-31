@@ -26,12 +26,6 @@ describe('jswInput widget', function() {
 					indexPage.email.jswMessage.isPresent()
 				).toBeFalsy();
 			});
-
-			it('should not show error alert', function(){
-				expect(
-					indexPage.tooltip().isPresent()
-				).toBeFalsy();
-			});
 		});
 
 		describe('when submitted and pristine', function(){
@@ -55,104 +49,7 @@ describe('jswInput widget', function() {
 					indexPage.email.errorAlert.isPresent()
 				).toBeTruthy();
 			});
-
-			it('should show tooltip', function(){
-				expect(
-					indexPage.tooltip().isPresent()
-				).toBeTruthy();
-			});
 		});
-	});
-
-	describe('jswValidateTooltip directive', function(){
-
-		beforeEach(function(){
-			indexPage.username.clear();
-		});
-
-		it('Should set value and change model', function () {
-			indexPage.username.sendKeys('Joe');
-
-			expect(	
-				indexPage.username.getAttribute('value') 
-			).toBe( 'Joe' );
-			
-			expect(	
-				indexPage.username.evaluate('user.username') 
-			).toBe( 'Joe' );
-		});
-
-		it('should not show tooltip', function(){
-			indexPage.username.sendKeys('Joe');
-
-			expect( 
-				element( by.css('.tooltip') ).isPresent() 
-			).toBe(false);
-		});
-
-		it('should show tooltip with pattern error message', function(){
-			indexPage.username.sendKeys('Joe roe');		
-			
-			expect( 
-				indexPage.waitTooltip()
-			).toBeTruthy();
-			
-			expect( 
-				indexPage.tooltip().getText() 
-			).toMatch( 'only1word' );
-		});
-
-		it('should show tooltip with minlenght error message', function(){
-			indexPage.username.sendKeys('Joe');
-
-			expect(	
-				indexPage.username.getAttribute('value') 
-			).toBe( 'Joe' );
-
-			indexPage.username.sendKeys( protractor.Key.BACK_SPACE );
-
-			expect( 
-				indexPage.waitTooltip()
-			).toBeTruthy();
-
-			expect( 
-				indexPage.tooltip().getText() 
-			).toMatch( 'Ha de tenir 3 caràcters com a mínim' );
-		});
-
-		it('should show tooltip on blur', function(){
-			indexPage.username.sendKeys('Jo');
-
-			indexPage.retype.sendKeys('change focus');
-
-			expect( 
-				indexPage.waitTooltip()
-			).toBeTruthy();
-
-			indexPage.retype.clear();
-		});
-
-		it('should hide tooltip after entering correct field', function(){
-			indexPage.username.sendKeys('Joe');
-
-			expect(	
-				indexPage.username.getAttribute('value') 
-			).toBe( 'Joe' );
-
-			indexPage.username.sendKeys( protractor.Key.BACK_SPACE );
-
-			expect( 
-				indexPage.waitTooltip()
-			).toBeTruthy();
-
-			indexPage.username.sendKeys('anna');
-
-			expect( 
-				indexPage.waitTooltipAbsent()
-			).toBeTruthy();
-		});
-
-
 	});
 
 	describe('jswInput directive',function(){
@@ -173,29 +70,68 @@ describe('jswInput widget', function() {
 			).toBe( 'foo@bar.com' );
 		});
 
-		describe('tooltip',function(){
-			it('should not show tooltip', function(){
+		describe('validation panels',function(){
+			it('should not show', function(){
 				indexPage.mySendKeys( indexPage.email, 'foo@bar.com' );
 
 				expect( 
-					element( by.css('.tooltip') ).isPresent() 
+					indexPage.email.errorAlert.isPresent() 
+				).toBe(false);
+				expect( 
+					indexPage.email.jswMessage.isPresent() 
 				).toBe(false);
 			});
+	
+			it('should show validation panels with pattern error message', function(){
+				indexPage.username.sendKeys('Joe roe');		
+				
+				expect( 
+					indexPage.username.errorAlert.isPresent()
+				).toBeTruthy();
+				expect( 
+					indexPage.username.errorAlert.getText() 
+				).toMatch( 'only one word' );
+			});
 
-			it('should show tooltip with email error message', function(){
+			it('should show validation panels with minlenght error message', function(){
+				indexPage.username.clear();
+				indexPage.username.sendKeys('Joe');
+
+				expect(	
+					indexPage.username.getAttribute('value') 
+				).toBe( 'Joe' );
+
+				indexPage.username.sendKeys( protractor.Key.BACK_SPACE );
+
+				expect( 
+					indexPage.username.errorAlert.isPresent()
+				).toBeTruthy();
+
+				expect( 
+					indexPage.username.errorAlert.getText() 
+				).toMatch( 'Ha de tenir 3 caràcters com a mínim' );
+			});
+
+			it('should show validation panels with email error message', function(){
 				indexPage.mySendKeys( indexPage.email, 'foo@bar.co' );
 				indexPage.email.sendKeys( protractor.Key.BACK_SPACE );		
-				
+browser.pause()				
 				expect( 
-					indexPage.waitTooltip()
+					indexPage.email.errorAlert.isPresent()
 				).toBeTruthy();
-				
 				expect( 
-					indexPage.tooltip().getText() 
+					indexPage.email.jswMessage.isPresent()
+				).toBeTruthy();
+
+				expect( 
+					indexPage.email.errorAlert.getText() 
+				).toMatch( 'L\'adreça de correu no es correcta' );
+				expect( 
+					indexPage.email.jswMessage.getText() 
 				).toMatch( 'L\'adreça de correu no es correcta' );
 			});
 
-			it('should hide tooltip after entering correct field', function(){
+			it('should hide validation panels after entering correct field', function(){
 				indexPage.mySendKeys( indexPage.email, 'foo@bar.co' );
 
 				expect(	// foo@bar.co
@@ -204,15 +140,21 @@ describe('jswInput widget', function() {
 
 				indexPage.email.sendKeys( protractor.Key.BACK_SPACE );
 
-				expect( // foo@bar.c
-					indexPage.waitTooltip()
+				expect( 
+					indexPage.email.errorAlert.isPresent()
+				).toBeTruthy();
+				expect( 
+					indexPage.email.jswMessage.isPresent()
 				).toBeTruthy();
 
 				indexPage.email.sendKeys( 'om' );
 
-				expect( // foo@bar.com
-					indexPage.waitTooltipAbsent()
-				).toBeTruthy();
+				expect( 
+					indexPage.email.errorAlert.isPresent()
+				).toBeFalsy();
+				expect( 
+					indexPage.email.jswMessage.isPresent()
+				).toBeFalsy();
 			});
 		});	
 
@@ -291,23 +233,33 @@ describe('jswInput widget', function() {
 			indexPage.username.clear();
 			indexPage.username.sendKeys('match_this');
 			indexPage.mySendKeys( indexPage.retype, 'match_this but not now');
-			expect(
-				indexPage.waitTooltip()
+
+			expect( 
+				indexPage.retype.errorAlert.isPresent()
+			).toBeTruthy();
+			expect( 
+				indexPage.retype.jswMessage.isPresent()
 			).toBeTruthy();
 
 			expect( 
-				indexPage.tooltip().getText() 
+				indexPage.retype.errorAlert.getText() 
+			).toMatch( 'Els mots de pas no son iguals' );
+			expect( 
+				indexPage.retype.jswMessage.getText() 
 			).toMatch( 'Els mots de pas no son iguals' );
 		});
 
 		it('should be valid when match', function() {
 			indexPage.retype.clear();
 			indexPage.retype.sendKeys('match_this');
-			expect(
-				indexPage.waitTooltipAbsent()
-			).toBeTruthy();
-		});
 
+			expect( 
+				indexPage.retype.errorAlert.isPresent()
+			).toBeFalsy();
+			expect( 
+				indexPage.retype.jswMessage.isPresent()
+			).toBeFalsy();
+		});
 	}); 
 });
 
