@@ -25,7 +25,6 @@
 	<script src="lib/js-widgets/missmatch.js"></script>
 	<script src="lib/js-widgets/validate-promise.js"></script>
 	<script src="lib/js-widgets/unique-user.js"></script>
-	<script src="lib/js-widgets/validate-tooltip.js"></script>
 	<script src="lib/js-widgets/btn-upload.js"></script>
 	<script src="lib/js-widgets/scroll-list.js"></script>
 	<script src="lib/js-widgets/lookup.js"></script>
@@ -96,6 +95,7 @@
 				icon-l="glyphicon glyphicon-envelope"
 				addon-r="@"
 				jsw-messages="'validationErrors'|loc"
+				jsw-email
 				required>
 			<div 
 				ng-messages="signupForm.email.$pristine && !signupForm.$submitted? {} : signupForm.email.$error" 
