@@ -6,7 +6,7 @@ var path = project.path;
 
 var browserSync = require( 'browser-sync' );
 var del = require('del');
-var docs = require('gulp-ngdocs');
+// var docs = require('gulp-ngdocs'); //removed until stable release
 var gutil = require('gulp-util');
 
 gulp.task('clean', [ 'clean:docs', 'clean:coverage' ]);
@@ -19,16 +19,18 @@ gulp.task('clean:coverage', function(done){
 	del( [ path.coverage + '**'], done );
 });
 
+
+/*  removed until stable release
 gulp.task('docs', ['clean:docs'], function(){
-	return gulp.src( path.lib + '**/*.js' )
-		.pipe( docs.process({
+*///	return gulp.src( path.lib + '**/*.js' )
+/*		.pipe( docs.process({
 			scripts: [
 				path.bower + 'angular/angular.min.js',
 				path.bower + 'angular/angular.min.js.map',
 				path.bower + 'angular-animate/angular-animate.min.js',
 				path.bower + 'angular-animate/angular-animate.min.js.map',
-//				path.lib + '**/*.js'
-			]
+*///				path.lib + '**/*.js'
+/*			]
 		}))
 		.pipe( gulp.dest( path.docs ) )
 		.on('end', function(){
@@ -45,3 +47,4 @@ gulp.task('docs', ['clean:docs'], function(){
 gulp.task('watch:docs', function(){
 	gulp.watch(	project.watch.servedFiles, ['docs'] );
 });
+*/
