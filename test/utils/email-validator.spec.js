@@ -53,3 +53,33 @@ describe('emailValidator factory', function() {
 		expect(	emailValidator( 'foo.bar.com' ) ).toBe(false);
 	});
 });
+
+describe( 'emailValidator Directive', function() {
+	var scope, element, $compile;
+
+	beforeEach( module( 'jsLib.utils.emailValidator' ) );
+	
+	beforeEach(inject(function(_$compile_, _$rootScope_ ){
+		$compile = _$compile_;
+		scope = _$rootScope_;
+	}));
+
+	beforeEach(function() {
+		var el = angular.element( '<input type="email" ng-model="email" jsw-email/>' );
+		element = $compile( el )( scope );
+	});
+
+	it( 'shold report valid email for valid email', function() {
+		scope.$apply( function(){
+			scope.email = 'foo@bar.com';
+		});
+		expect( element.hasClass( 'ng-invalid-email') ).toBeFalsy();
+	});
+
+	it( 'shold report invalid email for invalid email', function() {
+		scope.$apply( function(){
+			scope.email = 'foo@bar';
+		});
+		expect( element.hasClass( 'ng-invalid-email') ).toBeTruthy();
+	});
+});
