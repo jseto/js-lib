@@ -6,7 +6,8 @@ angular.module('myApp', [
 	'ngMessages',
 	'jsLib.widgets',
 	'jsLib.locale',
-	'jsLib.utils'
+	'jsLib.utils',
+	'jsLib.utils.conferenceRoom'
 ])
 
 .config( function( LocaleProvider ) {
