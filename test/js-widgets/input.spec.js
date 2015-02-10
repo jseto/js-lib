@@ -330,7 +330,7 @@ describe('jswInput directive', function() {
 			});
 
 			it('does not show error before submit', function() {
-				expect(  scope.$$__test__getError() ).toEqual( {} );
+				expect( messages.children().length ).toBe( 0 );
 			});
 
 			it('does shows error after submit', function() {
@@ -338,9 +338,9 @@ describe('jswInput directive', function() {
 					scope.testForm.$setSubmitted(); 
 				});
 
-				expect( scope.$$__test__getError() ).toEqual( {required: true} );
 				expect( messages.children().length ).toBeGreaterThan(0);
 				expect( messages.children().attr('ng-message') ).toBe('required');
+				expect( messages.children().html() ).toBe('required message');
 			});
 		});
 
@@ -450,8 +450,8 @@ describe('jswInput directive', function() {
 		});
 	});
 
-	describe( 'behaves well without form tag', function() {
-		it('shows required error', function() {
+	describe( 'behaves well without form tag nor some attributes', function() {
+		it('cannot show error without form tag but does not throw', function() {
 			var elmHtml = [
 					'<div>',
 					'	<input ',
@@ -475,6 +475,34 @@ describe('jswInput directive', function() {
 			expect( messages.prop('tagName') ).toBe('NG-MESSAGES');
 
 			expect(	scope.$$__test__getError() ).toEqual({});
+		});
+
+		it('does not throw without name attribute', function() {
+			var elmHtml = [
+					'<form name="testForm" novalidate>',
+					'	<input ',
+					'		class="jsw-input" ',
+					'		type="text"',
+					'		ng-model="model"',
+					'		jsw-messages="validationMessages"',
+					'		required',
+					'		/>',
+					'</form>',
+					''].join('\n');
+
+			scope.validationMessages = {
+				minlength: 'minlength message',
+				required: 'required message'
+			};
+			var el = compile( scope, elmHtml ).children().first();
+			var messages = el.children().last();
+
+			scope.$apply( function(){
+				scope.testForm.$setSubmitted();
+			});
+
+			expect( messages.prop('tagName') ).toBe('NG-MESSAGES');
+			expect(	messages.children().length ).toBe(0);
 		});
 	});
 
