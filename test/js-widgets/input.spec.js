@@ -414,6 +414,40 @@ describe('jswInput directive', function() {
 				messages.children().html()
 			 ).toBe( 'maximum length is 8 chars' );
 		});
+
+		it('behaves well with preprocess message function for ng-minlength and ng-maxlenght tag', function() {
+			var elmHtml = [
+					'<form name="testForm" novalidate>',
+					'	<input ',
+					'		class="jsw-input" ',
+					'		name="test"',
+					'		type="text"',
+					'		ng-model="model"',
+					'		jsw-messages="validationMessages"',
+					'		data-ng-minlength="3"',
+					'		ng-maxlength="8"',
+					'		required',
+					'		/>',
+					'</form>',
+					''].join('\n');
+			scope.validationMessages = {
+				minlength: 'minimum length is {0} chars',
+				maxlength: 'maximum length is {0} chars',
+				required: 'required message'
+			};
+			var el = compile( scope, elmHtml ).children().first();
+			var messages = el.children().last();
+
+			scope.testForm.test.$setViewValue('a');
+			expect( 
+				messages.children().html()
+			 ).toBe( 'minimum length is 3 chars' );
+
+			scope.testForm.test.$setViewValue('a123456789');
+			expect( 
+				messages.children().html()
+			 ).toBe( 'maximum length is 8 chars' );
+		});
 	});
 
 	describe( 'behaves well without form tag', function() {
