@@ -1,0 +1,41 @@
+
+.zoom.ng-active {
+	-webkit-animation: fadeInDown 0.5s;
+	        animation: fadeInDown 0.5s;
+}
+
+.zoom.ng-inactive {
+	-webkit-animation: fadeOutUp 0.5s;
+	        animation: fadeOutUp 0.5s;
+}
+
+.messages-fade.ng-active {
+  -webkit-animation: enter_sequence 1s linear; /* Safari/Chrome */
+  animation: enter_sequence 1s linear; /* IE10+ and Future Browsers */
+  opacity: 1;
+}
+
+@-webkit-keyframes enter_sequence {
+  from { opacity:0; }
+  to { opacity:1; }
+}
+
+@keyframes enter_sequence {
+  from { opacity:0; }
+  to { opacity:1; }
+}
+
+.messages-fade.ng-inactive {
+  -webkit-animation: leave_sequence 1s linear; /* Safari/Chrome */
+  animation: leave_sequence 1s linear; /* IE10+ and Future Browsers */
+}
+
+@-webkit-keyframes leave_sequence {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+@keyframes leave_sequence {
+  from { opacity:1; }
+  to { opacity:0; }
+}

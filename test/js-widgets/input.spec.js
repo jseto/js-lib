@@ -281,7 +281,7 @@ describe('jswInput directive', function() {
  
 			expect(	el.hasClass('form-group') ).toBeTruthy();
 			expect( divInputGroup.hasClass('input-group')).toBeTruthy();
-			expect( messages.prop('tagName') ).toBe('NG-MESSAGES');
+			expect( messages.attr('ng-messages') ).toBe('$$__test__getError()');
 
 			expect( addonL.prop('tagName')).toBe('SPAN');
 			expect( addonL.find('i').hasClass('fa-arrow-left') ).toBeTruthy();
@@ -368,7 +368,7 @@ describe('jswInput directive', function() {
 
 			var messages = el.children().last();
 
-			expect( messages.prop('tagName') ).toBe('NG-MESSAGES');
+			expect( messages.attr('ng-messages') ).toBe('$$__test__getError()');
 
 			expect(	scope.testForm.test.$error.required ).toBeFalsy();
 			expect(	scope.testForm.test.$error.minlength ).toBeTruthy();
@@ -472,12 +472,12 @@ describe('jswInput directive', function() {
 			var el = compile( scope, elmHtml ).children().first();
 			var messages = el.children().last();
 
-			expect( messages.prop('tagName') ).toBe('NG-MESSAGES');
+			expect( messages.attr('ng-messages') ).toBe('$$__test__getError()');
 
 			expect(	scope.$$__test__getError() ).toEqual({});
 		});
 
-		it('does not throw without name attribute', function() {
+		it('does throws without name attribute', function() {
 			var elmHtml = [
 					'<form name="testForm" novalidate>',
 					'	<input ',
@@ -494,14 +494,40 @@ describe('jswInput directive', function() {
 				minlength: 'minlength message',
 				required: 'required message'
 			};
-			var el = compile( scope, elmHtml ).children().first();
-			var messages = el.children().last();
+			var el, messages;
 
+			var myCompile = function() {
+				el = compile( scope, elmHtml ).children().first();
+				messages = el.children().last();
+			};
+
+			expect( myCompile ).toThrow('Attribute name required to use embedded ng-messages');
+		});
+
+		it('does not throw without name attribute and without jsw-messages', function() {
+			var elmHtml = [
+					'<form name="testForm" novalidate>',
+					'	<input ',
+					'		class="jsw-input" ',
+					'		type="text"',
+					'		ng-model="model"',
+					'		required',
+					'		/>',
+					'</form>',
+					''].join('\n');
+
+			var el, messages;
+
+			var myCompile = function() {
+				el = compile( scope, elmHtml ).children().first();
+				messages = el.children().last();
+			};
+
+			expect( myCompile ).not.toThrow();
 			scope.$apply( function(){
 				scope.testForm.$setSubmitted();
 			});
-
-			expect( messages.prop('tagName') ).toBe('NG-MESSAGES');
+			expect( messages.attr('ng-messages') ).toBeUndefined();
 			expect(	messages.children().length ).toBe(0);
 		});
 	});
