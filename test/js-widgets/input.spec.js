@@ -179,6 +179,32 @@ describe('jswInput directive', function() {
 		expect( helpBlock.html() ).toBe('help for test');
 	});
 
+	it('moves classes to outer div', function() {
+		var elmHtml = [
+				'<input ',
+				'	class="jsw-input test-class" ',
+				'	name="test"',
+				'	type="text"',
+				'	placeholder="placeholder for test"',
+				'	ng-model="model"',
+				'	label="testLabel"',
+				'	help-block="help for test"',
+				'	icon-l="fa fa-arrow-left"',
+				'	addon-r="right"',
+				'	/>',
+				''].join('\n');
+
+		var el = findRootParent( compile( scope, elmHtml ) );
+
+		var label = el.children().first();
+		var divInputGroup = label.next();
+		var addonL = divInputGroup.children().first();
+		var input = addonL.next();
+
+		expect(	el.hasClass( 'test-class') ).toBeTruthy();
+		expect( divInputGroup.hasClass( 'test-class' ) ).toBeFalsy();
+		expect( input.hasClass( 'test-class' ) ).toBeFalsy();
+	});
 
 	describe('Form validators', function() {
 

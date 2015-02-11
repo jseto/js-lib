@@ -1,13 +1,10 @@
-
-.zoom.ng-active {
-	-webkit-animation: fadeInDown 0.5s;
-	        animation: fadeInDown 0.5s;
+.margin-vertical-10 {
+	margin-top: 10px; 
+	margin-bottom: 10px; 
 }
 
-.zoom.ng-inactive {
-	-webkit-animation: fadeOutUp 0.5s;
-	        animation: fadeOutUp 0.5s;
-}
+
+
 
 .jsw-messages.ng-active {
   -webkit-animation: enter_sequence 1s linear; /* Safari/Chrome */
