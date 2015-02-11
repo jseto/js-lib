@@ -474,6 +474,52 @@ describe('jswInput directive', function() {
 				messages.children().html()
 			 ).toBe( 'maximum length is 8 chars' );
 		});
+
+		describe('working with pattern error', function() {
+			var el, messages;
+
+			beforeEach( function() {
+				var elmHtml = [
+						'<form name="testForm" novalidate>',
+						'	<input ',
+						'		class="jsw-input" ',
+						'		name="test"',
+						'		type="text"',
+						'		ng-model="model"',
+						'		jsw-messages="validationMessages"',
+						'		minlength="3"',
+						'		ng-pattern="/^\\s*\\w*\\s*$/"',  // beaware!!!! pattern without ng- does not work
+						'		jsw-override-messages="{ pattern: \'only one word\'}"',
+						'		required',
+						'		/>',
+						'</form>',
+						''].join('\n');
+
+				scope.validationMessages = {
+					pattern: 'pattern',
+					minlength: 'minlength is {0} message',
+					required: 'required message'
+				};
+				el = compile( scope, elmHtml ).children().first();
+
+				messages = el.children().last();
+			});
+
+			it('should show minlength error', function() {
+				scope.testForm.test.$setViewValue('aa');
+				expect( messages.children().html() ).toBe('minlength is 3 message');
+			});
+
+			it('should show pattern error', function() {
+				scope.testForm.test.$setViewValue('aa aa');
+				expect( messages.children().html() ).toBe('only one word');
+			});
+
+			it('should not show error', function() {
+				scope.testForm.test.$setViewValue('aaaa');
+				expect( messages.children().length ).toBe(0);
+			});
+		});
 	});
 
 	describe( 'behaves well without form tag nor some attributes', function() {
@@ -503,7 +549,7 @@ describe('jswInput directive', function() {
 			expect(	scope.$$__test__getError() ).toEqual({});
 		});
 
-		it('does throws without name attribute', function() {
+		it('does throw without name attribute', function() {
 			var elmHtml = [
 					'<form name="testForm" novalidate>',
 					'	<input ',
