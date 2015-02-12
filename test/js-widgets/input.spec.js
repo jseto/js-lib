@@ -520,12 +520,47 @@ describe('jswInput directive', function() {
 				expect( messages.children().length ).toBe(0);
 			});
 		});
+		
+		describe('when using jsw-message-template', function() {
+			var el, messages;
+
+			beforeEach( function() {
+				var elmHtml = [
+						'<form name="testForm" novalidate>',
+						'	<input ',
+						'		class="jsw-input" ',
+						'		name="test"',
+						'		type="text"',
+						'		ng-model="model"',
+						'		jsw-messages="validationMessages"',
+						'		jsw-message-template="<span class=\'class-for-template\'></span>"',
+						'		minlength="3"',
+						'		required',
+						'		/>',
+						'</form>',
+						''].join('\n');
+
+				scope.validationMessages = {
+					minlength: 'minlength is {0} message',
+					required: 'required message'
+				};
+				el = compile( scope, elmHtml ).children().first();
+				scope.testForm.test.$setViewValue('aa');
+
+				messages = el.children().last();
+			});
+
+			it('shows messages with the new template', function() {
+				expect( messages.children().prop( 'tagName' ) ).toBe( 'SPAN' );
+				expect( messages.children().hasClass( 'class-for-template') ).toBeTruthy();
+			});
+		});
 	});
 
 	describe( 'behaves well without form tag nor some attributes', function() {
 		it('cannot show error without form tag but does not throw', function() {
 			var elmHtml = [
-					'<div>',
+					'<div>', 
 					'	<input ',
 					'		class="jsw-input" ',
 					'		name="test"',
