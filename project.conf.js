@@ -1,5 +1,7 @@
 'use strict';
 
+var fs = require('fs');
+var bower = JSON.parse( fs.readFileSync( './.bowerrc', 'utf8' ) );
 
 var basePath = __dirname;
 var path = {
@@ -8,7 +10,7 @@ var path = {
 	server: basePath + '/demo/',
 	test: basePath + '/test/',
 	lib: basePath + '/lib/',
-	bower: basePath + '/demo/bower_components/',
+	bower: basePath + '/' + bower.directory + '/',
 	docs: basePath + '/docs/',
 	coverage: basePath + '/coverage/'
 };
