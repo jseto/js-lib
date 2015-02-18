@@ -32,6 +32,7 @@ describe('jswInput widget', function() {
 			
 			it('form is in submitted state', function(){
 				indexPage.submitBtn.click();
+				indexPage.submitBtn.click(); //workaround for chrome 
 
 				expect(
 					indexPage.form.getAttribute('class')
