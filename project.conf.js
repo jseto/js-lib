@@ -16,7 +16,7 @@ var path = {
 };
 
 module.exports = {
-	port: 3000,
+	port: 4000,
 	path: path,
 	watch: {
 		servedFiles: [
@@ -40,10 +40,10 @@ module.exports = {
 				path.bower + 'angular-mocks/angular-mocks.js',
 				path.bower + 'angular-messages/angular-messages.js',
 				path.bower + 'jseto-bootstrap-datepicker/js/bootstrap-datepicker.js',
-				path.test + '/**/*.js',
-				path.lib + '/**/*.js',
+				path.test + '**/*.js',
+				path.lib + '**/*.js',
 				{ pattern: 'demo/locale/*.json', watched: true, served: true, included: false},
-				path.test + '/**/*.html'
+				path.test + '**/*.html'
 			]
 		},
 		e2e: {

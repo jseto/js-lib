@@ -37,7 +37,8 @@ exports.config = {
     // add jasmine spec reporter
     jasmine.getEnv().addReporter(new reporter.TerminalReporter({
             verbosity: 2,
-            color: true
+            color: true,
+            showStack: true
         }));
   }
 };

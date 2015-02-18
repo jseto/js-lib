@@ -390,6 +390,7 @@ describe('jswInput directive', function() {
 				required: 'required message'
 			};
 			var el = compile( scope, elmHtml ).children().first();
+			scope.testForm.test.$setTouched();
 			scope.testForm.test.$setViewValue('aa');
 
 			var messages = el.children().last();
@@ -430,6 +431,7 @@ describe('jswInput directive', function() {
 
 			expect( scope.$$__test__preprocess ).toBeTruthy();
 
+			scope.testForm.test.$setTouched();
 			scope.testForm.test.$setViewValue('a');
 			expect( 
 				messages.children().html()
@@ -464,6 +466,7 @@ describe('jswInput directive', function() {
 			var el = compile( scope, elmHtml ).children().first();
 			var messages = el.children().last();
 
+			scope.testForm.test.$setTouched();
 			scope.testForm.test.$setViewValue('a');
 			expect( 
 				messages.children().html()
@@ -506,11 +509,13 @@ describe('jswInput directive', function() {
 			});
 
 			it('should show minlength error', function() {
+				scope.testForm.test.$setTouched();
 				scope.testForm.test.$setViewValue('aa');
 				expect( messages.children().html() ).toBe('minlength is 3 message');
 			});
 
 			it('should show pattern error', function() {
+				scope.testForm.test.$setTouched();
 				scope.testForm.test.$setViewValue('aa aa');
 				expect( messages.children().html() ).toBe('only one word');
 			});
@@ -545,6 +550,7 @@ describe('jswInput directive', function() {
 					required: 'required message'
 				};
 				el = compile( scope, elmHtml ).children().first();
+				scope.testForm.test.$setTouched();
 				scope.testForm.test.$setViewValue('aa');
 
 				messages = el.children().last();
