@@ -368,6 +368,16 @@ describe('jswInput directive', function() {
 				expect( messages.children().attr('ng-message') ).toBe('required');
 				expect( messages.children().html() ).toBe('required message');
 			});
+
+			it('does shows error after touched', function() {
+				scope.$apply( function(){
+					scope.testForm.test.$setTouched(); 
+				});
+
+				expect( messages.children().length ).toBeGreaterThan(0);
+				expect( messages.children().attr('ng-message') ).toBe('required');
+				expect( messages.children().html() ).toBe('required message');
+			});
 		});
 
 		it('working with minlength error', function() {
