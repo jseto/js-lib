@@ -15,6 +15,10 @@ var path = {
 	coverage: basePath + '/coverage/'
 };
 
+var karmaPreprocessors = {};
+karmaPreprocessors[ path.test + '**/*.html'] = 'ng-html2js';
+karmaPreprocessors[ path.lib + '**/*.js' ] = 'coverage';
+
 module.exports = {
 	port: 4000,
 	path: path,
@@ -33,7 +37,7 @@ module.exports = {
 	},
 	test:{
 		unit:{
-			files : [
+			files: [
 				path.bower + 'jquery/dist/jquery.js',
 				path.bower + 'bootstrap/dist/js/bootstrap.js',
 				path.bower + 'angular/angular.js',
@@ -44,7 +48,13 @@ module.exports = {
 				path.lib + '**/*.js',
 				{ pattern: 'demo/locale/*.json', watched: true, served: true, included: false},
 				path.test + '**/*.html'
-			]
+			],
+			exclude: [
+				path.test + '**/*.conf.js',
+				path.test + '**/*e2e-spec.js',
+				path.test + '**/*pageobject.js'
+			],
+			preprocessors: karmaPreprocessors
 		},
 		e2e: {
 			files: [

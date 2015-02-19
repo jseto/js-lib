@@ -3,23 +3,15 @@
 var project = require('../project.conf.js');
 
 module.exports = function(config){
-  var preprocessors = {};
-  preprocessors[ project.path.test + '**/*.html'] = 'ng-html2js';
-  preprocessors[ project.path.lib + '**/*.js' ] = 'coverage';
-
   config.set({
 
     basePath : project.path.base,
 
-    exclude : [
-      project.path.test + '**/*.conf.js',
-      project.path.test + '**/*e2e-spec.js',
-      project.path.test + '**/*pageobject.js'
-    ],
+    exclude : project.test.unit.exclude,
 
     files : project.test.unit.files,
  
-    preprocessors: preprocessors,
+    preprocessors: project.test.unit.preprocessors,
 
     autoWatch : true,
 
