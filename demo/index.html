@@ -43,7 +43,7 @@
 <div class="row">
   <div class="col-md-1"></div>
   <div class="col-md-4">
-	<h1>Demo app</h1>
+	<h1>Demo app {{locale.header.home}}</h1>
 		<form class="center" name="signupForm" novalidate>
 			<div class="input-group">
 				<span class="input-group-addon">
@@ -62,7 +62,7 @@
 			</div>
 			<div 
 				ng-messages="signupForm.username.$error" 
-				jsw-messages-include="'validationErrors' | loc"
+				jsw-messages-include="locale.validationErrors"
 				jsw-preprocess-messages="preprocessError"
 				jsw-override-messages="{ pattern: 'only one word' }"
 				jsw-message-template="<div class='alert alert-danger' role='alert'></div>"
@@ -77,11 +77,11 @@
 				ng-model="retype"
 				icon-l="glyphicon glyphicon-user"
 				jsw-missmatch="user.username"
-				jsw-messages="'validationErrors'|loc"
+				jsw-messages="locale.validationErrors"
 				required>
 			<div 
 				ng-messages="signupForm.retype.$error" 
-				jsw-messages-include="'validationErrors' | loc"
+				jsw-messages-include="locale.validationErrors"
 				jsw-message-template="<div class='alert alert-danger' role='alert'></div>"
 				>
 			</div>
@@ -96,12 +96,12 @@
 				minlength="8"
 				icon-l="glyphicon glyphicon-envelope"
 				addon-r="@"
-				jsw-messages="'validationErrors'|loc"
+				jsw-messages="locale.validationErrors"
 				jsw-email
 				required>
 			<div 
 				ng-messages="signupForm.email.$pristine && !signupForm.$submitted? {} : signupForm.email.$error" 
-				jsw-messages-include="'validationErrors' | loc"
+				jsw-messages-include="locale.validationErrors"
 				jsw-message-template="<div class='alert alert-danger' role='alert'></div>"
 				jsw-preprocess-messages="preprocessErrorEmail"
 				>

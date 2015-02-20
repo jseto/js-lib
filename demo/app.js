@@ -16,9 +16,13 @@ angular.module('myApp', [
 	LocaleProvider.setLocalePath('locale/');
 })
 
+.run( function( $rootScope, Locale ){
+	$rootScope.locale = Locale.getLocale();
+})
+
 .constant( 'JSLIB_TEMPLATE_PATH', 'lib/js-widgets/templates/' )
 
-.controller( 'AppCtrl', function ( $scope, locFilter, ConferenceRoom, sprintfFilter ) {
+.controller( 'AppCtrl', function ( $scope, ConferenceRoom, sprintfFilter ) {
 	var room = null;
 
 	$scope.preprocessError = function( key, message ){
