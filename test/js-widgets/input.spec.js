@@ -380,40 +380,48 @@ describe('jswInput directive', function() {
 			});
 		});
 
-		it('working with minlength error', function() {
-			var elmHtml = [
-					'<form name="testForm" novalidate>',
-					'	<input ',
-					'		class="jsw-input" ',
-					'		name="test"',
-					'		type="text"',
-					'		ng-model="model"',
-					'		jsw-messages="validationMessages"',
-					'		minlength="3"',
-					'		required',
-					'		/>',
-					'</form>',
-					''].join('\n');
+		describe('working with minlength error', function() {
+			var el, messages;
 
-			scope.validationMessages = {
-				minlength: 'minlength is {0} message',
-				required: 'required message'
-			};
-			var el = compile( scope, elmHtml ).children().first();
-			scope.testForm.test.$setTouched();
-			scope.testForm.test.$setViewValue('aa');
+			beforeEach( function() {
+				var elmHtml = [
+						'<form name="testForm" novalidate>',
+						'	<input ',
+						'		class="jsw-input" ',
+						'		name="test"',
+						'		type="text"',
+						'		ng-model="model"',
+						'		jsw-messages="validationMessages"',
+						'		minlength="3"',
+						'		required',
+						'		/>',
+						'</form>',
+						''].join('\n');
 
-			var messages = el.children().last();
+				scope.validationMessages = {
+					minlength: 'minlength is {0} message',
+					required: 'required message'
+				};
+				el = compile( scope, elmHtml ).children().first();
+				messages = el.children().last();
+			});		
 
-			expect( messages.attr('ng-messages') ).toBe('$$__test__getError()');
 
-			expect(	scope.testForm.test.$error.required ).toBeFalsy();
-			expect(	scope.testForm.test.$error.minlength ).toBeTruthy();
-			expect( scope.$$__test__preprocess ).toBeTruthy();
+			it('shows proper message', function(){
+				scope.testForm.test.$setTouched();
+				scope.testForm.test.$setViewValue('aa');
 
-			expect( messages.children().length ).toBeGreaterThan(0);
-			expect( messages.children().attr('ng-message') ).toBe('minlength');
-			expect( messages.children().html() ).toBe('minlength is 3 message');
+
+				expect( messages.attr('ng-messages') ).toBe('$$__test__getError()');
+
+				expect(	scope.testForm.test.$error.required ).toBeFalsy();
+				expect(	scope.testForm.test.$error.minlength ).toBeTruthy();
+				expect( scope.$$__test__preprocess ).toBeTruthy();
+
+				expect( messages.children().length ).toBeGreaterThan(0);
+				expect( messages.children().attr('ng-message') ).toBe('minlength');
+				expect( messages.children().html() ).toBe('minlength is 3 message');
+			});
 		});
 
 		it('has preprocess message function', function() {
