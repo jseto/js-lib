@@ -62,7 +62,7 @@
 			</div>
 			<div 
 				ng-messages="signupForm.username.$error" 
-				jsw-messages-include="locale.validationErrors"
+				jsw-messages-include="{{locale.validationErrors}}"
 				jsw-preprocess-messages="preprocessError"
 				jsw-override-messages="{ pattern: 'only one word' }"
 				jsw-message-template="<div class='alert alert-danger' role='alert'></div>"
