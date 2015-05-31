@@ -50,7 +50,7 @@ angular.module('myApp', [
 	$scope.onUploaded = function( file, status, errorMsg ) {
 		if (status) {
 			$scope.imageError = '';
-			$scope.model.picture = $scope.model.id + '-' + file.name; 
+			$scope.model.picture = $scope.model.id + '-' + file.name;
 			$scope.model.update();
 		}
 		else {
@@ -77,4 +77,3 @@ angular.module('myApp', [
 })
 
 ;
-

@@ -35,7 +35,7 @@
 	<script src="lib/js-widgets/input.js"></script>
 	<script src="lib/js-widgets/select.js"></script>
 	<script src="lib/js-widgets/js-widgets.js"></script>
- 
+
 	<script src="app.js"></script>
 </head>
 <body>
@@ -48,20 +48,20 @@
 			<div class="input-group">
 				<span class="input-group-addon">
 					<i class="glyphicon glyphicon-user"></i>
-				</span> 
-				
-				<input 
+				</span>
+
+				<input
 					type="text"
-					class="form-control" 
-					placeholder="user name"  
+					class="form-control"
+					placeholder="user name"
 					name="username"
 					ng-model="user.username"
 					data-ng-minlength="3"
-					data-ng-pattern="/^\s*\w*\s*$/" 
+					data-ng-pattern="/^\s*\w*\s*$/"
 					required>
 			</div>
-			<div 
-				ng-messages="signupForm.username.$error" 
+			<div
+				ng-messages="signupForm.username.$error"
 				jsw-messages-include="'validationErrors' | loc"
 				jsw-preprocess-messages="preprocessError"
 				jsw-override-messages="{ pattern: 'only one word' }"
@@ -69,25 +69,25 @@
 				>
 			</div>
 
- 			<input  
+ 			<input
 				class="jsw-input"
-				type="text" 
-				name="retype" 
+				type="text"
+				name="retype"
 				placeholder="retype user name"
 				ng-model="retype"
 				icon-l="glyphicon glyphicon-user"
 				jsw-missmatch="user.username"
 				jsw-messages="'validationErrors'|loc"
 				required>
-			<div 
-				ng-messages="signupForm.retype.$error" 
+			<div
+				ng-messages="signupForm.retype.$error"
 				jsw-messages-include="'validationErrors' | loc"
 				jsw-message-template="<div class='alert alert-danger' role='alert'></div>"
 				>
 			</div>
-			<input 
+			<input
 				class="jsw-input margin-vertical-10"
-				type="email" 
+				type="email"
 				name="email"
 				placeholder="email"
 				ng-model="user.email"
@@ -99,8 +99,8 @@
 				jsw-messages="'validationErrors'|loc"
 				jsw-email
 				required>
-			<div 
-				ng-messages="signupForm.email.$pristine && !signupForm.$submitted? {} : signupForm.email.$error" 
+			<div
+				ng-messages="signupForm.email.$pristine && !signupForm.$submitted? {} : signupForm.email.$error"
 				jsw-messages-include="'validationErrors' | loc"
 				jsw-message-template="<div class='alert alert-danger' role='alert'></div>"
 				jsw-preprocess-messages="preprocessErrorEmail"
@@ -125,23 +125,27 @@
 	<button ng-click="testVideoCall()">Test Video Call</button>
 
 	<br>
-<!-- 	<p>Button upload</p>
-	<input type="file" 
-		jsw-btn-upload="onUploaded" 
-		data-post-data="postdata" 
-		data-ng-model="model.picture" >
- -->
+
+ 	<p>Button upload</p>
+
+		<button type="file"
+			class="btn-file btn btn-default"
+			jsw-btn-upload="onUploaded"
+			data-post-data="postdata"
+			data-ng-model="model.picture" >
+			Select File
+		</button>
 
  	<p>Datepicker</p>
-	<input data-jsw-datepicker="dd/MM/yyyy" 
+	<input data-jsw-datepicker="dd/MM/yyyy"
 		type="text" class="form-control"
-		placeholder="born date" 
+		placeholder="born date"
 		data-ng-model="model.born_date">
 	<br>
-	
+
 	<p>jswInput</p>
 	<input class="jsw-input"
-		ng-model="matchModel.name" 
+		ng-model="matchModel.name"
 		placeholder="test placeholder"
 		label="test label"
 		icon="glyphicon glyphicon-star"
@@ -158,11 +162,11 @@
 		find-data="findData"
 		more-data="selectMoreData"
 		less-data="selectLessData"
-		ng-model="model" 
+		ng-model="model"
 		icon="glyphicon glyphicon-search"
 		placeholder="placeholder"
 		required
-		>						
+		>
 	</div>
 	<br>
 
@@ -170,7 +174,7 @@
 	<ng-include src="'select-with-pagination.html'"></ng-include>
 
 	<p>Select</p>
-	<select class="jsw-select" 
+	<select class="jsw-select"
 		ng-model="sets"
 		placeholder="placeholder"
 		options="['4','6','8']"
