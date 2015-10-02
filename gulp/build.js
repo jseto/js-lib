@@ -9,7 +9,7 @@ var del = require('del');
 // var docs = require('gulp-ngdocs'); //removed until stable release
 var gutil = require('gulp-util');
 
-gulp.task('clean', [ 'clean:docs', 'clean:coverage' ]);
+gulp.task('clean', [ 'clean:docs', 'clean:coverage', 'clean:node_modules', 'clean:bower_components' ]);
 
 gulp.task('clean:docs', function( done ){
 	del( [ path.docs + '**'], done );
@@ -19,6 +19,13 @@ gulp.task('clean:coverage', function(done){
 	del( [ path.coverage + '**'], done );
 });
 
+gulp.task('clean:node_modules', function(done) {
+	del( ['node_modules/**'], done);
+});
+
+gulp.task('clean:bower_components', function(done) {
+	del( [ path.bower + '**' ], done);
+});
 
 /*  removed until stable release
 gulp.task('docs', ['clean:docs'], function(){

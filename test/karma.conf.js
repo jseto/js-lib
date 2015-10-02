@@ -10,7 +10,7 @@ module.exports = function(config){
     exclude : project.test.unit.exclude,
 
     files : project.test.unit.files,
- 
+
     preprocessors: project.test.unit.preprocessors,
 
     autoWatch : true,
@@ -24,7 +24,6 @@ module.exports = function(config){
             'karma-firefox-launcher',
             'karma-jasmine',
             'karma-junit-reporter',
-            'karma-beep-reporter',
             'karma-coverage',
             'karma-ng-html2js-preprocessor'
             ],

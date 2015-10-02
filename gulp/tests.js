@@ -13,7 +13,7 @@ var protractorInst = require('gulp-protractor');
 var gutil = require('gulp-util');
 
 var getBrowserFromCLI = function() {   		//CLI = Command Line Interface
-	var cliOption = process.argv.slice(3)[0]; 
+	var cliOption = process.argv.slice(3)[0];
 	if ( cliOption ){
 		return cliOption.slice( cliOption.lastIndexOf('-')+1 );
 	}
@@ -50,7 +50,6 @@ gulp.task('watch:test:unit', function (done) {
 	karma.start({
 		configFile: path.test + 'karma.conf.js',
 		reporters: [
-			'beep',
 			'progress'
 		]
 	}, done);
@@ -65,17 +64,17 @@ gulp.task('test:e2e', ['browser-sync'], function(done){
 		args.push( browser.toLowerCase() );
 	}
 
-	gulp.src( 
-		project.test.e2e.files 
+	gulp.src(
+		project.test.e2e.files
 	)
 	.pipe( protractorInst.protractor({
 		configFile: path.test + 'protractor.conf.js',
 		args: args
 	}))
-	.on('error', function(e) { 
+	.on('error', function(e) {
 		gutil.beep();
 		browserSync.exit();
-		throw e; 
+		throw e;
 	})
 	.on('end', function(){
 		browserSync.exit();
@@ -110,4 +109,3 @@ gulp.task('protractor-qa', function() {
 		viewSrc : path.client + 'index.html'
 	});
 });
-
