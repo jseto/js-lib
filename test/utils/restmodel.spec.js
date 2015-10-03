@@ -2,7 +2,7 @@
 
 describe('RestModel', function(){
 	var RestModel, $httpBackend, user, userJSON, user_u;
-	
+
 	beforeEach(function(){
 		module('jsLib.restModel');
 		inject(function($injector) {
@@ -17,11 +17,11 @@ describe('RestModel', function(){
 		user_u = {
 			id: 8, user: "u", email: "u@u.com", password: "u", name: "Urraca"
 		};
-		
+
 		userJSON = {
 			"id":6,"user":"t","email":"t@t.com","password":"t","name":"Telesforo"
 		};
-		
+
 		$httpBackend.whenGET('/api/member?user=t').respond( user );
 		$httpBackend.whenGET('/api/member?user=u').respond( user_u );
 		$httpBackend.whenGET('/api/member?user=y').respond( 401, false );
@@ -166,5 +166,3 @@ describe('RestModel', function(){
 		expect( user1.name ).not.toBe( user2.name );
 	})
 });
-
-
