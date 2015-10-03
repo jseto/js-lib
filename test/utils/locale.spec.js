@@ -4,23 +4,17 @@ describe('Locale', function(){
 	var provider;
 
 	beforeEach(function () {
-		// Initialize the service provider by injecting it to a fake module's config block
-		angular.module('testApp', function () {})
-			.config(function (LocaleProvider) {
-				provider = LocaleProvider;
-				provider.setLocale('ca');
-				provider.setLocalePath('base/demo/locale/');
+		module('jsLib.locale', function(LocaleProvider){
+			//config stage
+			provider = LocaleProvider;
+			provider.setLocale('ca');
+			provider.setLocalePath('base/demo/locale/');
 		});
-		// Initialize myApp injector
-		module('jsLib.locale', 'testApp');
-
-		// Kickstart the injectors previously registered with calls to angular.mock.module
-		inject(function (Locale) {});
 	});
 
-	it('works with provider internal functions', function () {
+	it('works with provider internal functions', inject( function (Locale) {
 		expect( provider.getKey('header.home') ).toEqual('Inici');
-	});
+	}));
 
 	it('returns plain key', function () {
 		inject(function (Locale) {
@@ -40,5 +34,3 @@ describe('Locale', function(){
 		expect( locFilter('header.home') ).toEqual('Inici');
 	}));
 });
-
-

@@ -7,7 +7,7 @@ var path = project.path;
 //var server = require( path.server + 'server.js' );
 var runSequence = require( 'run-sequence' );
 var browserSync = require( 'browser-sync' );
-var karma = require('karma').server;
+var Karma = require('karma').Server;
 var protractorInst = require('gulp-protractor');
 //var protractorQA = require('gulp-protractor-qa');
 var gutil = require('gulp-util');
@@ -37,22 +37,22 @@ gulp.task('test:unit', function (done) {
 		opts.browsers = [ browser ];
 	}
 
-	karma.start( opts , done);
+	new Karma( opts , done).start();
 });
 
 gulp.task('watch:test:unit:quiet', function (done) {
-	karma.start({
+	new Karma({
 		configFile: path.test + 'karma.conf.js',
-	}, done);
+	}, done).start();
 });
 
 gulp.task('watch:test:unit', function (done) {
-	karma.start({
+	new Karma({
 		configFile: path.test + 'karma.conf.js',
 		reporters: [
 			'progress'
 		]
-	}, done);
+	}, done).start();
 });
 
 gulp.task('test:e2e', ['browser-sync'], function(done){
