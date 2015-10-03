@@ -1,7 +1,7 @@
 'use strict';
 
 describe('DateConverter Service', function(){
-	
+
 	var dateConverter;
 
 	beforeEach(function(){
@@ -152,5 +152,3 @@ describe('DateConverter Service', function(){
 	});
 
 });
-
-

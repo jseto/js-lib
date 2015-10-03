@@ -58,7 +58,7 @@ describe( 'emailValidator Directive', function() {
 	var scope, element, $compile;
 
 	beforeEach( module( 'jsLib.utils.emailValidator' ) );
-	
+
 	beforeEach(inject(function(_$compile_, _$rootScope_ ){
 		$compile = _$compile_;
 		scope = _$rootScope_;
